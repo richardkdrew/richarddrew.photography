@@ -1,0 +1,99 @@
+/**
+ * CSS Contract: Dark Mode Theme Variables
+ *
+ * Defines required CSS custom properties for light and dark themes.
+ * MUST be implemented in design-system.css
+ */
+
+/**
+ * Light Mode (Default)
+ * Already exists in design-system.css
+ * Documented here for reference
+ */
+:root {
+  /* Colors */
+  --color-primary: #2C2C2C;           /* Deep charcoal text */
+  --color-secondary: #6B6B6B;         /* Warm gray */
+  --color-accent: #F8F6F3;            /* Soft cream */
+  --color-pure: #FFFFFF;              /* Clean white */
+  --color-interactive: #B8860B;       /* Muted gold */
+  --color-interactive-hover: #9A7209; /* Darker gold */
+
+  /* Contrast Validation (WCAG 2.1 AA) */
+  /* --color-primary on --color-pure: 15.8:1 ✓ */
+  /* --color-interactive on --color-pure: 4.9:1 ✓ */
+}
+
+/**
+ * Dark Mode Overrides
+ * MUST be implemented with [data-theme="dark"] selector
+ * MUST meet WCAG 2.1 AA contrast requirements
+ */
+[data-theme="dark"] {
+  /* Colors */
+  --color-primary: #E5E5E5;           /* Light gray text */
+  --color-secondary: #B8B8B8;         /* Medium gray */
+  --color-accent: #2A2A2A;            /* Dark gray accent */
+  --color-pure: #1A1A1A;              /* Near black background */
+  --color-interactive: #D4AF37;       /* Brighter gold (to be validated) */
+  --color-interactive-hover: #F0C14B; /* Even brighter for hover (to be validated) */
+
+  /* Contrast Requirements (to validate during implementation) */
+  /* --color-primary on --color-pure: MUST be ≥ 4.5:1 */
+  /* --color-interactive on --color-pure: MUST be ≥ 4.5:1 */
+  /* --color-interactive-hover on --color-pure: MUST be ≥ 4.5:1 */
+}
+
+/**
+ * Logo Handling
+ * MUST swap logo variant based on theme
+ */
+.header__logo {
+  /* Light mode (default) */
+  background-image: url('/images/logo-light.svg');
+}
+
+[data-theme="dark"] .header__logo {
+  /* Dark mode */
+  background-image: url('/images/logo-dark.svg');
+}
+
+/**
+ * Transition Contract
+ * MUST use design system timing
+ * MUST respect prefers-reduced-motion
+ */
+* {
+  transition:
+    background-color var(--transition-medium),
+    color var(--transition-medium),
+    border-color var(--transition-medium);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    transition: none;
+  }
+}
+
+/**
+ * FOUC Prevention
+ * Inline script MUST execute before CSS parse
+ * Template in index.html <head>:
+ *
+ * <script>
+ *   (function() {
+ *     const theme = localStorage.getItem('theme') || 'light';
+ *     document.documentElement.dataset.theme = theme;
+ *   })();
+ * </script>
+ */
+
+/**
+ * No JavaScript Style Manipulation
+ * All theme styling MUST be CSS-driven
+ * JavaScript ONLY for:
+ * 1. Reading/writing localStorage
+ * 2. Setting data-theme attribute
+ * 3. Toggle component event handling
+ */

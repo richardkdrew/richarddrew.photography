@@ -1,0 +1,131 @@
+/**
+ * Theme Toggle Component Styles
+ *
+ * Native CSS approach with minimal JavaScript.
+ * Follows design system patterns and constitutional principles.
+ */
+
+theme-toggle {
+  /* Reset */
+  margin: 0;
+  padding: var(--space-sm) 0; /* Match nav link vertical padding for alignment */
+  border: none;
+  background: none;
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
+
+  /* Button Sizing - Match nav link height */
+  width: 2.25rem;
+  height: 2.25rem;
+
+  /* Flexbox for icon centering */
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+
+  /* Interaction */
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+}
+
+/* Icon Styles */
+.theme-toggle__icon {
+  width: 1.375rem; /* Increased to match larger nav font (22px) */
+  height: 1.375rem;
+  color: var(--color-primary);
+  transition: transform var(--transition-fast), opacity var(--transition-fast), color var(--transition-fast);
+
+  /* Absolute positioning to overlay icons */
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+/* Icon Display Logic */
+/* Light mode: show moon (dark mode available) */
+.theme-toggle__icon--moon {
+  opacity: 1;
+  visibility: visible;
+}
+
+.theme-toggle__icon--sun {
+  opacity: 0;
+  visibility: hidden;
+}
+
+/* Dark mode: show sun (light mode available) */
+[data-theme="dark"] .theme-toggle__icon--moon {
+  opacity: 0;
+  visibility: hidden;
+}
+
+[data-theme="dark"] .theme-toggle__icon--sun {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Hover State */
+theme-toggle:hover .theme-toggle__icon {
+  transform: translate(-50%, -50%) scale(1.1);
+  color: var(--color-interactive);
+}
+
+/* Focus Indicator (WCAG Requirement) */
+theme-toggle:focus-visible {
+  outline: 2px solid var(--color-interactive);
+  outline-offset: 0.125rem;
+  border-radius: 0.25rem;
+}
+
+/* Active State */
+theme-toggle:active .theme-toggle__icon {
+  transform: translate(-50%, -50%) scale(0.95);
+}
+
+/* Reduced Motion Support */
+@media (prefers-reduced-motion: reduce) {
+  .theme-toggle__icon {
+    transition: none;
+  }
+
+  theme-toggle:hover .theme-toggle__icon,
+  theme-toggle:active .theme-toggle__icon {
+    transform: translate(-50%, -50%);
+  }
+}
+
+/* Desktop Positioning - no special positioning needed, it's in the nav list */
+
+/* Mobile Positioning (bottom of menu) */
+@media (max-width: 47.9375rem) {
+  /* <768px */
+  .header__mobile-menu theme-toggle {
+    margin-top: auto;
+    padding: var(--space-md) 0;
+
+    /* Match mobile nav items */
+    width: 2.5rem;
+    height: 2.5rem;
+  }
+
+  /* Larger icon in mobile menu */
+  .header__mobile-menu .theme-toggle__icon {
+    width: 1.5rem;
+    height: 1.5rem;
+  }
+}
+
+/* High Contrast Mode Support */
+@media (prefers-contrast: high) {
+  theme-toggle:focus-visible {
+    outline-width: 3px;
+  }
+}
+
+/* Dark Mode Specific Adjustments */
+[data-theme="dark"] theme-toggle:focus-visible {
+  outline-color: var(--color-interactive);
+}

@@ -1,0 +1,14 @@
+{
+    "mcpServers":{
+        "playwright": {
+            "command": "npx",
+            "args": ["-y", "@executeautomation/playwright-mcp-server"]
+        },
+        "a11y": {
+            "command": "npx",
+            "args": ["a11y-mcp"],
+            "disabled": false,
+            "autoApprove": []
+        }
+    }
+}

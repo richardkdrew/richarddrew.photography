@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Richard Drew Photography</title>
+  <meta name="description" content="Sophisticated photography portfolio showcasing professional work through clean design and intuitive navigation" />
+  <meta name="theme-color" content="#2C2C2C" />
+  <meta name="color-scheme" content="light dark" />
+
+  <!-- Preload critical fonts for performance -->
+  <link rel="preload" href="/fonts/BebasNeue-Regular.ttf" as="font" type="font/ttf" crossorigin />
+
+  <!-- Preload critical resources -->
+  <link rel="preload" href="/gallery-data.json" as="fetch" type="application/json" crossorigin />
+
+  <!-- Icons and PWA -->
+  <link rel="icon" type="image/x-icon" href="/images/branding/favicon.ico" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/branding/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/branding/favicon-16x16.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/branding/apple-touch-icon.png" />
+  <link rel="manifest" href="/manifest.json" />
+
+  <!-- FOUC Prevention: Set theme before CSS parse -->
+  <script>
+    (function() {
+      // Add initial-load class to disable transitions during page load
+      document.documentElement.classList.add('initial-load');
+      
+      const theme = localStorage.getItem('theme');
+      if (theme === 'dark' || theme === 'light') {
+        document.documentElement.dataset.theme = theme;
+      } else {
+        document.documentElement.dataset.theme = 'light';
+      }
+    })();
+  </script>
+
+  <!-- Import Fonts -->
+  <link rel="stylesheet" href="/src/styles/fonts.css">
+
+  <!-- Import Design System -->
+  <link rel="stylesheet" href="/src/styles/design-system.css">
+
+  <!-- Critical inline styles for loading state -->
+  <style>
+    /* Loading state before JavaScript loads */
+    .gallery-loading-fallback {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 50vh;
+      color: var(--color-secondary);
+      font-family: var(--font-caption);
+      font-size: var(--text-lg);
+      font-weight: var(--weight-light);
+    }
+
+    .js-loaded .gallery-loading-fallback {
+      display: none;
+    }
+
+    masonry-gallery {
+      display: block;
+      min-height: 400px;
+    }
+  </style>
+</head>
+<body>
+  <!-- Page Container - Unified Width Management -->
+  <div class="page-container">
+    <!-- Portfolio Header -->
+    <portfolio-header data-current-page="home" style="view-transition-name: header"></portfolio-header>
+
+    <main style="view-transition-name: main">
+      <!-- Portfolio Gallery -->
+      <masonry-gallery
+        data-manifest-url="/gallery-data.json"
+        role="main"
+        aria-label="Portfolio image gallery">
+        <div class="gallery-loading-fallback">
+          Loading portfolio...
+        </div>
+      </masonry-gallery>
+
+    </main>
+  </div>
+
+  <!-- Image Viewer (Full-Screen) - Outside page-container for proper z-index stacking -->
+  <image-viewer data-state="inactive"></image-viewer>
+
+  <!-- Main application script -->
+  <script type="module" src="/src/pages/main.ts"></script>
+
+  <!-- Progressive enhancement and PWA setup -->
+  <script>
+    // Mark as JS-loaded for progressive enhancement
+    document.documentElement.classList.add('js-loaded');
+
+    // Combined load handler for performance
+    window.addEventListener('load', () => {
+      // Enable transitions now that page is ready
+      document.documentElement.classList.remove('initial-load');
+
+      // Register Service Worker for PWA functionality
+      if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('/sw.js').catch(() => {
+          // Silently fail - PWA is optional enhancement
+        });
+      }
+    });
+  </script>
+</body>
+</html>

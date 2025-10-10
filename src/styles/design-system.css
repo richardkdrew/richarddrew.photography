@@ -1,0 +1,338 @@
+/**
+ * Photography Portfolio Design System
+ * Inspired by Jamie Windsor's minimalist approach
+ */
+
+/* CSS Custom Properties - Design Tokens */
+:root {
+  /* Color Palette */
+  --color-primary: #2C2C2C;           /* Deep charcoal */
+  --color-secondary: #6B6B6B;         /* Warm gray */
+  --color-accent: #F8F6F3;            /* Soft cream */
+  --color-pure: #FFFFFF;              /* Clean white */
+  --color-interactive: #B8860B;       /* Muted gold */
+  --color-interactive-hover: #9A7209; /* Darker gold for hover */
+
+  /* Typography */
+  --font-header: 'Bebas Neue', 'Playfair Display', 'Times New Roman', serif;
+  --font-navigation: 'Bebas Neue', 'Inter', 'Helvetica Neue', sans-serif;
+  --font-body: 'Lora', 'Georgia', serif;
+  --font-caption: 'Inter', 'Helvetica Neue', sans-serif;
+
+  /* Font Weights */
+  --weight-light: 300;
+  --weight-regular: 400;
+  --weight-medium: 500;
+  --weight-semibold: 600;
+  --weight-bold: 700;
+
+  /* Font Sizes - Fluid Typography */
+  --text-sm: clamp(0.875rem, 2.5vw, 1rem);
+  --text-base: clamp(1rem, 3vw, 1.125rem);
+  --text-lg: clamp(1.125rem, 3.5vw, 1.25rem);
+  --text-xl: clamp(1.25rem, 4vw, 1.5rem);
+  --text-2xl: clamp(1.5rem, 5vw, 2rem);
+  --text-3xl: clamp(2rem, 6vw, 2.5rem);
+  --text-4xl: clamp(2.5rem, 7vw, 3rem);
+
+  /* Spacing Scale */
+  --space-xs: 0.25rem;
+  --space-sm: 0.5rem;
+  --space-md: 1rem;
+  --space-lg: 1.5rem;
+  --space-xl: 2rem;
+  --space-2xl: 3rem;
+  --space-3xl: 4rem;
+  --space-4xl: 6rem;
+
+  /* Layout */
+  --max-width-prose: 65ch;
+  --border-radius: 0;
+
+  /* Breakpoints (used in components) */
+  --breakpoint-mobile: 48rem;     /* 768px */
+  --breakpoint-desktop: 75rem;    /* 1200px */
+
+  /* Page container width - unified responsive system */
+  --page-width-full: 88%;  /* Mobile/Tablet - account for scrollbar */
+  --page-width-constrained: 92%;  /* Desktop */
+
+  /* Responsive Image Sizes - 5-Breakpoint System (32, 48, 56, 80rem) */
+  /* Gallery: Accounts for page container width (88% mobile/tablet, 92% desktop) and column divisions */
+  --sizes-gallery: "(max-width: 32rem) 88vw, (max-width: 48rem) 44vw, (max-width: 56rem) 29.3vw, (max-width: 80rem) 23vw, 18.4vw";
+  /* Viewer: Full viewport width at all breakpoints (full-screen overlay) */
+  --sizes-viewer: "(max-width: 32rem) 100vw, (max-width: 48rem) 100vw, (max-width: 56rem) 100vw, (max-width: 80rem) 100vw, 100vw";
+  /* About: Hero image sized proportionally within page container */
+  --sizes-about: "(max-width: 32rem) 88vw, (max-width: 48rem) 44vw, (max-width: 56rem) 35.2vw, (max-width: 80rem) 32.2vw, 27.6vw";
+
+  /* Transitions */
+  --transition-fast: 150ms ease-out;
+  --transition-medium: 250ms ease-out;
+
+  /* Shadows */
+  --shadow-medium: 0 4px 12px rgba(44, 44, 44, 0.15);
+}
+
+/* Dark Mode Color Overrides */
+[data-theme="dark"] {
+  /* Color Palette - Dark Mode */
+  --color-primary: #E5E5E5;           /* Light gray text */
+  --color-secondary: #B8B8B8;         /* Medium gray */
+  --color-accent: #2A2A2A;            /* Dark gray background - lighter than pure black */
+  --color-pure: #2A2A2A;              /* Dark gray background */
+  --color-interactive: #D4AF37;       /* Brighter gold */
+  --color-interactive-hover: #F0C14B; /* Even brighter for hover */
+
+  /* Shadows - Lighter for dark mode */
+  --shadow-medium: 0 4px 12px rgba(0, 0, 0, 0.5);
+}
+
+/* Reset and Base Styles */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* Color Transitions for Theme Switching */
+/* Disable transitions during initial load to prevent flash */
+.initial-load *,
+.initial-load *::before,
+.initial-load *::after {
+  transition: none !important;
+}
+
+/* Enable transitions after initial load */
+:not(.initial-load) * {
+  transition:
+    background-color var(--transition-medium),
+    color var(--transition-medium),
+    border-color var(--transition-medium),
+    box-shadow var(--transition-medium);
+}
+
+/* Force consistent scrollbar space to prevent layout shifts */
+html {
+  font-size: 16px;
+  scroll-behavior: smooth;
+  overflow-y: scroll; /* Always show vertical scrollbar */
+  overflow-x: hidden; /* Hide horizontal scrollbar */
+}
+
+body {
+  font-family: var(--font-body);
+  font-weight: var(--weight-regular);
+  font-size: var(--text-base);
+  line-height: 1.6;
+  color: var(--color-secondary);
+  background-color: var(--color-pure);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Portfolio-specific layout */
+main {
+  min-height: 100vh;
+  padding: var(--space-lg) 0;
+  background-color: var(--color-pure);
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Typography Classes - Removed unused utility classes */
+
+/* Heading Hierarchy */
+h1, .h1 {
+  font-size: var(--text-4xl);
+  font-family: var(--font-header);
+  font-weight: var(--weight-regular);
+  color: var(--color-primary);
+  line-height: 1.1;
+  margin-bottom: var(--space-lg);
+}
+
+h2, .h2 {
+  font-size: var(--text-3xl);
+  font-family: var(--font-header);
+  font-weight: var(--weight-regular);
+  color: var(--color-primary);
+  line-height: 1.2;
+  margin-bottom: var(--space-md);
+}
+
+h3, .h3 {
+  font-size: var(--text-2xl);
+  font-family: var(--font-header);
+  font-weight: var(--weight-regular);
+  color: var(--color-primary);
+  line-height: 1.3;
+  margin-bottom: var(--space-md);
+}
+
+h4, .h4 {
+  font-size: var(--text-xl);
+  font-family: var(--font-navigation);
+  font-weight: var(--weight-semibold);
+  color: var(--color-primary);
+  line-height: 1.4;
+  margin-bottom: var(--space-sm);
+}
+
+h5, .h5 {
+  font-size: var(--text-lg);
+  font-family: var(--font-navigation);
+  font-weight: var(--weight-semibold);
+  color: var(--color-primary);
+  line-height: 1.4;
+  margin-bottom: var(--space-sm);
+}
+
+h6, .h6 {
+  font-size: var(--text-base);
+  font-family: var(--font-navigation);
+  font-weight: var(--weight-semibold);
+  color: var(--color-primary);
+  line-height: 1.5;
+  margin-bottom: var(--space-sm);
+}
+
+/* Layout Components - Removed unused utility classes */
+
+/* Button Styles - Removed unused button system */
+
+/* Link Styles */
+a {
+  color: var(--color-primary);
+  text-decoration: none;
+  transition: color var(--transition-fast);
+}
+
+a:hover {
+  color: var(--color-interactive);
+}
+
+/* Focus Styles for Accessibility */
+:focus-visible {
+  outline: 2px solid var(--color-interactive);
+  outline-offset: 2px;
+}
+
+/* Utility Classes - Removed unused utilities */
+
+
+/* Accessibility Preferences */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+@media (prefers-contrast: high) {
+  :root {
+    --color-primary: #000000;
+    --color-secondary: #333333;
+    --shadow-medium: 0 4px 12px rgba(0, 0, 0, 0.4);
+  }
+}
+
+/* Print Styles */
+@media print {
+  :root {
+    --color-primary: #000000;
+    --color-secondary: #333333;
+    --color-interactive: #000000;
+  }
+
+  * {
+    box-shadow: none !important;
+    text-shadow: none !important;
+  }
+}
+
+/* Page Container - Unified Width Management */
+.page-container {
+  width: var(--page-width-full); /* 96% default */
+  /* max-width: var(--max-width-content); */
+  margin: 0 auto;
+  box-sizing: border-box;
+
+}
+
+/* Responsive page width - matches gallery breakpoint */
+@media (min-width: 52.5rem) { /* 840px */
+  .page-container {
+    width: var(--page-width-constrained); /* 92% for desktop */
+  }
+}
+
+/* ============================================
+   VIEW TRANSITIONS API - Smooth Page Navigation
+   ============================================
+
+   Modern native solution for smooth page transitions between MPA pages.
+   Works in Chrome 111+, Edge 111+, Safari 18+ (~75% global support).
+   Gracefully degrades to instant navigation in unsupported browsers.
+
+   Implementation:
+   - Header persists without re-rendering (no flash)
+   - Main content fades out/in smoothly (300ms)
+   - Zero JavaScript required
+   - Fully aligned with constitutional vanilla approach
+*/
+
+/* Enable view transitions for cross-document navigation */
+@view-transition {
+  navigation: auto;
+}
+
+/* Persistent elements - no animation (stay in place) */
+::view-transition-group(header) {
+  animation-duration: 0ms; /* Header doesn't fade */
+}
+
+/* Main content transition configuration */
+::view-transition-old(main),
+::view-transition-new(main) {
+  animation-duration: 300ms;
+  animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Fade out old page content */
+::view-transition-old(main) {
+  animation-name: view-transition-fade-out;
+}
+
+/* Fade in new page content */
+::view-transition-new(main) {
+  animation-name: view-transition-fade-in;
+}
+
+/* Keyframe animations */
+@keyframes view-transition-fade-out {
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes view-transition-fade-in {
+  from {
+    opacity: 0;
+  }
+}
+
+/* Fallback for unsupported browsers - no transitions, normal navigation */
+@supports not (view-transition-name: header) {
+  /* Browser doesn't support View Transitions API */
+  /* Navigation works normally with instant page loads */
+}

@@ -1,0 +1,24 @@
+/* Preconnect to Google Fonts for fallbacks */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600&family=Inter:wght@300;400;500;600&family=Lora:wght@300;400;500&display=swap');
+
+/**
+ * Local Font Definitions
+ * Optimized web font loading with fallbacks
+ */
+
+/* Bebas Neue - Display Font for Headers */
+@font-face {
+  font-family: 'Bebas Neue';
+  src: url('/fonts/BebasNeue-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: optional; /* Prevent FOUT - only use font if it loads quickly */
+}
+
+@font-face {
+  font-family: 'Bebas Neue';
+  src: url('/fonts/BebasNeue-Thin.ttf') format('truetype');
+  font-weight: 100;
+  font-style: normal;
+  font-display: optional; /* Prevent FOUT - only use font if it loads quickly */
+}

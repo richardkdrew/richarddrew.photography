@@ -1,0 +1,760 @@
+{
+  "images": [
+    {
+      "id": "landscape-001",
+      "alt": "Mountain landscape at golden hour",
+      "aspectRatio": 1.5,
+      "sources": [
+        {
+          "format": "jpeg",
+          "sizes": [
+            {
+              "width": 400,
+              "height": 267,
+              "density": 1,
+              "url": "https://picsum.photos/id/1018/400/267",
+              "breakpoint": "mobile"
+            },
+            {
+              "width": 600,
+              "height": 400,
+              "density": 1,
+              "url": "https://picsum.photos/id/1018/600/400",
+              "breakpoint": "tablet"
+            },
+            {
+              "width": 800,
+              "height": 533,
+              "density": 1,
+              "url": "https://picsum.photos/id/1018/800/533",
+              "breakpoint": "large-tablet"
+            },
+            {
+              "width": 1000,
+              "height": 667,
+              "density": 1,
+              "url": "https://picsum.photos/id/1018/1000/667",
+              "breakpoint": "large-tablet-2x"
+            },
+            {
+              "width": 1200,
+              "height": 800,
+              "density": 1,
+              "url": "https://picsum.photos/id/1018/1200/800",
+              "breakpoint": "desktop"
+            },
+            {
+              "width": 1600,
+              "height": 1067,
+              "density": 1,
+              "url": "https://picsum.photos/id/1018/1600/1067",
+              "breakpoint": "large-desktop"
+            }
+          ]
+        }
+      ],
+      "metadata": {
+        "originalWidth": 1600,
+        "originalHeight": 1067,
+        "fileSize": 0
+      },
+      "lqip": {
+        "type": "blur",
+        "data": "data:image/jpeg;base64,/9j/2wBDABsbGxscGx4hIR4qLSgtKj04MzM4PV1CR0JHQl2NWGdYWGdYjX2Xe3N7l33gsJycsOD/2c7Z////////////////2wBDARsbGxscGx4hIR4qLSgtKj04MzM4PV1CR0JHQl2NWGdYWGdYjX2Xe3N7l33gsJycsOD/2c7Z////////////////wgARCAAbACgDASIAAhEBAxEB/8QAGQAAAgMBAAAAAAAAAAAAAAAAAgMAAQQF/8QAFQEBAQAAAAAAAAAAAAAAAAAAAAH/2gAMAwEAAhADEAAAAOsOETavEqN05kKpFI1QgpRUP//EABkQAQEBAQEBAAAAAAAAAAAAAAABAwITEP/aAAgBAQABPwD0XRdF1XV6rquq6rq9F0Xte17+1Vf/xAAUEQEAAAAAAAAAAAAAAAAAAAAg/9oACAECAQE/AF//xAAUEQEAAAAAAAAAAAAAAAAAAAAg/9oACAEDAQE/AF//2Q=="
+      }
+    },
+    {
+      "id": "portrait-001",
+      "alt": "Portrait in natural light",
+      "aspectRatio": 0.75,
+      "sources": [
+        {
+          "format": "jpeg",
+          "sizes": [
+            {
+              "width": 400,
+              "height": 533,
+              "density": 1,
+              "url": "https://picsum.photos/id/64/400/533",
+              "breakpoint": "mobile"
+            },
+            {
+              "width": 600,
+              "height": 800,
+              "density": 1,
+              "url": "https://picsum.photos/id/64/600/800",
+              "breakpoint": "tablet"
+            },
+            {
+              "width": 800,
+              "height": 1067,
+              "density": 1,
+              "url": "https://picsum.photos/id/64/800/1067",
+              "breakpoint": "large-tablet"
+            },
+            {
+              "width": 1000,
+              "height": 1333,
+              "density": 1,
+              "url": "https://picsum.photos/id/64/1000/1333",
+              "breakpoint": "large-tablet-2x"
+            },
+            {
+              "width": 1200,
+              "height": 1600,
+              "density": 1,
+              "url": "https://picsum.photos/id/64/1200/1600",
+              "breakpoint": "desktop"
+            },
+            {
+              "width": 1600,
+              "height": 2133,
+              "density": 1,
+              "url": "https://picsum.photos/id/64/1600/2133",
+              "breakpoint": "large-desktop"
+            }
+          ]
+        }
+      ],
+      "metadata": {
+        "originalWidth": 1600,
+        "originalHeight": 2133,
+        "fileSize": 0
+      },
+      "lqip": {
+        "type": "blur",
+        "data": "data:image/jpeg;base64,/9j/2wBDABsbGxscGx4hIR4qLSgtKj04MzM4PV1CR0JHQl2NWGdYWGdYjX2Xe3N7l33gsJycsOD/2c7Z////////////////2wBDARsbGxscGx4hIR4qLSgtKj04MzM4PV1CR0JHQl2NWGdYWGdYjX2Xe3N7l33gsJycsOD/2c7Z////////////////wgARCAA1ACgDASIAAhEBAxEB/8QAGQABAAMBAQAAAAAAAAAAAAAAAAECAwQF/8QAFwEBAQEBAAAAAAAAAAAAAAAAAgEAA//aAAwDAQACEAMQAAAA97OmIXRbj1u62YXlwvn1MbY6bdTJzWdbGazKWUJQYQRQJf/EABoQAAMBAAMAAAAAAAAAAAAAAAABAhEQEjD/2gAIAQEAAT8AbHR3FQmVQ7FZNEsqhsTJZNDGYSJ8YZ6//8QAGBEBAQADAAAAAAAAAAAAAAAAAQACEDD/2gAIAQIBAT8ACcdE8P/EABQRAQAAAAAAAAAAAAAAAAAAADD/2gAIAQMBAT8AT//Z"
+      }
+    },
+    {
+      "id": "square-001",
+      "alt": "Architectural detail",
+      "aspectRatio": 1,
+      "sources": [
+        {
+          "format": "jpeg",
+          "sizes": [
+            {
+              "width": 400,
+              "height": 400,
+              "density": 1,
+              "url": "https://picsum.photos/id/429/400/400",
+              "breakpoint": "mobile"
+            },
+            {
+              "width": 600,
+              "height": 600,
+              "density": 1,
+              "url": "https://picsum.photos/id/429/600/600",
+              "breakpoint": "tablet"
+            },
+            {
+              "width": 800,
+              "height": 800,
+              "density": 1,
+              "url": "https://picsum.photos/id/429/800/800",
+              "breakpoint": "large-tablet"
+            },
+            {
+              "width": 1000,
+              "height": 1000,
+              "density": 1,
+              "url": "https://picsum.photos/id/429/1000/1000",
+              "breakpoint": "large-tablet-2x"
+            },
+            {
+              "width": 1200,
+              "height": 1200,
+              "density": 1,
+              "url": "https://picsum.photos/id/429/1200/1200",
+              "breakpoint": "desktop"
+            },
+            {
+              "width": 1600,
+              "height": 1600,
+              "density": 1,
+              "url": "https://picsum.photos/id/429/1600/1600",
+              "breakpoint": "large-desktop"
+            }
+          ]
+        }
+      ],
+      "metadata": {
+        "originalWidth": 1600,
+        "originalHeight": 1600,
+        "fileSize": 0
+      },
+      "lqip": {
+        "type": "blur",
+        "data": "data:image/jpeg;base64,/9j/2wBDABsbGxscGx4hIR4qLSgtKj04MzM4PV1CR0JHQl2NWGdYWGdYjX2Xe3N7l33gsJycsOD/2c7Z////////////////2wBDARsbGxscGx4hIR4qLSgtKj04MzM4PV1CR0JHQl2NWGdYWGdYjX2Xe3N7l33gsJycsOD/2c7Z////////////////wgARCAAoACgDASIAAhEBAxEB/8QAGQAAAwEBAQAAAAAAAAAAAAAAAAIEAwEF/8QAFwEAAwEAAAAAAAAAAAAAAAAAAAECA//aAAwDAQACEAMQAAAAvhskjaCerA2Q1Be3gwYyrX1uctHMjBBrqFw4Av/EABoQAAMBAQEBAAAAAAAAAAAAAAABAgMSEBP/2gAIAQEAAT8As1NBiKNC0cigbKRUHzJzOvORQKDoTJF5/8QAFhEAAwAAAAAAAAAAAAAAAAAAARAg/9oACAECAQE/AKD/AP/EABkRAAIDAQAAAAAAAAAAAAAAAAABAhASIP/aAAgBAwEBPwCPGjQx1//Z"
+      }
+    },
+    {
+      "id": "landscape-002",
+      "alt": "Coastal sunrise",
+      "aspectRatio": 1.33,
+      "sources": [
+        {
+          "format": "jpeg",
+          "sizes": [
+            {
+              "width": 400,
+              "height": 301,
+              "density": 1,
+              "url": "https://picsum.photos/id/1015/400/301",
+              "breakpoint": "mobile"
+            },
+            {
+              "width": 600,
+              "height": 451,
+              "density": 1,
+              "url": "https://picsum.photos/id/1015/600/451",
+              "breakpoint": "tablet"
+            },
+            {
+              "width": 800,
+              "height": 602,
+              "density": 1,
+              "url": "https://picsum.photos/id/1015/800/602",
+              "breakpoint": "large-tablet"
+            },
+            {
+              "width": 1000,
+              "height": 752,
+              "density": 1,
+              "url": "https://picsum.photos/id/1015/1000/752",
+              "breakpoint": "large-tablet-2x"
+            },
+            {
+              "width": 1200,
+              "height": 902,
+              "density": 1,
+              "url": "https://picsum.photos/id/1015/1200/902",
+              "breakpoint": "desktop"
+            },
+            {
+              "width": 1600,
+              "height": 1203,
+              "density": 1,
+              "url": "https://picsum.photos/id/1015/1600/1203",
+              "breakpoint": "large-desktop"
+            }
+          ]
+        }
+      ],
+      "metadata": {
+        "originalWidth": 1600,
+        "originalHeight": 1203,
+        "fileSize": 0
+      },
+      "lqip": {
+        "type": "blur",
+        "data": "data:image/jpeg;base64,/9j/2wBDABsbGxscGx4hIR4qLSgtKj04MzM4PV1CR0JHQl2NWGdYWGdYjX2Xe3N7l33gsJycsOD/2c7Z////////////////2wBDARsbGxscGx4hIR4qLSgtKj04MzM4PV1CR0JHQl2NWGdYWGdYjX2Xe3N7l33gsJycsOD/2c7Z////////////////wgARCAAeACgDASIAAhEBAxEB/8QAGAAAAwEBAAAAAAAAAAAAAAAAAAEDBAL/xAAYAQADAQEAAAAAAAAAAAAAAAABAgQDAP/aAAwDAQACEAMQAAAA0PlUTdqXDdoMgRoSJKJwrm2zRMdf/8QAGRABAAMBAQAAAAAAAAAAAAAAAAECEhAR/9oACAEBAAE/AHrTTfPU2TdvkrStZNkJWWS//8QAGREAAgMBAAAAAAAAAAAAAAAAAAIBEBIR/9oACAECAQE/ANVwhhWNH//EABkRAAIDAQAAAAAAAAAAAAAAAAABAhESEP/aAAgBAwEBPwDNcscRxMn/2Q=="
+      }
+    },
+    {
+      "id": "portrait-002",
+      "alt": "Street photography portrait",
+      "aspectRatio": 0.6,
+      "sources": [
+        {
+          "format": "jpeg",
+          "sizes": [
+            {
+              "width": 400,
+              "height": 667,
+              "density": 1,
+              "url": "https://picsum.photos/id/91/400/667",
+              "breakpoint": "mobile"
+            },
+            {
+              "width": 600,
+              "height": 1000,
+              "density": 1,
+              "url": "https://picsum.photos/id/91/600/1000",
+              "breakpoint": "tablet"
+            },
+            {
+              "width": 800,
+              "height": 1333,
+              "density": 1,
+              "url": "https://picsum.photos/id/91/800/1333",
+              "breakpoint": "large-tablet"
+            },
+            {
+              "width": 1000,
+              "height": 1667,
+              "density": 1,
+              "url": "https://picsum.photos/id/91/1000/1667",
+              "breakpoint": "large-tablet-2x"
+            },
+            {
+              "width": 1200,
+              "height": 2000,
+              "density": 1,
+              "url": "https://picsum.photos/id/91/1200/2000",
+              "breakpoint": "desktop"
+            },
+            {
+              "width": 1600,
+              "height": 2667,
+              "density": 1,
+              "url": "https://picsum.photos/id/91/1600/2667",
+              "breakpoint": "large-desktop"
+            }
+          ]
+        }
+      ],
+      "metadata": {
+        "originalWidth": 1600,
+        "originalHeight": 2667,
+        "fileSize": 0
+      },
+      "lqip": {
+        "type": "blur",
+        "data": "data:image/jpeg;base64,/9j/2wBDABsbGxscGx4hIR4qLSgtKj04MzM4PV1CR0JHQl2NWGdYWGdYjX2Xe3N7l33gsJycsOD/2c7Z////////////////2wBDARsbGxscGx4hIR4qLSgtKj04MzM4PV1CR0JHQl2NWGdYWGdYjX2Xe3N7l33gsJycsOD/2c7Z////////////////wgARCABDACgDASIAAhEBAxEB/8QAGQAAAwEBAQAAAAAAAAAAAAAAAAIDAQQF/8QAFQEBAQAAAAAAAAAAAAAAAAAAAAH/2gAMAwEAAhADEAAAAOfmRAxcHJAzLQXK4QHDKycqTc0sRwGpTW57HeaS+dMLMsB3gS//xAAaEAACAwEBAAAAAAAAAAAAAAAAAQIQEQMS/9oACAEBAAE/AJ9CUhs0UhzG702sGhiEjBocRCvzSZoiEa00gzkMdQOQx1A5H//EABQRAQAAAAAAAAAAAAAAAAAAADD/2gAIAQIBAT8Af//EABQRAQAAAAAAAAAAAAAAAAAAADD/2gAIAQMBAT8Af//Z"
+      }
+    },
+    {
+      "id": "wide-001",
+      "alt": "Panoramic city skyline",
+      "aspectRatio": 2,
+      "sources": [
+        {
+          "format": "jpeg",
+          "sizes": [
+            {
+              "width": 400,
+              "height": 200,
+              "density": 1,
+              "url": "https://picsum.photos/id/1013/400/200",
+              "breakpoint": "mobile"
+            },
+            {
+              "width": 600,
+              "height": 300,
+              "density": 1,
+              "url": "https://picsum.photos/id/1013/600/300",
+              "breakpoint": "tablet"
+            },
+            {
+              "width": 800,
+              "height": 400,
+              "density": 1,
+              "url": "https://picsum.photos/id/1013/800/400",
+              "breakpoint": "large-tablet"
+            },
+            {
+              "width": 1000,
+              "height": 500,
+              "density": 1,
+              "url": "https://picsum.photos/id/1013/1000/500",
+              "breakpoint": "large-tablet-2x"
+            },
+            {
+              "width": 1200,
+              "height": 600,
+              "density": 1,
+              "url": "https://picsum.photos/id/1013/1200/600",
+              "breakpoint": "desktop"
+            },
+            {
+              "width": 1600,
+              "height": 800,
+              "density": 1,
+              "url": "https://picsum.photos/id/1013/1600/800",
+              "breakpoint": "large-desktop"
+            }
+          ]
+        }
+      ],
+      "metadata": {
+        "originalWidth": 1600,
+        "originalHeight": 800,
+        "fileSize": 0
+      },
+      "lqip": {
+        "type": "blur",
+        "data": "data:image/jpeg;base64,/9j/2wBDABsbGxscGx4hIR4qLSgtKj04MzM4PV1CR0JHQl2NWGdYWGdYjX2Xe3N7l33gsJycsOD/2c7Z////////////////2wBDARsbGxscGx4hIR4qLSgtKj04MzM4PV1CR0JHQl2NWGdYWGdYjX2Xe3N7l33gsJycsOD/2c7Z////////////////wgARCAAUACgDASIAAhEBAxEB/8QAGAAAAwEBAAAAAAAAAAAAAAAAAAECAwT/xAAWAQEBAQAAAAAAAAAAAAAAAAAAAQL/2gAMAwEAAhADEAAAAOrNrNekWWITmYWXoE0wD//EABgQAQEBAQEAAAAAAAAAAAAAAAEQAAIg/9oACAEBAAE/AOoYiwx4MT//xAAUEQEAAAAAAAAAAAAAAAAAAAAg/9oACAECAQE/AF//xAAVEQEBAAAAAAAAAAAAAAAAAAAQAf/aAAgBAwEBPwBj/9k="
+      }
+    },
+    {
+      "id": "square-002",
+      "alt": "Abstract composition",
+      "aspectRatio": 1,
+      "sources": [
+        {
+          "format": "jpeg",
+          "sizes": [
+            {
+              "width": 400,
+              "height": 400,
+              "density": 1,
+              "url": "https://picsum.photos/id/180/400/400",
+              "breakpoint": "mobile"
+            },
+            {
+              "width": 600,
+              "height": 600,
+              "density": 1,
+              "url": "https://picsum.photos/id/180/600/600",
+              "breakpoint": "tablet"
+            },
+            {
+              "width": 800,
+              "height": 800,
+              "density": 1,
+              "url": "https://picsum.photos/id/180/800/800",
+              "breakpoint": "large-tablet"
+            },
+            {
+              "width": 1000,
+              "height": 1000,
+              "density": 1,
+              "url": "https://picsum.photos/id/180/1000/1000",
+              "breakpoint": "large-tablet-2x"
+            },
+            {
+              "width": 1200,
+              "height": 1200,
+              "density": 1,
+              "url": "https://picsum.photos/id/180/1200/1200",
+              "breakpoint": "desktop"
+            },
+            {
+              "width": 1600,
+              "height": 1600,
+              "density": 1,
+              "url": "https://picsum.photos/id/180/1600/1600",
+              "breakpoint": "large-desktop"
+            }
+          ]
+        }
+      ],
+      "metadata": {
+        "originalWidth": 1600,
+        "originalHeight": 1600,
+        "fileSize": 0
+      },
+      "lqip": {
+        "type": "blur",
+        "data": "data:image/jpeg;base64,/9j/2wBDABsbGxscGx4hIR4qLSgtKj04MzM4PV1CR0JHQl2NWGdYWGdYjX2Xe3N7l33gsJycsOD/2c7Z////////////////2wBDARsbGxscGx4hIR4qLSgtKj04MzM4PV1CR0JHQl2NWGdYWGdYjX2Xe3N7l33gsJycsOD/2c7Z////////////////wgARCAAoACgDASIAAhEBAxEB/8QAGAABAQEBAQAAAAAAAAAAAAAAAAIDAQT/xAAXAQEBAQEAAAAAAAAAAAAAAAABAgAD/9oADAMBAAIQAxAAAAC5uTY4+nOa8zUX6pma56cnonQ5yTbogY//xAAZEAADAQEBAAAAAAAAAAAAAAAAAREQAhL/2gAIAQEAAT8Ag0dIaGsYxofJS7ClKXKUp6PR/8QAGBEAAgMAAAAAAAAAAAAAAAAAABEBECD/2gAIAQIBAT8ARNMef//EABgRAAMBAQAAAAAAAAAAAAAAAAABERIg/9oACAEDAQE/AKJlMk5//9k="
+      }
+    },
+    {
+      "id": "portrait-003",
+      "alt": "Environmental portrait",
+      "aspectRatio": 0.8,
+      "sources": [
+        {
+          "format": "jpeg",
+          "sizes": [
+            {
+              "width": 400,
+              "height": 500,
+              "density": 1,
+              "url": "https://picsum.photos/id/177/400/500",
+              "breakpoint": "mobile"
+            },
+            {
+              "width": 600,
+              "height": 750,
+              "density": 1,
+              "url": "https://picsum.photos/id/177/600/750",
+              "breakpoint": "tablet"
+            },
+            {
+              "width": 800,
+              "height": 1000,
+              "density": 1,
+              "url": "https://picsum.photos/id/177/800/1000",
+              "breakpoint": "large-tablet"
+            },
+            {
+              "width": 1000,
+              "height": 1250,
+              "density": 1,
+              "url": "https://picsum.photos/id/177/1000/1250",
+              "breakpoint": "large-tablet-2x"
+            },
+            {
+              "width": 1200,
+              "height": 1500,
+              "density": 1,
+              "url": "https://picsum.photos/id/177/1200/1500",
+              "breakpoint": "desktop"
+            },
+            {
+              "width": 1600,
+              "height": 2000,
+              "density": 1,
+              "url": "https://picsum.photos/id/177/1600/2000",
+              "breakpoint": "large-desktop"
+            }
+          ]
+        }
+      ],
+      "metadata": {
+        "originalWidth": 1600,
+        "originalHeight": 2000,
+        "fileSize": 0
+      },
+      "lqip": {
+        "type": "blur",
+        "data": "data:image/jpeg;base64,/9j/2wBDABsbGxscGx4hIR4qLSgtKj04MzM4PV1CR0JHQl2NWGdYWGdYjX2Xe3N7l33gsJycsOD/2c7Z////////////////2wBDARsbGxscGx4hIR4qLSgtKj04MzM4PV1CR0JHQl2NWGdYWGdYjX2Xe3N7l33gsJycsOD/2c7Z////////////////wgARCAAyACgDASIAAhEBAxEB/8QAGQAAAwEBAQAAAAAAAAAAAAAAAAIEAwUB/8QAFgEBAQEAAAAAAAAAAAAAAAAAAAEC/9oADAMBAAIQAxAAAADttM+bQ2DmpmHJ052uL0Xg0W0jDkaYelTS+lJICgKAIgFf/8QAHBAAAwACAwEAAAAAAAAAAAAAAAECERIDEBMg/9oACAEBAAE/AMiZntWKhUbGRcgrFYrNxWKxWKz0FQqFZuenWTY2HXyz/8QAFhEBAQEAAAAAAAAAAAAAAAAAEQAw/9oACAECAQE/AGZy/8QAFBEBAAAAAAAAAAAAAAAAAAAAMP/aAAgBAwEBPwBP/9k="
+      }
+    },
+    {
+      "id": "landscape-003",
+      "alt": "Forest pathway",
+      "aspectRatio": 1.4,
+      "sources": [
+        {
+          "format": "jpeg",
+          "sizes": [
+            {
+              "width": 400,
+              "height": 286,
+              "density": 1,
+              "url": "https://picsum.photos/id/1041/400/286",
+              "breakpoint": "mobile"
+            },
+            {
+              "width": 600,
+              "height": 429,
+              "density": 1,
+              "url": "https://picsum.photos/id/1041/600/429",
+              "breakpoint": "tablet"
+            },
+            {
+              "width": 800,
+              "height": 571,
+              "density": 1,
+              "url": "https://picsum.photos/id/1041/800/571",
+              "breakpoint": "large-tablet"
+            },
+            {
+              "width": 1000,
+              "height": 714,
+              "density": 1,
+              "url": "https://picsum.photos/id/1041/1000/714",
+              "breakpoint": "large-tablet-2x"
+            },
+            {
+              "width": 1200,
+              "height": 857,
+              "density": 1,
+              "url": "https://picsum.photos/id/1041/1200/857",
+              "breakpoint": "desktop"
+            },
+            {
+              "width": 1600,
+              "height": 1143,
+              "density": 1,
+              "url": "https://picsum.photos/id/1041/1600/1143",
+              "breakpoint": "large-desktop"
+            }
+          ]
+        }
+      ],
+      "metadata": {
+        "originalWidth": 1600,
+        "originalHeight": 1143,
+        "fileSize": 0
+      },
+      "lqip": {
+        "type": "blur",
+        "data": "data:image/jpeg;base64,/9j/2wBDABsbGxscGx4hIR4qLSgtKj04MzM4PV1CR0JHQl2NWGdYWGdYjX2Xe3N7l33gsJycsOD/2c7Z////////////////2wBDARsbGxscGx4hIR4qLSgtKj04MzM4PV1CR0JHQl2NWGdYWGdYjX2Xe3N7l33gsJycsOD/2c7Z////////////////wgARCAAdACgDASIAAhEBAxEB/8QAGAAAAwEBAAAAAAAAAAAAAAAAAAMEAQL/xAAXAQEBAQEAAAAAAAAAAAAAAAAAAQME/9oADAMBAAIQAxAAAADh8NG/PUJwYTBK+Zw7nFpgkX//xAAZEAEBAQADAAAAAAAAAAAAAAACAAEQERL/2gAIAQEAAT8AKirFarVFRV6tVqjsdu5KSjHhbLb/xAAUEQEAAAAAAAAAAAAAAAAAAAAg/9oACAECAQE/AF//xAAUEQEAAAAAAAAAAAAAAAAAAAAg/9oACAEDAQE/AF//2Q=="
+      }
+    },
+    {
+      "id": "vertical-001",
+      "alt": "Urban architecture",
+      "aspectRatio": 0.7,
+      "sources": [
+        {
+          "format": "jpeg",
+          "sizes": [
+            {
+              "width": 400,
+              "height": 571,
+              "density": 1,
+              "url": "https://picsum.photos/id/1022/400/571",
+              "breakpoint": "mobile"
+            },
+            {
+              "width": 600,
+              "height": 857,
+              "density": 1,
+              "url": "https://picsum.photos/id/1022/600/857",
+              "breakpoint": "tablet"
+            },
+            {
+              "width": 800,
+              "height": 1143,
+              "density": 1,
+              "url": "https://picsum.photos/id/1022/800/1143",
+              "breakpoint": "large-tablet"
+            },
+            {
+              "width": 1000,
+              "height": 1429,
+              "density": 1,
+              "url": "https://picsum.photos/id/1022/1000/1429",
+              "breakpoint": "large-tablet-2x"
+            },
+            {
+              "width": 1200,
+              "height": 1714,
+              "density": 1,
+              "url": "https://picsum.photos/id/1022/1200/1714",
+              "breakpoint": "desktop"
+            },
+            {
+              "width": 1600,
+              "height": 2286,
+              "density": 1,
+              "url": "https://picsum.photos/id/1022/1600/2286",
+              "breakpoint": "large-desktop"
+            }
+          ]
+        }
+      ],
+      "metadata": {
+        "originalWidth": 1600,
+        "originalHeight": 2286,
+        "fileSize": 0
+      },
+      "lqip": {
+        "type": "blur",
+        "data": "data:image/jpeg;base64,/9j/2wBDABsbGxscGx4hIR4qLSgtKj04MzM4PV1CR0JHQl2NWGdYWGdYjX2Xe3N7l33gsJycsOD/2c7Z////////////////2wBDARsbGxscGx4hIR4qLSgtKj04MzM4PV1CR0JHQl2NWGdYWGdYjX2Xe3N7l33gsJycsOD/2c7Z////////////////wgARCAA5ACgDASIAAhEBAxEB/8QAGQAAAwEBAQAAAAAAAAAAAAAAAAECAwQF/8QAGAEBAQEBAQAAAAAAAAAAAAAAAQIAAwT/2gAMAwEAAhADEAAAAPIVHLyxOk0yMXUZHNTQsjFZmzWQ9rEM8zzdejSs6J1JCP/EABkQAAMBAQEAAAAAAAAAAAAAAAABERAgQP/aAAgBAQABPwDyUvFKUuUpRMuoWf/EABQRAQAAAAAAAAAAAAAAAAAAADD/2gAIAQIBAT8AT//EABcRAQEBAQAAAAAAAAAAAAAAAAARARD/2gAIAQMBAT8AVe1E5G4j/9k="
+      }
+    },
+    {
+      "id": "wide-002",
+      "alt": "Dramatic sunset",
+      "aspectRatio": 1.8,
+      "sources": [
+        {
+          "format": "jpeg",
+          "sizes": [
+            {
+              "width": 400,
+              "height": 222,
+              "density": 1,
+              "url": "https://picsum.photos/id/1016/400/222",
+              "breakpoint": "mobile"
+            },
+            {
+              "width": 600,
+              "height": 333,
+              "density": 1,
+              "url": "https://picsum.photos/id/1016/600/333",
+              "breakpoint": "tablet"
+            },
+            {
+              "width": 800,
+              "height": 444,
+              "density": 1,
+              "url": "https://picsum.photos/id/1016/800/444",
+              "breakpoint": "large-tablet"
+            },
+            {
+              "width": 1000,
+              "height": 556,
+              "density": 1,
+              "url": "https://picsum.photos/id/1016/1000/556",
+              "breakpoint": "large-tablet-2x"
+            },
+            {
+              "width": 1200,
+              "height": 667,
+              "density": 1,
+              "url": "https://picsum.photos/id/1016/1200/667",
+              "breakpoint": "desktop"
+            },
+            {
+              "width": 1600,
+              "height": 889,
+              "density": 1,
+              "url": "https://picsum.photos/id/1016/1600/889",
+              "breakpoint": "large-desktop"
+            }
+          ]
+        }
+      ],
+      "metadata": {
+        "originalWidth": 1600,
+        "originalHeight": 889,
+        "fileSize": 0
+      },
+      "lqip": {
+        "type": "blur",
+        "data": "data:image/jpeg;base64,/9j/2wBDABsbGxscGx4hIR4qLSgtKj04MzM4PV1CR0JHQl2NWGdYWGdYjX2Xe3N7l33gsJycsOD/2c7Z////////////////2wBDARsbGxscGx4hIR4qLSgtKj04MzM4PV1CR0JHQl2NWGdYWGdYjX2Xe3N7l33gsJycsOD/2c7Z////////////////wgARCAAWACgDASIAAhEBAxEB/8QAGQAAAwEBAQAAAAAAAAAAAAAAAAIDAQQF/8QAFwEAAwEAAAAAAAAAAAAAAAAAAAIDAf/aAAwDAQACEAMQAAAA8+vM8q9KTUNJDIjglGwM2YDL/8QAGBABAQEBAQAAAAAAAAAAAAAAAQACEhD/2gAIAQEAAT8AGNXU6lhhupZYYfFlv//EABcRAQEBAQAAAAAAAAAAAAAAAAARARD/2gAIAQIBAT8AVW9//8QAFxEBAQEBAAAAAAAAAAAAAAAAAAEQEf/aAAgBAwEBPwBY4m//2Q=="
+      }
+    },
+    {
+      "id": "square-003",
+      "alt": "Minimalist design",
+      "aspectRatio": 1,
+      "sources": [
+        {
+          "format": "jpeg",
+          "sizes": [
+            {
+              "width": 400,
+              "height": 400,
+              "density": 1,
+              "url": "https://picsum.photos/id/188/400/400",
+              "breakpoint": "mobile"
+            },
+            {
+              "width": 600,
+              "height": 600,
+              "density": 1,
+              "url": "https://picsum.photos/id/188/600/600",
+              "breakpoint": "tablet"
+            },
+            {
+              "width": 800,
+              "height": 800,
+              "density": 1,
+              "url": "https://picsum.photos/id/188/800/800",
+              "breakpoint": "large-tablet"
+            },
+            {
+              "width": 1000,
+              "height": 1000,
+              "density": 1,
+              "url": "https://picsum.photos/id/188/1000/1000",
+              "breakpoint": "large-tablet-2x"
+            },
+            {
+              "width": 1200,
+              "height": 1200,
+              "density": 1,
+              "url": "https://picsum.photos/id/188/1200/1200",
+              "breakpoint": "desktop"
+            },
+            {
+              "width": 1600,
+              "height": 1600,
+              "density": 1,
+              "url": "https://picsum.photos/id/188/1600/1600",
+              "breakpoint": "large-desktop"
+            }
+          ]
+        }
+      ],
+      "metadata": {
+        "originalWidth": 1600,
+        "originalHeight": 1600,
+        "fileSize": 0
+      },
+      "lqip": {
+        "type": "blur",
+        "data": "data:image/jpeg;base64,/9j/2wBDABsbGxscGx4hIR4qLSgtKj04MzM4PV1CR0JHQl2NWGdYWGdYjX2Xe3N7l33gsJycsOD/2c7Z////////////////2wBDARsbGxscGx4hIR4qLSgtKj04MzM4PV1CR0JHQl2NWGdYWGdYjX2Xe3N7l33gsJycsOD/2c7Z////////////////wgARCAAoACgDASIAAhEBAxEB/8QAGAABAQEBAQAAAAAAAAAAAAAAAAQCAQX/xAAWAQEBAQAAAAAAAAAAAAAAAAAAAQL/2gAMAwEAAhADEAAAAPZ7H3Wa0gqRiPsGkt5JmqkYk2S6FYB//8QAGBABAQEBAQAAAAAAAAAAAAAAABITAQL/2gAIAQEAAT8ApSlrWtbRo0aNGjRotbvt3257c9KU76f/xAAUEQEAAAAAAAAAAAAAAAAAAAAw/9oACAECAQE/AB//xAAUEQEAAAAAAAAAAAAAAAAAAAAw/9oACAEDAQE/AB//2Q=="
+      }
+    }
+  ]
+}

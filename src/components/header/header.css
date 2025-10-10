@@ -1,0 +1,355 @@
+/**
+ * Portfolio Header Component Styles
+ * Responsive header with branding and navigation
+ *
+ * Width Strategy: Match gallery widths exactly
+ * - Mobile/Tablet (< 52.5rem): 96% width (--gallery-width-full)
+ * - Desktop (≥ 52.5rem): 92% width (--gallery-width-constrained)
+ *
+ * Design System Compliance: All measurements use rem-based units for consistent scaling
+ */
+
+.portfolio-header {
+  display: block;
+  position: relative;
+  z-index: 100;
+  padding-top: 1.25rem; /* Space above header */
+}
+
+/* Main Header Container */
+.header {
+  background: var(--color-pure);
+  border-bottom: 0.0625rem solid var(--color-accent); /* 1px -> rem */
+  position: relative;
+}
+
+.header__container {
+  /* Inherits width from .page-container parent */
+  width: 100%;
+  padding: var(--space-md) 0; /* Remove horizontal padding to prevent overflow */
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 4rem; /* Consistent header height */
+  box-sizing: border-box;
+  position: relative;
+  z-index: 1001; /* Ensure entire header is above mobile menu overlay */
+}
+
+/* Logo and Branding */
+.header__branding {
+  flex-shrink: 0;
+  position: relative;
+  z-index: 1001; /* Above the mobile menu overlay */
+  line-height: 1; /* Remove any line-height spacing */
+  /* Logo now aligns to container edge naturally */
+}
+
+.header__logo-link {
+  display: inline-block;
+  text-decoration: none;
+  transition: opacity var(--transition-medium);
+}
+
+.header__logo-link:hover {
+  opacity: 0.8;
+}
+
+.header__logo-link:focus {
+  outline: 0.125rem solid var(--color-interactive); /* 2px -> rem */
+  outline-offset: 0.125rem; /* 2px -> rem */
+  border-radius: var(--border-radius);
+}
+
+.header__logo {
+  display: block;
+  height: auto;
+  max-height: 2.5rem; /* Responsive logo sizing */
+  width: auto;
+  max-width: 15.625rem; /* 250px -> rem */
+}
+
+/* Logo variant switching - show/hide based on theme */
+.header__logo--light {
+  display: block;
+}
+
+.header__logo--dark {
+  display: none;
+}
+
+[data-theme="dark"] .header__logo--light {
+  display: none;
+}
+
+[data-theme="dark"] .header__logo--dark {
+  display: block;
+}
+
+/* Navigation */
+.header__navigation {
+  display: flex;
+  align-items: center;
+  gap: var(--space-lg);
+}
+
+.header__nav-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  gap: var(--space-lg);
+}
+
+.header__nav-item {
+  margin: 0;
+  display: flex;
+  align-items: center;
+}
+
+.header__nav-link {
+  display: block;
+  padding: var(--space-sm) 0;
+  text-decoration: none;
+  color: var(--color-primary);
+  font-family: var(--font-navigation);
+  font-weight: var(--weight-bold); /* Increased from --weight-medium */
+  font-size: clamp(1.375rem, 4vw, 1.625rem); /* Increased from --text-lg (22-26px) */
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  transition: color var(--transition-medium);
+  position: relative;
+}
+
+.header__nav-link:hover {
+  color: var(--color-interactive);
+}
+
+.header__nav-link:focus {
+  outline: 0.125rem solid var(--color-interactive); /* 2px -> rem */
+  outline-offset: 0.125rem; /* 2px -> rem */
+  border-radius: var(--border-radius);
+}
+
+/* Underline effect for active/hover states */
+.header__nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: -0.25rem; /* Move underline closer to text */
+  left: 0;
+  width: 0;
+  height: 0.125rem; /* 2px -> rem */
+  background: var(--color-interactive);
+  transition: width var(--transition-medium);
+}
+
+.header__nav-link:hover::after,
+.header__nav-link:focus::after {
+  width: 100%;
+}
+
+/* Mobile Menu Toggle */
+.header__mobile-toggle {
+  display: none;
+  background: none;
+  border: none;
+  padding: var(--space-sm) 0; /* Remove horizontal padding for flush alignment */
+  cursor: pointer;
+  border-radius: var(--border-radius);
+  transition: background-color var(--transition-medium);
+  position: relative;
+  z-index: 1001; /* Above the mobile menu overlay (z-index: 1000) */
+}
+
+/* When mobile toggle is visible, make it flex for alignment */
+@media (max-width: 48rem) {
+  .header__mobile-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: auto; /* Push to right edge of container */
+  }
+}
+
+.header__mobile-toggle:hover {
+  background: var(--color-accent);
+}
+
+.header__mobile-toggle:focus {
+  outline: 0.125rem solid var(--color-interactive); /* 2px -> rem */
+  outline-offset: 0.125rem; /* 2px -> rem */
+}
+
+.header__hamburger {
+  width: 2rem; /* Increased from 1.5rem */
+  height: 1.5rem; /* Increased from 1.125rem */
+  position: relative; /* For absolute positioning of lines */
+}
+
+.header__hamburger-line {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 0.1875rem; /* Increased from 0.125rem */
+  background: var(--color-primary);
+  border-radius: 0.0625rem; /* 1px -> rem */
+
+  /* OPTIMIZED: Transform-only transition for 60fps smoothness */
+  transition: transform 0.15s cubic-bezier(0.65, 0, 0.35, 1),
+              opacity 0.15s cubic-bezier(0.65, 0, 0.35, 1);
+
+  /* GPU acceleration */
+  will-change: transform, opacity;
+  transform-origin: center;
+}
+
+/* Initial positions using transform (not top/bottom) for GPU acceleration */
+.header__hamburger-line:nth-child(1) {
+  top: 50%;
+  transform: translateY(calc(-50% - 0.5625rem)); /* Center - 9px offset */
+}
+
+.header__hamburger-line:nth-child(2) {
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.header__hamburger-line:nth-child(3) {
+  top: 50%;
+  transform: translateY(calc(-50% + 0.5625rem)); /* Center + 9px offset */
+}
+
+/* Active state - silky smooth cross animation */
+.header__mobile-toggle--active .header__hamburger-line:nth-child(1) {
+  transform: translateY(-50%) rotate(45deg);
+}
+
+.header__mobile-toggle--active .header__hamburger-line:nth-child(2) {
+  transform: translateY(-50%) scale(0);
+  opacity: 0;
+}
+
+.header__mobile-toggle--active .header__hamburger-line:nth-child(3) {
+  transform: translateY(-50%) rotate(-45deg);
+}
+
+/* Mobile Menu Overlay */
+.header__mobile-menu {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: var(--color-pure);
+  z-index: 1000;
+  padding: calc(var(--space-4xl) + 3rem) var(--space-lg) var(--space-4xl) var(--space-lg); /* Reduced top by 0.5rem */
+  overflow-y: auto;
+
+  /* Initially hidden */
+  opacity: 0;
+  visibility: hidden;
+  transition: all var(--transition-medium);
+}
+
+.header__mobile-menu--open {
+  opacity: 1;
+  visibility: visible;
+}
+
+.header__mobile-nav {
+  /* max-width: var(--max-width-content); */
+  margin: 0 auto;
+}
+
+.header__nav-list--mobile {
+  flex-direction: column;
+  gap: var(--space-md); /* Further reduced from --space-lg */
+  align-items: center;
+  text-align: center;
+}
+
+.header__nav-list--mobile .header__nav-link {
+  font-size: clamp(2rem, 6vw, 3rem); /* Custom 4xl equivalent */
+  font-weight: var(--weight-bold); /* Increased from --weight-semibold */
+  padding: var(--space-lg) 0;
+}
+
+/* Mobile menu underline positioning */
+.header__nav-list--mobile .header__nav-link::after {
+  bottom: var(--space-md); /* Position closer to text for mobile */
+}
+
+/* Prevent body scroll when mobile menu is open */
+body.mobile-menu-open {
+  overflow: hidden !important;
+  /* padding-right: 15px; /* Reserve space for scrollbar on mobile */
+}
+
+html.mobile-menu-open {
+  overflow: hidden !important;
+}
+
+/* Responsive Breakpoints */
+@media (max-width: 48rem) { /* Mobile */
+  .header__container {
+    padding: var(--space-md) 0;
+  }
+
+  /* .header__logo {
+    max-height: 2rem;
+  } */
+
+  .header__nav-list--desktop {
+    display: none;
+  }
+
+  .header__mobile-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .header__mobile-menu {
+    display: block;
+  }
+}
+
+@media (min-width: 48rem) { /* Tablet and up */
+  /* .header__logo {
+    max-height: 2.5rem;
+  } */
+
+  .header__nav-list--desktop {
+    display: flex;
+    margin-right: var(--space-2xl); /* Move desktop nav away from right edge */
+  }
+
+  .header__mobile-toggle {
+    display: none;
+  }
+
+  .header__mobile-menu {
+    display: none !important;
+  }
+}
+
+/* Width is now handled by .page-container parent */
+
+@media (min-width: 75rem) { /* Desktop */
+  .header__container {
+    padding: var(--space-lg) 0;
+  }
+
+  /* Larger logo on desktop */
+  /* .header__logo {
+    max-height: 3rem;
+  } */
+}
+
+/* Ultra-wide screens */
+/* @media (min-width: 100rem) {
+  .header__logo {
+    max-height: 3.5rem;
+  }
+} */

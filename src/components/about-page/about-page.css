@@ -1,0 +1,231 @@
+/**
+ * About Page Component Styles
+ * Responsive layout with breakpoint-specific width constraints using design system
+ */
+
+/* ============================================================================
+   Component Base Styles
+   ============================================================================ */
+
+about-page {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-2xl);
+  width: 100%;
+  margin: var(--space-lg) auto 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Loading state */
+about-page .about-loading-fallback {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 50vh;
+  color: var(--color-secondary);
+  font-family: var(--font-caption);
+  font-size: var(--text-lg);
+  font-weight: var(--weight-light);
+}
+
+/* Hide loading state once content is loaded */
+about-page.content-loaded .about-loading-fallback {
+  display: none;
+}
+
+/* Error state */
+.about-error {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 50vh;
+  color: var(--color-secondary);
+  font-family: var(--font-caption);
+  font-size: var(--text-lg);
+  text-align: center;
+  padding: var(--space-xl);
+}
+
+.about-error p {
+  margin: 0;
+  max-width: var(--max-width-prose);
+}
+
+/* Responsive Layout Classes */
+about-page.about-page--mobile {
+  width: 100%;
+  max-width: none;
+}
+
+about-page.about-page--desktop {
+  max-width: 50%;
+  margin: var(--space-lg) auto 0;
+}
+
+about-page.about-page--large-desktop {
+  max-width: 50%;
+  margin: var(--space-lg) auto 0;
+}
+
+/* ============================================================================
+   Hero Section
+   ============================================================================ */
+
+.about-hero {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-xl);
+  margin-bottom: var(--space-2xl);
+}
+
+.about-hero__content {
+  display: grid;
+  grid-template-columns: 1fr; /* Mobile default - will be overridden by media queries */
+  gap: var(--space-xl);
+  align-items: start;
+}
+
+.about-hero__image-container {
+  width: 100%;
+  max-width: 31.25rem; /* 500px */
+  justify-self: center;
+}
+
+.about-hero__image {
+  width: 100%;
+  height: auto;
+  max-width: 100%;
+  aspect-ratio: 2/3;
+  object-fit: cover;
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow-medium);
+  transition: transform var(--transition-medium);
+}
+
+.about-hero__image:hover {
+  transform: scale(1.02);
+}
+
+.about-hero__image.loading {
+  opacity: 0.7;
+  background: var(--color-accent);
+}
+
+.about-hero__image.loaded {
+  opacity: 1;
+}
+
+.about-hero__image.image-error {
+  display: none;
+}
+
+.about-hero__text {
+  text-align: center;
+}
+
+
+.about-hero__summary {
+  font-family: var(--font-body);
+  font-size: var(--text-lg);
+  color: var(--color-secondary);
+  line-height: 1.6;
+  max-width: 37.5rem; /* 600px */
+  margin: 0 auto;
+}
+
+
+
+/* ============================================================================
+   Responsive Breakpoints - Using Design System Variables
+   ============================================================================ */
+
+/* Tablet (768px+) - Still single column, just better spacing */
+@media (min-width: var(--breakpoint-mobile)) {
+  .about-hero {
+    gap: var(--space-2xl);
+  }
+
+  .about-hero__content {
+    gap: var(--space-2xl);
+  }
+}
+
+/* Large Mobile/Small Tablet (512px+) - Switch to 2-column for landscape phones */
+@media (min-width: 32rem) {
+  about-page .about-hero__content {
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-lg);
+    align-items: start;
+  }
+
+  about-page .about-hero__text {
+    text-align: left;
+  }
+}
+
+/* Large Tablet/Desktop (896px+) - Wider layout with adjusted column ratio */
+@media (min-width: 56rem) {
+  about-page {
+    max-width: 75%;
+    margin: var(--space-lg) auto 0;
+  }
+
+  about-page .about-hero__content {
+    grid-template-columns: 1fr 1.5fr !important;
+    gap: var(--space-2xl);
+    align-items: center;
+  }
+
+  about-page .about-hero__text {
+    text-align: left;
+  }
+
+
+  .about-hero__summary {
+    font-size: var(--text-xl);
+  }
+}
+
+/* Large Desktop (1280px+) - Maintain 50% constraint with larger spacing */
+@media (min-width: 80rem) {
+  .about-hero__content {
+    gap: var(--space-3xl);
+  }
+}
+
+/* ============================================================================
+   Performance and Accessibility
+   ============================================================================ */
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  .about-hero__image {
+    transition: none;
+  }
+
+  .about-hero__image:hover {
+    transform: none;
+  }
+
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .about-hero__image {
+    border: 0.125rem solid var(--color-primary); /* 2px */
+  }
+}
+
+
+/* Print styles */
+@media print {
+  about-page {
+    max-width: 100%;
+    margin: 0;
+  }
+
+  .about-hero__image {
+    max-width: 12.5rem; /* 200px */
+  }
+}

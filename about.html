@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About - Richard Drew Photography</title>
+  <meta name="description" content="Learn about the photographer behind the portfolio - background, expertise, and professional journey" />
+  <meta name="theme-color" content="#2C2C2C" />
+  <meta name="color-scheme" content="light dark" />
+
+  <!-- FOUC Prevention: Set theme before CSS parse -->
+  <script>
+    (function() {
+      // Add initial-load class to disable transitions during page load
+      document.documentElement.classList.add('initial-load');
+      
+      const theme = localStorage.getItem('theme');
+      if (theme === 'dark' || theme === 'light') {
+        document.documentElement.dataset.theme = theme;
+      } else {
+        document.documentElement.dataset.theme = 'light';
+      }
+    })();
+  </script>
+
+  <!-- Preload critical fonts for performance -->
+  <link rel="preload" href="/fonts/BebasNeue-Regular.ttf" as="font" type="font/ttf" crossorigin />
+
+  <!-- Icons and PWA -->
+  <link rel="icon" type="image/x-icon" href="/images/branding/favicon.ico" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/branding/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/branding/favicon-16x16.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/branding/apple-touch-icon.png" />
+  <link rel="manifest" href="/manifest.json" />
+
+  <!-- Import Fonts -->
+  <link rel="stylesheet" href="/src/styles/fonts.css">
+
+  <!-- Import Design System -->
+  <link rel="stylesheet" href="/src/styles/design-system.css">
+
+  <!-- About page specific styles -->
+  <style>
+    /* About page component - inherits width from .page-container */
+    about-page {
+      display: block;
+      width: 100%; /* Inherits from page container */
+      min-height: 400px;
+      box-sizing: border-box;
+    }
+
+    /* About container styling */
+    .about-container {
+      width: 100%;
+    }
+  </style>
+</head>
+<body>
+  <!-- Page Container - Unified Width Management -->
+  <div class="page-container">
+    <!-- Portfolio Header -->
+    <portfolio-header data-current-page="about" style="view-transition-name: header"></portfolio-header>
+
+    <main style="view-transition-name: main">
+      <!-- About Page Content -->
+      <section class="about-container">
+        <about-page>
+          <!-- Loading state shown while component loads its template -->
+          <div class="about-loading-fallback">
+            Loading about page...
+          </div>
+        </about-page>
+      </section>
+    </main>
+  </div>
+
+  <!-- About page application script -->
+  <script type="module" src="/src/pages/about.ts"></script>
+
+  <!-- Mark as JS-loaded for progressive enhancement -->
+  <script>
+    document.documentElement.classList.add('js-loaded');
+
+    // Remove initial-load class to enable transitions after page is ready
+    window.addEventListener('load', () => {
+      // Small delay to ensure theme is fully applied
+      setTimeout(() => {
+        document.documentElement.classList.remove('initial-load');
+      }, 50);
+    });
+
+    // Register Service Worker for PWA functionality
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/sw.js')
+          .then(registration => {
+            console.log('SW registered: ', registration);
+          })
+          .catch(registrationError => {
+            console.log('SW registration failed: ', registrationError);
+          });
+      });
+    }
+  </script>
+</body>
+</html>

@@ -1,8 +1,10 @@
 /// <reference types="vitest" />
 import { defineConfig } from 'vite'
 import { resolve } from 'path'
+import { versionInjector } from './src/plugins/vite-plugin-version-injector'
 
 export default defineConfig({
+  plugins: [versionInjector()],
   root: '.',
   publicDir: 'public',
   build: {

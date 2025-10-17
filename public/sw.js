@@ -3,10 +3,11 @@
  * Provides basic caching and offline functionality for PWA compliance
  */
 
-const CACHE_NAME = 'richard-drew-photography-v1'
+const CACHE_NAME = 'richard-drew-photography-v2'
 const CACHE_URLS = [
   '/',
   '/about.html',
+  '/404.html',
   '/manifest.json',
   '/gallery-data.json',
   '/src/styles/design-system.css',
@@ -73,6 +74,12 @@ self.addEventListener('fetch', event => {
 
   // Skip cross-origin requests
   if (!event.request.url.startsWith(self.location.origin)) {
+    return
+  }
+
+  // Skip navigation requests to avoid Safari redirect errors
+  // Let the browser handle page navigation naturally
+  if (event.request.mode === 'navigate') {
     return
   }
 

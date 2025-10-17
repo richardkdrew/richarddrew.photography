@@ -1,0 +1,6 @@
+# Cloudflare Pages URL rewrites
+# Handle clean URLs by serving .html files without redirects
+# This prevents Safari's service worker redirect error
+
+# Rewrite /about to /about.html (200 status, not redirect)
+/about /about.html 200

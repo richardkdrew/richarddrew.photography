@@ -69,7 +69,8 @@ jobs:
           echo "🚀 Deploying to dev.richarddrew.photography..."
           npx wrangler pages deploy dist/ \
             --project-name=richarddrew-photography \
-            --branch=develop
+            --branch=develop \
+            --commit-dirty=true
 
       - name: Deployment summary
         run: |

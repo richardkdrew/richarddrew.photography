@@ -1,4 +1,4 @@
-.PHONY: dev build test test-run test-coverage test-contract test-ui-tests test-a11y test-perf preview clean install help
+.PHONY: dev build test test-run test-coverage test-contract test-ui-tests test-a11y test-perf test-e2e preview clean install help
 
 # Default target
 help: ## Show this help message
@@ -34,6 +34,9 @@ test-a11y: ## Run accessibility tests only
 
 test-perf: ## Run performance tests only
 	npm run test:perf
+
+test-e2e: ## Run E2E tests with Playwright (requires real browser)
+	npm run test:e2e
 
 test-vitest-ui: ## Open Vitest UI dashboard
 	npm run test:ui

@@ -1,5 +1,12 @@
 # Photography Portfolio Website
 
+[![Build](https://github.com/richarddrew/richarddrew.photography/actions/workflows/pr-checks.yml/badge.svg)](https://github.com/richarddrew/richarddrew.photography/actions/workflows/pr-checks.yml)
+[![Tests](https://github.com/richarddrew/richarddrew.photography/actions/workflows/pr-checks.yml/badge.svg?event=push)](https://github.com/richarddrew/richarddrew.photography/actions/workflows/pr-checks.yml)
+[![Accessibility](https://img.shields.io/badge/a11y-WCAG%20AA-green)](https://github.com/richarddrew/richarddrew.photography/actions/workflows/pr-checks.yml)
+[![Dev Deploy](https://github.com/richarddrew/richarddrew.photography/actions/workflows/deploy-dev.yml/badge.svg)](https://github.com/richarddrew/richarddrew.photography/actions/workflows/deploy-dev.yml)
+[![Prod Deploy](https://github.com/richarddrew/richarddrew.photography/actions/workflows/deploy-prod.yml/badge.svg)](https://github.com/richarddrew/richarddrew.photography/actions/workflows/deploy-prod.yml)
+[![Version](https://img.shields.io/github/v/tag/richarddrew/richarddrew.photography)](https://github.com/richarddrew/richarddrew.photography/tags)
+
 A modern, professional photography portfolio built with performance and accessibility in mind. Features a responsive masonry gallery layout, full-screen image lightbox viewer and seamless dark mode support.
 
 ## ✨ Key Features

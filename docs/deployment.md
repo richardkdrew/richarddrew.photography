@@ -4,29 +4,43 @@ This document explains how to set up and manage deployments for the Photography 
 
 ## Overview
 
-The project uses a single Cloudflare Pages project with branch-based deployments:
+The project uses two separate Cloudflare Pages projects for independent staging and production environments:
 
-- **Production**: `main` branch → `richarddrew.photography`
-- **Staging**: `develop` branch (preview) → `dev.richarddrew.photography`
+- **Staging**: `dev-richarddrew-photography` project → `dev.richarddrew.photography`
+  - Deploys from `develop` branch
+  - Version format: `dev-{git-sha}` (e.g., `dev-a1b2c3d`)
 
-Both environments deploy to the same Cloudflare project (`richarddrew-photography`), with production deployments from `main` and preview deployments from `develop`.
+- **Production**: `richarddrew-photography` project → `richarddrew.photography`
+  - Deploys from `main` branch
+  - Version format: Semantic versioning (e.g., `v1.2.3`)
+  - Auto-tagging on merge using conventional commits
+
+This two-project architecture ensures complete environment isolation and stable URLs for both staging and production.
 
 ## Prerequisites
 
-### 1. Cloudflare Pages Project
+### 1. Cloudflare Pages Projects
 
-Ensure the Cloudflare Pages project exists and is properly configured:
+Ensure both Cloudflare Pages projects exist and are properly configured:
 
-**Project**: `richarddrew-photography`
+#### Staging Project: `dev-richarddrew-photography`
 
-**Configuration**:
 1. Log into Cloudflare Dashboard
-2. Navigate to Workers & Pages → Pages → `richarddrew-photography`
+2. Navigate to Workers & Pages → Pages
+3. Create or verify project: `dev-richarddrew-photography`
+4. Go to Settings → Builds & deployments
+5. Set **Production branch** to `develop`
+6. Go to Custom domains
+7. Add custom domain: `dev.richarddrew.photography`
+
+#### Production Project: `richarddrew-photography`
+
+1. Navigate to Workers & Pages → Pages
+2. Create or verify project: `richarddrew-photography`
 3. Go to Settings → Builds & deployments
-4. Verify **Production branch** is set to `main`
+4. Set **Production branch** to `main`
 5. Go to Custom domains
-6. Add custom domain for production: `richarddrew.photography` (main branch)
-7. Add custom domain for staging: `dev.richarddrew.photography` (develop branch preview)
+6. Add custom domain: `richarddrew.photography`
 
 ### 2. Cloudflare API Credentials
 
@@ -111,16 +125,18 @@ After adding secrets, you should see them listed under "Actions secrets":
 - Manual trigger (workflow_dispatch)
 
 **Process**:
+
 1. Checkout code
 2. Install dependencies
 3. Generate version: `dev-{git-sha}` (e.g., `dev-a1b2c3d`)
 4. Build with `VERSION` environment variable
 5. Upload build artifact (30-day retention)
-6. Deploy to `richarddrew-photography` project, `develop` branch (preview deployment)
+6. Deploy to `dev-richarddrew-photography` project
 
 **Deployment URLs**:
-- **Custom domain**: https://dev.richarddrew.photography
-- **Cloudflare preview**: https://develop.richarddrew-photography.pages.dev
+
+- **Custom domain**: <https://dev.richarddrew.photography>
+- **Cloudflare default**: <https://dev-richarddrew-photography.pages.dev>
 
 ### Production Deployment Workflow
 
@@ -143,12 +159,13 @@ After adding secrets, you should see them listed under "Actions secrets":
    - Install dependencies
    - Build with semantic version (e.g., `v1.2.3`)
    - Upload build artifact (30-day retention)
-   - Deploy to `richarddrew-photography` project, `main` branch (production deployment)
+   - Deploy to `richarddrew-photography` project
    - Create GitHub Release with changelog
 
 **Deployment URLs**:
-- **Custom domain**: https://richarddrew.photography
-- **Cloudflare default**: https://richarddrew-photography.pages.dev
+
+- **Custom domain**: <https://richarddrew.photography>
+- **Cloudflare default**: <https://richarddrew-photography.pages.dev>
 
 ## Version Injection
 
@@ -172,7 +189,7 @@ Both deployment workflows support manual triggering for emergency deployments or
 
 **To manually trigger a deployment**:
 
-1. Go to GitHub Actions tab: https://github.com/richarddrew/richarddrew.photography/actions
+1. Go to [GitHub Actions tab](https://github.com/richarddrew/richarddrew.photography/actions)
 2. Select workflow:
    - **Staging**: "Deploy to Dev (Staging)"
    - **Production**: "Deploy to Production"
@@ -194,6 +211,7 @@ Build artifacts are automatically uploaded and retained for 30 days.
    - `production-build-v{version}` (production builds)
 
 **Use cases**:
+
 - Debugging production issues
 - Comparing builds between versions
 - Rollback reference
@@ -205,6 +223,7 @@ Build artifacts are automatically uploaded and retained for 30 days.
 **Cause**: Invalid or expired `CLOUDFLARE_API_TOKEN`
 
 **Solution**:
+
 1. Generate new API token in Cloudflare Dashboard
 2. Update `CLOUDFLARE_API_TOKEN` secret in GitHub
 3. Re-run failed workflow
@@ -214,9 +233,10 @@ Build artifacts are automatically uploaded and retained for 30 days.
 **Cause**: Cloudflare Pages project doesn't exist
 
 **Solution**:
-1. Create project in Cloudflare Dashboard:
-   - Production: `richarddrew-photography`
-   - Staging: `dev-richarddrew-photography`
+
+1. Create projects in Cloudflare Dashboard:
+   - Staging: `dev-richarddrew-photography` (production branch: `develop`)
+   - Production: `richarddrew-photography` (production branch: `main`)
 2. Re-run failed workflow
 
 ### Build Fails: "VERSION not set"
@@ -224,6 +244,7 @@ Build artifacts are automatically uploaded and retained for 30 days.
 **Cause**: Workflow not passing VERSION environment variable
 
 **Solution**:
+
 - Check workflow YAML files have VERSION set correctly
 - For local builds, VERSION defaults to "dev-local" (expected behavior)
 
@@ -232,6 +253,7 @@ Build artifacts are automatically uploaded and retained for 30 days.
 **Cause**: Code changes broke tests or a11y requirements
 
 **Solution**:
+
 1. Run tests locally: `make test-run`
 2. Run a11y tests locally: `make test-a11y`
 3. Fix failing tests
@@ -241,9 +263,10 @@ Build artifacts are automatically uploaded and retained for 30 days.
 
 ### GitHub Actions
 
-Monitor workflow runs: https://github.com/richarddrew/richarddrew.photography/actions
+Monitor workflow runs: [GitHub Actions Dashboard](https://github.com/richarddrew/richarddrew.photography/actions)
 
 **Status badges** in README.md show real-time status:
+
 - Build status
 - Tests passing
 - Accessibility compliance
@@ -253,26 +276,33 @@ Monitor workflow runs: https://github.com/richarddrew/richarddrew.photography/ac
 ### Cloudflare Pages
 
 Monitor deployments in Cloudflare Dashboard:
+
 1. Navigate to Workers & Pages → Pages
-2. Select project (dev or production)
+2. Select project:
+   - Staging: `dev-richarddrew-photography`
+   - Production: `richarddrew-photography`
 3. View deployment history, logs, and metrics
 
 ## Rollback Procedure
 
 If a production deployment needs to be rolled back:
 
-**Option 1: Revert Commit**
+### Option 1: Revert Commit
+
 1. Revert the problematic commit on main branch
 2. Push to main → triggers new deployment with previous code
 
-**Option 2: Manual Deploy from Artifact**
+### Option 2: Manual Deploy from Artifact
+
 1. Download previous production build artifact from GitHub Actions
 2. Use Wrangler CLI to deploy manually:
+
    ```bash
    npx wrangler pages deploy dist/ --project-name=richarddrew-photography
    ```
 
-**Option 3: Cloudflare Rollback**
+### Option 3: Cloudflare Rollback
+
 1. Go to Cloudflare Pages project
 2. View deployment history
 3. Click "..." on previous deployment
@@ -286,14 +316,15 @@ If a production deployment needs to be rolled back:
 4. **Review deployment logs** for suspicious activity
 5. **Monitor GitHub Actions** usage and workflow runs
 6. **Never commit secrets** to repository
-7. **Use branch protection** rules (see docs/branch-protection.md)
+7. **Use branch protection** rules (see [branch-protection.md](./branch-protection.md))
 
 ## Support
 
 For issues or questions:
-- GitHub Issues: https://github.com/richarddrew/richarddrew.photography/issues
-- Cloudflare Support: https://support.cloudflare.com
-- Wrangler Docs: https://developers.cloudflare.com/workers/wrangler/
+
+- [GitHub Issues](https://github.com/richarddrew/richarddrew.photography/issues)
+- [Cloudflare Support](https://support.cloudflare.com)
+- [Wrangler Documentation](https://developers.cloudflare.com/workers/wrangler/)
 
 ## Related Documentation
 

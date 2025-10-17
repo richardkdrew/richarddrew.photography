@@ -4,26 +4,29 @@ This document explains how to set up and manage deployments for the Photography 
 
 ## Overview
 
-The project uses a dual-environment deployment strategy:
+The project uses a single Cloudflare Pages project with branch-based deployments:
 
-- **Staging (dev)**: `dev-richarddrew-photography` - Deploys from `develop` branch
-- **Production**: `richarddrew-photography` - Deploys from `main` branch with semantic versioning
+- **Production**: `main` branch → `richarddrew.photography`
+- **Staging**: `develop` branch (preview) → `dev.richarddrew.photography`
+
+Both environments deploy to the same Cloudflare project (`richarddrew-photography`), with production deployments from `main` and preview deployments from `develop`.
 
 ## Prerequisites
 
-### 1. Cloudflare Pages Projects
+### 1. Cloudflare Pages Project
 
-Ensure two Cloudflare Pages projects exist:
+Ensure the Cloudflare Pages project exists and is properly configured:
 
-1. **Production**: `richarddrew-photography`
-2. **Staging**: `dev-richarddrew-photography`
+**Project**: `richarddrew-photography`
 
-**To create projects**:
+**Configuration**:
 1. Log into Cloudflare Dashboard
-2. Navigate to Workers & Pages → Pages
-3. Click "Create a project" → "Direct Upload"
-4. Name the projects as above
-5. Click "Create project"
+2. Navigate to Workers & Pages → Pages → `richarddrew-photography`
+3. Go to Settings → Builds & deployments
+4. Verify **Production branch** is set to `main`
+5. Go to Custom domains
+6. Add custom domain for production: `richarddrew.photography` (main branch)
+7. Add custom domain for staging: `dev.richarddrew.photography` (develop branch preview)
 
 ### 2. Cloudflare API Credentials
 
@@ -113,9 +116,11 @@ After adding secrets, you should see them listed under "Actions secrets":
 3. Generate version: `dev-{git-sha}` (e.g., `dev-a1b2c3d`)
 4. Build with `VERSION` environment variable
 5. Upload build artifact (30-day retention)
-6. Deploy to `dev-richarddrew-photography` via Wrangler CLI
+6. Deploy to `richarddrew-photography` project, `develop` branch (preview deployment)
 
-**Deployment URL**: https://dev-richarddrew-photography.pages.dev
+**Deployment URLs**:
+- **Custom domain**: https://dev.richarddrew.photography
+- **Cloudflare preview**: https://develop.richarddrew-photography.pages.dev
 
 ### Production Deployment Workflow
 
@@ -138,10 +143,12 @@ After adding secrets, you should see them listed under "Actions secrets":
    - Install dependencies
    - Build with semantic version (e.g., `v1.2.3`)
    - Upload build artifact (30-day retention)
-   - Deploy to `richarddrew-photography` via Wrangler CLI
+   - Deploy to `richarddrew-photography` project, `main` branch (production deployment)
    - Create GitHub Release with changelog
 
-**Deployment URL**: https://richarddrew-photography.pages.dev
+**Deployment URLs**:
+- **Custom domain**: https://richarddrew.photography
+- **Cloudflare default**: https://richarddrew-photography.pages.dev
 
 ## Version Injection
 

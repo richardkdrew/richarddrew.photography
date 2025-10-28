@@ -1,212 +1,197 @@
-# Claude Code Development Guidance
+# Claude Code Quick Start
 
-**Project**: Portfolio Website
-**Updated**: 2025-10-10
+**Last Updated**: 2025-10-28
+**Current Branch**: 008-add-build-actions
+**Latest Feature**: Feature 007 Complete ✅
 **Constitution**: v2.0.0
 
-> **MANDATORY**: All development MUST follow the constitutional requirements defined in `.specify/memory/constitution.md`. The constitution supersedes all other development practices and contains mandatory requirements for specification-first development, TDD, progress tracking with TodoWrite, and architectural consistency.
+> **For AI Assistants**: This file provides fast context loading and routes you to comprehensive documentation. Read this first (2 min), then dive into detailed docs as required by your task type.
 
-## Project Overview
+---
 
-Responsive portfolio website built with modern web technologies. Latest completion: Full-screen image viewer with clean white overlay design. Follows constitutional principles of specification-first development, TDD, and systematic planning.
+## 🚨 Task Type Identification (MANDATORY)
 
-## Current Status: Feature 007 Complete ✅
+**BEFORE ANY WORK**: Identify your task type and read the MANDATORY documentation.
 
-**Branch**: `007-full-screen-image`
-**Status**: **COMPLETE** - Full-screen image viewer with visual navigation
-**Implementation**: White overlay modal, gallery integration with visual order navigation (left-to-right), keyboard controls, responsive design, 96% test coverage (301/313 tests passing)
+### Task Type 1: Feature Implementation
 
-### Tech Stack
-- **Build**: Vite + TypeScript → vanilla HTML/CSS/JavaScript
-- **Commands**: Makefile-only interface (`make dev`, `make build`, `make test`)
-- **Responsive**: CSS-only breakpoints (5-breakpoint system: mobile/tablet/large-tablet/desktop/large-desktop)
-- **Navigation**: Web Components with TypeScript, animated mobile menu
-- **Testing**: Comprehensive test suites (contract, UI, accessibility, performance)
-- **Maintenance**: Component reorganization, test restructuring, asset management
+**Triggers**: User says "add", "create", "implement", "build new feature"
+**Example**: "Add dark mode toggle to the header"
 
-## Development Workflow
+**MANDATORY - Read Before ANY Work**:
 
-### Constitutional Requirements (MANDATORY)
-1. **Specification-First**: Feature spec must be complete before implementation
-2. **Test-Driven Development**: Write tests → verify failure → implement → verify success
-3. **Feature Documentation**: Maintain plan, research, data model, contracts
-4. **Systematic Planning**: Follow numbered task sequence with dependencies
-5. **Simplicity**: Vanilla approach, no framework dependencies
-6. **Progress Tracking**: Use TodoWrite tool for ALL tasks - mark "in_progress" before starting, "completed" immediately after finishing. Include task IDs (T001, T002, etc.). NO BATCHING - update immediately.
+1. ✅ [CONSTITUTION.md](.specify/memory/CONSTITUTION.md) - Sections I-III (Principles, Anti-Patterns, Quality Gates)
+2. ✅ [DEVELOPMENT.md](docs/DEVELOPMENT.md) - Sections 1-7 (Quick Start → Quality Gates)
+3. ✅ CLAUDE.md (this file) - Current Status section
 
-### Command Interface
-All development through Makefile:
+**BEFORE PROCEEDING**: State "I have read [list]. I understand: (1) Specification-first is mandatory, (2) TDD with 4-category tests is required, (3) TodoWrite tracking with task IDs is non-negotiable."
+
+### Task Type 2: Bug Fix / Investigation
+
+**Triggers**: User says "fix", "bug", "error", "broken", "not working"
+**Example**: "Fix the navigation menu on mobile"
+
+**MANDATORY - Read Before ANY Work**:
+
+1. ✅ [ARCHITECTURE.md](docs/ARCHITECTURE.md) - Sections 1-5 (Quick Reference → Testing Infrastructure)
+2. ✅ [DEVELOPMENT.md](docs/DEVELOPMENT.md) - Sections 8-10 (Common Tasks → Troubleshooting)
+3. ✅ CLAUDE.md (this file) - Current Status section
+
+**BEFORE PROCEEDING**: State "I have read [list]. I understand the component architecture and troubleshooting approach."
+
+### Task Type 3: Codebase Exploration
+
+**Triggers**: User says "how does", "explain", "show me", "where is"
+**Example**: "How does the image viewer component work?"
+
+**MANDATORY - Read Before ANY Work**:
+
+1. ✅ [ARCHITECTURE.md](docs/ARCHITECTURE.md) - Complete file (understand system structure)
+2. ✅ CLAUDE.md (this file) - Current Status section
+
+**BEFORE PROCEEDING**: State "I have read ARCHITECTURE.md. I understand the system structure."
+
+### Task Type 4: Deployment / Operations
+
+**Triggers**: User says "deploy", "CI/CD", "GitHub Actions", "Cloudflare"
+**Example**: "Update the deployment workflow"
+
+**MANDATORY - Read Before ANY Work**:
+
+1. ✅ [DEPLOYMENT.md](docs/DEPLOYMENT.md) - Complete file
+2. ✅ [ARCHITECTURE.md](docs/ARCHITECTURE.md) - Section 11 (Deployment Architecture)
+3. ✅ CLAUDE.md (this file) - Current Status section
+
+**BEFORE PROCEEDING**: State "I have read [list]. I understand the deployment architecture and workflows."
+
+---
+
+## 📚 Documentation Map
+
+**Read this depending on your task**:
+
+1. **Implementing a feature?** → [DEVELOPMENT.md](docs/DEVELOPMENT.md)
+   - Complete workflow (spec → plan → test → implement → PR)
+   - Code standards, testing requirements, TodoWrite usage
+   - Quality gates, troubleshooting, commands reference
+
+2. **Understanding the system?** → [ARCHITECTURE.md](docs/ARCHITECTURE.md)
+   - System structure, component architecture, data flow
+   - Build pipeline, responsive system, performance architecture
+   - Browser support, deployment architecture
+
+3. **Understanding project values?** → [CONSTITUTION.md](.specify/memory/CONSTITUTION.md)
+   - 20 foundational principles (vanilla-first, TDD, accessibility)
+   - Anti-patterns, quality gates, success metrics
+   - Source of truth for architectural decisions
+
+4. **Setting up deployment?** → [DEPLOYMENT.md](docs/DEPLOYMENT.md)
+   - Cloudflare setup, GitHub secrets, workflows
+   - Troubleshooting, rollback procedures
+
+5. **Configuring GitHub?** → [BRANCH-PROTECTION.md](docs/BRANCH-PROTECTION.md)
+   - Branch protection rules, status checks
+   - PR workflow, bypass procedures
+
+---
+
+## 🚀 Quick Context
+
+**Project**: Photography portfolio website
+**Tech**: TypeScript → Vanilla JavaScript, Web Components, Vite
+**Testing**: 98.9% coverage (350/354 tests passing)
+**Status**: Production-ready (v1.0.0 pending)
+
+---
+
+## ✅ Current Status
+
+### Completed Features (7)
+
+- ✅ **Masonry Gallery** - Responsive, lazy loading, 5-breakpoint system
+- ✅ **Full-Screen Image Viewer** - White overlay, visual navigation, keyboard controls
+- ✅ **Dark Mode** - WCAG AA, localStorage persistence, FOUC prevention
+- ✅ **Responsive Images** - WebP/JPEG, srcset, LQIP blur placeholders
+- ✅ **PWA** - Service worker, offline, installable
+- ✅ **About Page** - Hero layout, responsive
+- ✅ **CI/CD** - GitHub Actions, Cloudflare Pages, automated deployments
+
+### Current Work
+- **Branch**: 008-add-build-actions
+- **Status**: Complete, ready to merge
+- **Next**: Merge to develop → QA → production (v1.0.0)
+
+---
+
+## 🎯 Quick Commands
+
 ```bash
-# Core Commands
-make dev                # Start development server
-make build              # Production build
-make preview            # Preview production build
-make clean              # Remove build artifacts
-make install            # Install dependencies
-
-# Testing Commands (Constitutional 4-Category Pattern)
-make test               # Run all tests in watch mode
-make test-run           # Run all tests once (CI/pre-commit quality gate)
-make test-coverage      # Generate coverage report (validate 90%+ requirement)
-make test-contract      # Run contract tests only (*-contract.test.ts)
-make test-ui-tests      # Run UI behavior tests only (*-ui.test.ts)
-make test-a11y          # Run accessibility tests only (*-accessibility.test.ts)
-make test-perf          # Run performance tests only (*-performance.test.ts)
-make test-vitest-ui     # Open Vitest UI dashboard
-
-# Development Helpers
-make validate-manifest  # Validate gallery-data.json format
-make check-images       # Verify all manifest images exist
-make help               # Show all available commands
+make dev           # Start dev server (localhost:3000)
+make test-run      # Run all tests (CI mode)
+make build         # Production build
+make test-coverage # Check coverage (90%+ required)
 ```
 
-### File Structure
-```
-# Current maintenance feature
-specs/004-project-maintenance-and/
-├── spec.md           # Feature specification (16 functional requirements)
-├── plan.md           # Implementation plan (complete)
-├── research.md       # Technical research and decisions
-├── data-model.md     # TypeScript interfaces and entities
-├── quickstart.md     # Manual testing scenarios
-└── contracts/        # API contracts for maintenance operations
+**Full commands**: See [DEVELOPMENT.md - Commands Reference](docs/DEVELOPMENT.md#commands-reference)
 
-# Component organization (established pattern)
-src/components/about-page/     # Reference pattern for reorganization
-├── about-page.ts              # Component logic (inline template preferred)
-├── about-page.css             # Component styles
-├── about-page.types.ts        # TypeScript interfaces
-└── about-page.html            # Component template (optional, inline preferred)
+---
 
-# Test organization (established pattern)
-tests/about-page/              # Reference pattern for restructuring
-├── about-page-contract.test.ts     # Contract/interface tests
-├── about-page-ui.test.ts           # UI behavior tests
-├── about-page-accessibility.test.ts # A11y compliance tests
-└── about-page-performance.test.ts   # Performance validation tests
+## 📋 Quick Reference
+
+### Component Pattern
+
+```text
+src/components/name/
+├── name.ts        # Web Component class
+├── name.css       # Styles
+├── name.types.ts  # TypeScript interfaces
+└── name.html      # Template (optional)
 ```
 
-## Implementation Guidelines
+### Test Pattern (4 categories - MANDATORY)
 
-### TypeScript Development
-- Compile to vanilla ES6+ JavaScript (no framework runtime)
-- Use interfaces for type safety during development
-- Web Components with TypeScript classes
-- Target modern browsers (ES2020+)
+```text
+tests/name/
+├── name-contract.test.ts      # API/interfaces
+├── name-ui.test.ts            # User interactions
+├── name-accessibility.test.ts # WCAG compliance
+└── name-performance.test.ts   # Benchmarks
+```
 
-### CSS Strategy
-- CSS Custom Properties for design tokens and responsive breakpoints (5-breakpoint system)
-- Rem-based measurements for accessibility and scalability
-- CSS transforms for smooth animations
-- Z-index layering for navigation overlays
+**Detailed patterns**: See [DEVELOPMENT.md - Code Standards](docs/DEVELOPMENT.md#code-standards)
 
-### Navigation Strategy
-- Responsive design: desktop nav bar → mobile hamburger menu
-- Smooth hamburger-to-cross animation
-- Full-screen mobile overlay with scroll prevention
-- Accessible ARIA states and keyboard navigation
+---
 
-### Testing Approach
-- Contract tests for API interfaces
-- Integration tests for responsive behavior
-- Manual testing scenarios documented
-- Local test data with JSON manifest
+## 📝 Recent Changes
 
-## Current Phase Status
+- 2025-10-28: **DEVELOPMENT.md + ARCHITECTURE.md Created** ✅ - Comprehensive documentation (77KB, 2,997 lines) split by purpose (HOW vs WHAT)
+- 2025-10-10: **Constitution Updated to v2.0.0** ✅ - 20 principle-based guidelines
+- 2025-10-10: **View Transitions API** ✅ - Native page transitions (Chrome/Edge)
+- 2025-10-03: **Feature 007 Complete** ✅ - Full-screen image viewer (96% coverage)
+- 2025-10-01: **Feature 006 Complete** ✅ - Dark mode (99.2% passing)
+- 2025-09-30: **Feature 005 Complete** ✅ - Responsive images (100% passing)
 
-**Completed Features**:
-- ✅ **Initial Masonry Layout**: Responsive image gallery with column-based layout
-- ✅ **Portfolio Header**: Responsive navigation with mobile hamburger menu
-- ✅ **About Page**: Hero-only layout with responsive image and professional summary
-- ✅ **PWA Functionality**: Service worker, manifest, offline capabilities
-- ✅ **Responsive Images (005)**: Picture element, WebP/JPEG fallback, srcset, lazy loading
-- ✅ **Dark Mode Support (006)**: ThemeToggle component, localStorage persistence, WCAG AA compliant
-- ✅ **Full-Screen Image Viewer (007)**: White overlay modal, visual navigation, gallery integration, 96% test coverage
+---
 
-**Completed Phase**: Dark Mode Support (006) ✅
-- ✅ ThemeToggle Web Component with light/dark theme switching
-- ✅ localStorage persistence (device-local, no cross-device sync)
-- ✅ FOUC prevention with inline script in <head>
-- ✅ Dark mode color palette in design-system.css (WCAG AA compliant)
-- ✅ Integrated into header (desktop nav + mobile menu)
-- ✅ Logo variants for light/dark modes (CSS-based switching)
-- ✅ CSS-driven icon visibility (no JavaScript template updates)
-- ✅ Cross-instance synchronization (storage events + custom events)
-- ✅ All 68 theme-toggle tests passing (contract, UI, accessibility, performance)
-- ✅ Fixed IntersectionObserver mock for gallery tests (added tests/setup.ts)
-- ✅ **248/250 tests passing (99.2%)** - 2 remaining failures are JSDOM rendering limitations
+## 🚨 Key Reminders for AI Assistants
 
-**Completed Phase**: Responsive Images (005) ✅
-- ✅ Core responsive image support integrated into gallery component
-- ✅ Picture element with WebP/JPEG fallback and srcset
-- ✅ Aspect-ratio CSS for layout stability
-- ✅ Responsive manifest format with multiple image sizes
-- ✅ Intersection Observer lazy loading (200px buffer for progressive loading)
-- ✅ Enhanced responsive breakpoints (2-column at 32rem for large mobile/landscape)
-- ✅ Mobile UX improvements (hamburger animation, menu stability)
-- ✅ Component simplification (AboutPage reduced 84%, removed over-engineering)
-- ✅ All tests passing (gallery: 79/79, about-page: 25/25)
+1. **TDD is MANDATORY** - Write tests first, verify failure, implement, verify success
+2. **TodoWrite for ALL tasks** - Track in_progress → completed immediately (NO BATCHING)
+3. **90%+ coverage required** - Non-negotiable quality gate
+4. **Constitution is source of truth** - Read `.specify/memory/CONSTITUTION.md` for principles
+5. **Specification-first** - No implementation without approved spec
 
-## Architecture Decisions
+---
 
-### Responsive Strategy
-- **Mobile**: <768px, hamburger menu with full-screen overlay
-- **Tablet**: 768-1199px, desktop navigation bar
-- **Desktop**: 1200px+, full navigation with enhanced logo sizing
-- Page container width: 92% (≤2 columns) / 96% (3+ columns) for scrollbar compensation
+## 🔗 Quick Links
 
-### Component Architecture
-- **Component Organization**: Group related files in dedicated component folders
-  ```
-  src/components/component-name/
-  ├── component-name.ts        # Component logic & Web Component class
-  ├── component-name.css       # Component-specific styles
-  ├── component-name.html      # Component template (if needed)
-  └── component-name.types.ts  # TypeScript interfaces & types
-  ```
-- **Separation of Concerns**: Logic, styles, templates, and types in separate files
-- **Web Components**: TypeScript classes extending HTMLElement
-- **CSS Custom Properties**: Design tokens and responsive breakpoints (5-breakpoint system)
-- **Event-driven State Management**: Component lifecycle and user interactions
-- **Accessible Implementation**: Focus management and ARIA attributes
+- [Development Workflow](docs/DEVELOPMENT.md#development-workflow)
+- [Architecture Overview](docs/ARCHITECTURE.md#architectural-principles)
+- [Constitutional Principles](.specify/memory/CONSTITUTION.md#i-foundational-principles)
+- [Testing Requirements](docs/DEVELOPMENT.md#testing-requirements)
+- [Troubleshooting](docs/DEVELOPMENT.md#troubleshooting)
 
-### Theme System (Feature 006)
-- **Native CSS Approach**: `[data-theme="dark"]` attribute on `<html>` element
-- **CSS Custom Properties**: Color overrides for dark mode
-- **Minimal JavaScript**: Only for toggle and localStorage (no state management)
-- **FOUC Prevention**: Inline script in `<head>` sets theme before CSS parse
-- **Storage**: localStorage with key `theme`, values `"light"` | `"dark"`
-- **Default**: Always light mode (no system preference detection)
-- **Performance**: <100ms toggle, 250ms CSS transition
-- **Integration**: Toggle at rightmost nav (desktop), bottom of mobile menu
+---
 
-### Build Strategy
-- Vite for modern development experience
-- TypeScript for development-time safety
-- Output vanilla web technologies
-- Makefile abstraction for tool independence
-
-## Performance Requirements
-
-- Smooth 60fps scrolling and resize
-- <200ms image load initiation
-- No layout jitter during responsive transitions
-- Memory efficient with lazy loading
-
-## Quality Gates
-
-Before any implementation:
-1. All tests written and failing (TDD requirement)
-2. Constitutional compliance verified
-3. Task dependencies clearly defined
-4. Manual testing scenarios ready
-
-## Recent Changes
-- 2025-10-10: **Constitution Updated to v2.0.0** ✅ - Major restructure from prescriptive rules to 20 principle-based guidelines documenting proven patterns. Added comprehensive quality gates, success metrics, anti-patterns, 6-phase development workflow, and proven component/test/CSS templates. File size: 189 → 687 lines. Philosophy: "The web platform is powerful enough. Use it."
-- 2025-10-10: **View Transitions API Implemented** ✅ - Added native cross-document view transitions for smooth page navigation (Chrome 126+, Edge 126+). Header persists, content fades (300ms). Zero JavaScript. Graceful degradation for Safari/Firefox. ~60 lines CSS in design-system.css.
-- 2025-10-10: **Hamburger Animation Optimized** ✅ - Replaced layout-triggering animations with GPU-accelerated transform-only approach. 60fps smooth burger-to-cross transition (150ms, down from 180ms). No layout reflow.
-- 2025-10-10: **Makefile Enhanced with Test Commands** ✅ - Added comprehensive test category commands: test-contract, test-ui-tests, test-a11y, test-perf, test-coverage, test-run. Supports constitutional 4-category test pattern and quality gates. Removed placeholder commands.
-- 2025-10-10: **Cleanup: Removed 12 Unused Placeholder Images** ✅ - Deleted landscape/portrait/square-001-{200,250,300,500}.jpg files (not referenced, gallery uses Lorem Picsum URLs). Build verified successful.
-- 2025-10-03: **Feature 007: Full-Screen Image Viewer Complete** ✅ - White overlay modal with visual order navigation, keyboard controls, responsive design. **301/313 tests passing (96%)** - remaining failures are JSDOM limitations. Key decisions: NO History API, NO scroll position management, visual navigation matches reading order.
-- 2025-10-01: **Feature 006: Dark Mode Support Complete** ✅ - ThemeToggle Web Component with localStorage persistence, FOUC prevention, WCAG AA compliant. **248/250 tests passing (99.2%)**.
-- 2025-09-30: **Feature 005: Responsive Images Complete** ✅ - Picture element, WebP/JPEG fallback, srcset (6 sizes: 400w-1600w), LQIP blur placeholders. All 211 tests passing.
+**For comprehensive details**: Read the full documentation files above.
+**For quick orientation**: You've just read it (this file).

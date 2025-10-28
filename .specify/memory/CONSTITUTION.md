@@ -721,6 +721,111 @@ example-component {
 
 ---
 
+## IX. Documentation Requirements
+
+### Purpose
+
+This section defines **MANDATORY** documentation reading requirements based on task type. Compliance ensures constitutional principles are understood and followed.
+
+### Required Reading by Task Type
+
+#### Task Type 1: Feature Implementation
+
+**Triggers**: Adding new features, creating components, implementing functionality
+
+**MUST READ** (non-negotiable):
+
+1. **constitution.md** - Sections I-III (Foundational Principles, Anti-Patterns, Quality Gates)
+2. **DEVELOPMENT.md** - Sections 1-7 (Quick Start through Quality Gates)
+3. **CLAUDE.md** - Current Status section (understand completed features, current work)
+
+**Rationale**: Feature implementation affects architecture and must follow all constitutional principles including specification-first development, TDD, and TodoWrite tracking.
+
+**Enforcement**:
+- TodoWrite tracking MUST reference task IDs from plan.md (proves spec exists)
+- Tests MUST follow 4-category pattern (proves DEVELOPMENT.md was read)
+- PR template MUST confirm documentation compliance
+
+#### Task Type 2: Bug Fix / Investigation
+
+**Triggers**: Fixing bugs, debugging errors, investigating issues
+
+**MUST READ** (non-negotiable):
+
+1. **ARCHITECTURE.md** - Sections 1-5 (Quick Reference through Testing Infrastructure)
+2. **DEVELOPMENT.md** - Sections 8-10 (Common Tasks through Troubleshooting)
+3. **CLAUDE.md** - Current Status section
+
+**Rationale**: Bug fixes require understanding system architecture and established troubleshooting patterns.
+
+**Enforcement**:
+- Investigation MUST reference architectural patterns
+- Fixes MUST include tests proving bug existed and is resolved
+- PR template MUST confirm documentation compliance
+
+#### Task Type 3: Codebase Exploration
+
+**Triggers**: Understanding how things work, code review, learning the system
+
+**MUST READ** (non-negotiable):
+
+1. **ARCHITECTURE.md** - Complete file (comprehensive system understanding)
+2. **CLAUDE.md** - Current Status section
+
+**Rationale**: Exploration tasks require complete architectural context to provide accurate explanations.
+
+**Enforcement**:
+- Explanations MUST reference specific architectural sections
+- Code examples MUST follow established patterns
+
+#### Task Type 4: Deployment / Operations
+
+**Triggers**: Deployment changes, CI/CD updates, infrastructure modifications
+
+**MUST READ** (non-negotiable):
+
+1. **deployment.md** - Complete file (deployment procedures and architecture)
+2. **ARCHITECTURE.md** - Section 11 (Deployment Architecture)
+3. **CLAUDE.md** - Current Status section
+
+**Rationale**: Deployment changes affect production systems and require complete operational context.
+
+**Enforcement**:
+- Changes MUST preserve existing deployment patterns
+- Updates MUST include rollback procedures
+- PR template MUST confirm documentation compliance
+
+### Acknowledgment Requirement
+
+Before proceeding with any task, AI assistants MUST state:
+
+```
+I have read [list of documentation]. I understand [2-3 key principles relevant to task type].
+```
+
+**Example for Feature Implementation**:
+> "I have read constitution.md (Sections I-III), DEVELOPMENT.md (Sections 1-7), and CLAUDE.md (Current Status). I understand: (1) Specification-first development is mandatory, (2) TDD with 4-category tests is required, (3) TodoWrite tracking with task IDs is non-negotiable."
+
+### Workflow Artifacts as Proof
+
+The following artifacts serve as **proof** that required documentation was read:
+
+1. **spec.md exists** → Proves constitution Principle 6 (Specification-First) was followed
+2. **plan.md with task IDs** → Proves systematic planning was followed
+3. **4-category tests** → Proves DEVELOPMENT.md testing requirements were read
+4. **TodoWrite with task IDs** → Proves constitution Principle 16 was followed
+5. **PR checklist completed** → Final verification gate
+
+### Governance
+
+These documentation requirements are **constitutional mandates**. They cannot be bypassed or negotiated.
+
+**Amendment Process**: Changes to documentation requirements follow standard constitutional amendment process (Section VII).
+
+**Version**: Documentation requirements established 2025-10-28 as part of constitution v2.0.0.
+
+---
+
 **End of Constitution v2.0.0**
 
 *This constitution represents the distilled wisdom of successful implementations. Follow these principles, and the code will be maintainable, performant, and accessible.*

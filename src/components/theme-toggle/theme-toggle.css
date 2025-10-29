@@ -8,14 +8,14 @@
 theme-toggle {
   /* Reset */
   margin: 0;
-  padding: var(--space-sm) 0; /* Match nav link vertical padding for alignment */
+  padding: 0; /* Remove padding - parent nav-item handles alignment */
   border: none;
   background: none;
   font: inherit;
   color: inherit;
   cursor: pointer;
 
-  /* Button Sizing - Match nav link height */
+  /* Button Sizing - Match nav link visual size */
   width: 2.25rem;
   height: 2.25rem;
 
@@ -24,6 +24,9 @@ theme-toggle {
   align-items: center;
   justify-content: center;
   position: relative;
+
+  /* Vertical alignment with text - shift up slightly to match text optical center */
+  transform: translateY(-0.0625rem); /* -1px subtle shift for optical alignment */
 
   /* Interaction */
   -webkit-tap-highlight-color: transparent;
@@ -68,8 +71,12 @@ theme-toggle {
 }
 
 /* Hover State */
+theme-toggle:hover {
+  transform: translateY(-0.0625rem) scale(1.05); /* Maintain alignment, subtle scale */
+}
+
 theme-toggle:hover .theme-toggle__icon {
-  transform: translate(-50%, -50%) scale(1.1);
+  transform: translate(-50%, -50%);
   color: var(--color-interactive);
 }
 

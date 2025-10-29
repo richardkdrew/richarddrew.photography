@@ -90,8 +90,8 @@
   z-index: 20;
 
   background: rgba(255, 255, 255, 0.3);
-  border: 1px solid rgba(0, 0, 0, 0.1);
-  color: rgba(0, 0, 0, 0.6);
+  border: 1px solid var(--color-interactive);
+  color: var(--color-interactive);
 
   padding: 0.5rem 1rem;
   border-radius: 1.5rem;
@@ -100,25 +100,22 @@
   font-weight: 400;
   user-select: none;
 
-  opacity: 0.7;
+  opacity: 1;
   transition: opacity 0.2s ease;
 }
 
 .viewer__counter:hover {
   opacity: 1;
-  border-color: var(--color-interactive);
-  color: var(--color-interactive);
 }
 
 [data-theme="dark"] .viewer__counter {
   background: rgba(0, 0, 0, 0.3);
-  border-color: rgba(255, 255, 255, 0.1);
-  color: rgba(255, 255, 255, 0.6);
+  border: 1px solid var(--color-interactive);
+  color: var(--color-interactive);
 }
 
 [data-theme="dark"] .viewer__counter:hover {
-  border-color: var(--color-interactive);
-  color: var(--color-interactive);
+  opacity: 1;
 }
 
 /* Content Area */

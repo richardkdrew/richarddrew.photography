@@ -30,10 +30,6 @@ export class UniformGallery extends HTMLElement implements IUniformGallery {
   private static sharedResizeObserver?: ResizeObserver
   private static observedGalleries = new Set<UniformGallery>()
 
-  static get observedAttributes() {
-    return ['data-manifest-url']
-  }
-
   connectedCallback() {
     this.initialize()
   }
@@ -48,6 +44,12 @@ export class UniformGallery extends HTMLElement implements IUniformGallery {
     this.setupLazyLoading()
     this.setupRevealObserver()
     await this.loadImages()
+    if (!this.images.length) {
+      this.dispatchEvent(new CustomEvent('uniform-gallery:error', {
+        detail: { message: 'Failed to load gallery' }
+      }))
+      return
+    }
     this.renderImages()
     this.setupViewerIntegration()
     this.isInitialized = true
@@ -253,7 +255,11 @@ export class UniformGallery extends HTMLElement implements IUniformGallery {
   // ── Error ─────────────────────────────────────────────
 
   private showError(message: string): void {
-    this.innerHTML = `<div class="uniform-gallery-error">${message}</div>`
+    const container = document.createElement('div')
+    container.className = 'uniform-gallery-error'
+    container.textContent = message
+    this.innerHTML = ''
+    this.appendChild(container)
   }
 
   // ── LQIP ─────────────────────────────────────────────
@@ -270,7 +276,7 @@ export class UniformGallery extends HTMLElement implements IUniformGallery {
         placeholder.style.backgroundColor = image.lqip.dominantColor || '#f0f0f0'
       }
     } else if (image.lqip.type === 'blur') {
-      placeholder.style.backgroundImage = `url(${image.lqip.data})`
+      placeholder.style.backgroundImage = `url("${image.lqip.data}")`
     }
     wrapper.appendChild(placeholder)
   }
@@ -279,6 +285,7 @@ export class UniformGallery extends HTMLElement implements IUniformGallery {
 
   private cleanup(): void {
     UniformGallery.observedGalleries.delete(this)
+    UniformGallery.sharedResizeObserver?.unobserve(this)
     if (UniformGallery.observedGalleries.size === 0) {
       UniformGallery.sharedImageObserver?.disconnect()
       UniformGallery.sharedImageObserver = undefined

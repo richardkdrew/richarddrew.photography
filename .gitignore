@@ -111,6 +111,9 @@ coverage/
 .specify/local/
 settings.local.json
 
+# Git worktrees
+.worktrees/
+
 # Image processing cache (if added later)
 .image-cache/
 

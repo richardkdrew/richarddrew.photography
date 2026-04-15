@@ -42,7 +42,7 @@
 
 /* ── Breakpoints ──────────────────────────────────────── */
 
-@media (max-width: 56rem) {       /* ≤896px tablet */
+@media (min-width: 36rem) and (max-width: 56rem) {  /* 576–896px tablet */
   .uniform-gallery {
     --row-height: 280px;
   }
@@ -53,7 +53,6 @@
     flex-basis: 100%;
     height: auto;
     aspect-ratio: var(--ar);    /* natural proportions, no cropping */
-    opacity: 0;                 /* reset so reveal observer fires */
   }
   .gallery-spacer {
     display: none;

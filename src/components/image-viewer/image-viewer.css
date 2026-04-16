@@ -171,35 +171,17 @@
   height: 100%;
 }
 
-/* Image Styles - Full viewport with orientation-based sizing */
+/* Image Styles - Full viewport, object-fit handles letterboxing for all orientations */
 .viewer__image {
+  width: 100vw;
+  height: 100vh;
   max-width: 100vw;
   max-height: 100vh;
-  width: auto;
-  height: auto;
   object-fit: contain;
   object-position: center;
   display: block;
 
   transition: opacity 200ms ease-in-out;
-}
-
-/* Landscape images: fill width */
-.viewer__image[data-orientation="landscape"] {
-  width: 100vw;
-  height: auto;
-}
-
-/* Portrait images: fill height */
-.viewer__image[data-orientation="portrait"] {
-  width: auto;
-  height: 100vh;
-}
-
-/* Square images: fill smaller dimension */
-.viewer__image[data-orientation="square"] {
-  width: 100vmin;
-  height: 100vmin;
 }
 
 /* Navigation Buttons */

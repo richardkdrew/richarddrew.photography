@@ -288,11 +288,11 @@ export class UniformGallery extends HTMLElement implements IUniformGallery {
     UniformGallery.sharedResizeObserver?.unobserve(this)
     if (UniformGallery.observedGalleries.size === 0) {
       UniformGallery.sharedImageObserver?.disconnect()
-      UniformGallery.sharedImageObserver = undefined
+      delete UniformGallery.sharedImageObserver
       UniformGallery.sharedRevealObserver?.disconnect()
-      UniformGallery.sharedRevealObserver = undefined
+      delete UniformGallery.sharedRevealObserver
       UniformGallery.sharedResizeObserver?.disconnect()
-      UniformGallery.sharedResizeObserver = undefined
+      delete UniformGallery.sharedResizeObserver
     }
     this.isInitialized = false
     this.cachedImageData = null

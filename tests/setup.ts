@@ -3,6 +3,21 @@
  * Global mocks and polyfills for JSDOM environment
  */
 
+// Polyfill localStorage for JSDOM (JSDOM requires a url to enable localStorage,
+// and older vitest configs don't always pass one through)
+if (typeof window !== 'undefined' && typeof window.localStorage === 'undefined' || typeof window.localStorage?.getItem !== 'function') {
+  const store: Record<string, string> = {}
+  const localStorageMock = {
+    getItem: (key: string) => store[key] ?? null,
+    setItem: (key: string, value: string) => { store[key] = String(value) },
+    removeItem: (key: string) => { delete store[key] },
+    clear: () => { Object.keys(store).forEach(k => delete store[k]) },
+    get length() { return Object.keys(store).length },
+    key: (index: number) => Object.keys(store)[index] ?? null
+  }
+  Object.defineProperty(window, 'localStorage', { value: localStorageMock, configurable: true })
+}
+
 // Import components to register custom elements
 import '../src/components/image-viewer/image-viewer'
 

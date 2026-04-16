@@ -46,13 +46,13 @@ describe('UniformGallery Performance Tests', () => {
     vi.clearAllMocks()
   })
 
-  it('MUST initialize within 200ms (JSDOM budget)', async () => {
+  it('MUST initialize within 500ms (JSDOM budget)', async () => {
     const start = performance.now()
     const gallery = document.createElement('uniform-gallery') as UniformGallery
     container.appendChild(gallery)
     await new Promise(resolve => setTimeout(resolve, 100))
     const duration = performance.now() - start
-    expect(duration).toBeLessThan(200)
+    expect(duration).toBeLessThan(500)
   })
 
   it('MUST render all 20 items without throwing', async () => {

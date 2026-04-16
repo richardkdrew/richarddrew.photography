@@ -4,6 +4,7 @@
  */
 
 // Import design system, components, and about page
+import '../styles/fonts.css'
 import '../styles/design-system.css'
 import '../components/header/header.css'
 import '../components/header/header'

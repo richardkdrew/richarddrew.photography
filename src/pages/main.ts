@@ -4,6 +4,7 @@
  */
 
 // Import design system, components, and simplified gallery
+import '../styles/fonts.css'
 import '../styles/design-system.css'
 import '../components/header/header.css'
 import '../components/header/header'

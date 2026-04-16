@@ -106,7 +106,7 @@ The layout is almost entirely CSS. JS sets one custom property (`--ar`) per imag
 | Viewport | `--row-height` | Typical images/row |
 |---|---|---|
 | `≥56rem` (896px+) | 300px | 3–4 |
-| `36–56rem` (576–896px) | 220px | 3 |
+| `36–56rem` (576–896px) | 280px | 2 |
 | `<36rem` (≤576px) | — | single column |
 
 **Single column (mobile portrait — `<36rem`):**
@@ -254,7 +254,7 @@ Carried over from `MasonryGallery`:
 | Rows fill container edge-to-edge | All rows except last |
 | Last row left-aligned | No stretching |
 | Portrait mode (iPhone 16 Pro) | Single column, full-width |
-| Landscape mode (iPhone 16 Pro) | 3–4 images per row at 220px |
+| Landscape mode (iPhone 16 Pro) | 2 images per row at 280px |
 | Scroll reveal | Images fade in on viewport entry |
 | LQIP blur-up | Works identically to existing gallery |
 | Viewer opens on click | Same behaviour as existing gallery |

@@ -4,12 +4,15 @@
  */
 
 // Import design system, components, and simplified gallery
+import '../styles/fonts.css'
 import '../styles/design-system.css'
 import '../components/header/header.css'
 import '../components/header/header'
 import '../components/gallery/gallery.css'
 import '../components/gallery/gallery'
 import '../components/image-viewer/image-viewer'
+import '../components/uniform-gallery/uniform-gallery.css'
+import '../components/uniform-gallery/uniform-gallery'
 
 console.log('📸 Portfolio: Loading...')
 

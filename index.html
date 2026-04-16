@@ -36,12 +36,6 @@
     })();
   </script>
 
-  <!-- Import Fonts -->
-  <link rel="stylesheet" href="/src/styles/fonts.css">
-
-  <!-- Import Design System -->
-  <link rel="stylesheet" href="/src/styles/design-system.css">
-
   <!-- Critical inline styles for loading state -->
   <style>
     /* Loading state before JavaScript loads */
@@ -60,7 +54,7 @@
       display: none;
     }
 
-    masonry-gallery {
+    uniform-gallery {
       display: block;
       min-height: 400px;
     }
@@ -74,14 +68,14 @@
 
     <main style="view-transition-name: main">
       <!-- Portfolio Gallery -->
-      <masonry-gallery
+      <uniform-gallery
         data-manifest-url="/gallery-data.json"
         role="main"
         aria-label="Portfolio image gallery">
         <div class="gallery-loading-fallback">
           Loading portfolio...
         </div>
-      </masonry-gallery>
+      </uniform-gallery>
 
     </main>
   </div>

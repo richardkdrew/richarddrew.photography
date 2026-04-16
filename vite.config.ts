@@ -29,6 +29,11 @@ export default defineConfig({
   },
   test: {
     environment: 'jsdom',
+    environmentOptions: {
+      jsdom: {
+        url: 'http://localhost/'
+      }
+    },
     globals: true,
     include: ['tests/**/*.{test,spec}.{js,ts}'],
     exclude: ['tests/manual/**']

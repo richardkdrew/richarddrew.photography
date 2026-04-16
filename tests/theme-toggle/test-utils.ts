@@ -3,7 +3,7 @@
  * Shared setup and utilities for theme-toggle tests
  */
 
-import '../../src/components/theme-toggle/theme-toggle.js'
+import '../../src/components/theme-toggle/theme-toggle'
 
 /**
  * Setup theme-toggle for testing

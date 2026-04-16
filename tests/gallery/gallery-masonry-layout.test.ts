@@ -204,7 +204,7 @@ describe('Masonry Gallery - E2E Layout & Resize Tests', () => {
     // NOTE: This test requires real browser layout calculations
     // Runs in Playwright E2E tests (tests/e2e/gallery-layout.spec.ts)
     // Skipped in CI JSDOM environment due to layout rendering limitations
-    it.skipIf(!!process.env.CI)('should display 1 column on mobile (< 768px)', async () => {
+    it.skip('should display 1 column on mobile (< 768px)', async () => {
       // Set mobile viewport
       Object.defineProperty(window, 'innerWidth', { writable: true, value: 400 })
       Object.defineProperty(gallery, 'offsetWidth', { writable: true, value: 380 })
@@ -281,7 +281,7 @@ describe('Masonry Gallery - E2E Layout & Resize Tests', () => {
     // NOTE: This test requires real browser layout calculations
     // Runs in Playwright E2E tests (tests/e2e/gallery-layout.spec.ts)
     // Skipped in CI JSDOM environment due to layout rendering limitations
-    it.skipIf(!!process.env.CI)('should have width set for wide layouts', async () => {
+    it.skip('should have width set for wide layouts', async () => {
       // Desktop viewport - should be 3+ columns
       Object.defineProperty(window, 'innerWidth', { writable: true, value: 1200 })
       Object.defineProperty(gallery, 'offsetWidth', { writable: true, value: 1104 })
@@ -395,7 +395,7 @@ describe('Masonry Gallery - E2E Layout & Resize Tests', () => {
     // NOTE: This test requires real browser layout calculations
     // Runs in Playwright E2E tests (tests/e2e/gallery-layout.spec.ts)
     // Skipped in CI JSDOM environment due to layout rendering limitations
-    it.skipIf(!!process.env.CI)('should maintain aspect ratios', async () => {
+    it.skip('should maintain aspect ratios', async () => {
       // Wait for images to load
       await new Promise(resolve => setTimeout(resolve, 300))
 

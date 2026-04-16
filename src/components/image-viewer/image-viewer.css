@@ -171,12 +171,17 @@
   height: 100%;
 }
 
-/* Image Styles - Full viewport, object-fit handles letterboxing for all orientations */
+/* picture must fill the container so the img's 100% resolves correctly */
+.viewer__image-container picture {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+/* Image Styles - fills container, object-fit handles letterboxing for all orientations */
 .viewer__image {
-  width: 100vw;
-  height: 100vh;
-  max-width: 100vw;
-  max-height: 100vh;
+  width: 100%;
+  height: 100%;
   object-fit: contain;
   object-position: center;
   display: block;

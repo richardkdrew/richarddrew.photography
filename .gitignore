@@ -108,8 +108,8 @@ test-results/
 coverage/
 
 # Claude Code specific
-.specify/local/
 settings.local.json
+.superpowers/
 
 # Git worktrees
 .worktrees/

@@ -20,7 +20,7 @@
 
 **MANDATORY - Read Before ANY Work**:
 
-1. ✅ [CONSTITUTION.md](.specify/memory/CONSTITUTION.md) - Sections I-III (Principles, Anti-Patterns, Quality Gates)
+1. ✅ [CONSTITUTION.md](docs/CONSTITUTION.md) - Sections I-III (Principles, Anti-Patterns, Quality Gates)
 2. ✅ [DEVELOPMENT.md](docs/DEVELOPMENT.md) - Sections 1-7 (Quick Start → Quality Gates)
 3. ✅ CLAUDE.md (this file) - Current Status section
 
@@ -80,7 +80,7 @@
    - Build pipeline, responsive system, performance architecture
    - Browser support, deployment architecture
 
-3. **Understanding project values?** → [CONSTITUTION.md](.specify/memory/CONSTITUTION.md)
+3. **Understanding project values?** → [CONSTITUTION.md](docs/CONSTITUTION.md)
    - 20 foundational principles (vanilla-first, TDD, accessibility)
    - Anti-patterns, quality gates, success metrics
    - Source of truth for architectural decisions
@@ -178,7 +178,7 @@ tests/name/
 1. **TDD is MANDATORY** - Write tests first, verify failure, implement, verify success
 2. **TodoWrite for ALL tasks** - Track in_progress → completed immediately (NO BATCHING)
 3. **90%+ coverage required** - Non-negotiable quality gate
-4. **Constitution is source of truth** - Read `.specify/memory/CONSTITUTION.md` for principles
+4. **Constitution is source of truth** - Read `docs/CONSTITUTION.md` for principles
 5. **Specification-first** - No implementation without approved spec
 
 ---
@@ -187,7 +187,7 @@ tests/name/
 
 - [Development Workflow](docs/DEVELOPMENT.md#development-workflow)
 - [Architecture Overview](docs/ARCHITECTURE.md#architectural-principles)
-- [Constitutional Principles](.specify/memory/CONSTITUTION.md#i-foundational-principles)
+- [Constitutional Principles](docs/CONSTITUTION.md#i-foundational-principles)
 - [Testing Requirements](docs/DEVELOPMENT.md#testing-requirements)
 - [Troubleshooting](docs/DEVELOPMENT.md#troubleshooting)
 

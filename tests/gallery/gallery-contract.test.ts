@@ -14,11 +14,10 @@ import {
 } from '../../src/components/gallery/gallery.types'
 import {
   type SimpleImage,
-  isValidSimpleImage
+  isValidSimpleImage,
+  createMockResponsiveImage,
+  setupGalleryWithMockService
 } from './test-utils'
-
-// Mock fetch for tests
-global.fetch = vi.fn()
 
 describe('Gallery Contract Tests', () => {
   let gallery: MasonryGallery
@@ -47,24 +46,6 @@ describe('Gallery Contract Tests', () => {
       disconnect: vi.fn(),
     }))
 
-    // Mock fetch to return test image data
-    vi.mocked(fetch).mockResolvedValue({
-      ok: true,
-      json: () => Promise.resolve({
-        images: [
-          {
-            id: 'test-1',
-            alt: 'Test Image 1',
-            aspectRatio: 1.33,
-            sources: [{
-              format: 'jpeg',
-              sizes: [{ width: 800, height: 600, url: 'test1.jpg' }]
-            }]
-          }
-        ]
-      })
-    } as Response)
-
     // Register custom element if not already registered
     if (!customElements.get('masonry-gallery')) {
       customElements.define('masonry-gallery', MasonryGallery)
@@ -73,11 +54,10 @@ describe('Gallery Contract Tests', () => {
     container = document.createElement('div')
     document.body.appendChild(container)
 
-    gallery = document.createElement('masonry-gallery') as MasonryGallery
-    container.appendChild(gallery)
-
-    // Wait for component initialization
-    await new Promise(resolve => requestAnimationFrame(resolve))
+    gallery = await setupGalleryWithMockService(
+      [createMockResponsiveImage({ id: 'test-1', alt: 'Test Image 1' })],
+      container
+    )
   })
 
   afterEach(() => {
@@ -238,6 +218,94 @@ describe('Gallery Contract Tests', () => {
       window.dispatchEvent(new Event('resize'))
 
       expect(gallery.isConnected).toBe(true)
+    })
+  })
+
+  describe('Gallery dataService injection', () => {
+    it('accepts injected service and calls getImages()', async () => {
+      const mockService = {
+        getImages: vi.fn().mockResolvedValue([createMockResponsiveImage()])
+      }
+      const g = document.createElement('masonry-gallery') as MasonryGallery
+      container.appendChild(g)
+      ;(g as any).dataService = mockService
+      await new Promise(resolve => setTimeout(resolve, 50))
+
+      expect(mockService.getImages).toHaveBeenCalledTimes(1)
+    })
+
+    it('falls back to static manifest service when no service injected', async () => {
+      global.fetch = vi.fn()
+      vi.mocked(fetch).mockResolvedValue({
+        ok: true,
+        json: () => Promise.resolve({ images: [
+          {
+            id: 'fallback-1', alt: 'Fallback', aspectRatio: 1.5,
+            sources: [{ format: 'jpeg', sizes: [{ width: 800, height: 533, url: 'f.jpg' }] }],
+            metadata: { originalWidth: 800, originalHeight: 533, fileSize: 0 }
+          }
+        ]})
+      } as Response)
+
+      const g = document.createElement('masonry-gallery') as MasonryGallery
+      container.appendChild(g)
+      // Do NOT inject service
+      await new Promise(resolve => setTimeout(resolve, 50))
+
+      expect(fetch).toHaveBeenCalled()
+    })
+
+    it('does not initialize twice if dataService setter called twice', async () => {
+      const mockService = {
+        getImages: vi.fn().mockResolvedValue([createMockResponsiveImage()])
+      }
+      const g = document.createElement('masonry-gallery') as MasonryGallery
+      container.appendChild(g)
+      ;(g as any).dataService = mockService
+      ;(g as any).dataService = mockService
+      await new Promise(resolve => setTimeout(resolve, 50))
+
+      expect(mockService.getImages).toHaveBeenCalledTimes(1)
+    })
+  })
+
+  describe('Loading spinner', () => {
+    it('shows spinner while getImages() is in flight', async () => {
+      let resolveImages!: (images: any[]) => void
+      const pendingService = {
+        getImages: vi.fn().mockReturnValue(
+          new Promise<any[]>(resolve => { resolveImages = resolve })
+        )
+      }
+
+      const g = document.createElement('masonry-gallery') as MasonryGallery
+      container.appendChild(g)
+      ;(g as any).dataService = pendingService
+
+      await new Promise(resolve => setTimeout(resolve, 10))
+
+      expect(g.querySelector('.gallery-spinner')).not.toBeNull()
+
+      resolveImages([])
+      await new Promise(resolve => setTimeout(resolve, 50))
+    })
+
+    it('removes spinner after getImages() resolves', async () => {
+      const g = document.createElement('masonry-gallery') as MasonryGallery
+      container.appendChild(g)
+      ;(g as any).dataService = { getImages: vi.fn().mockResolvedValue([createMockResponsiveImage()]) }
+      await new Promise(resolve => setTimeout(resolve, 50))
+
+      expect(g.querySelector('.gallery-spinner')).toBeNull()
+    })
+
+    it('removes spinner after getImages() rejects', async () => {
+      const g = document.createElement('masonry-gallery') as MasonryGallery
+      container.appendChild(g)
+      ;(g as any).dataService = { getImages: vi.fn().mockRejectedValue(new Error('load failed')) }
+      await new Promise(resolve => setTimeout(resolve, 50))
+
+      expect(g.querySelector('.gallery-spinner')).toBeNull()
     })
   })
 })

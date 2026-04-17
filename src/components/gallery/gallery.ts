@@ -6,7 +6,8 @@
 
 import { ResponsiveImage, GalleryImageData, IImageViewer, IMasonryGallery } from './gallery.types'
 import { PictureElementFactory } from '../../utils/picture-element-factory'
-import { GalleryDataService } from '../../services/gallery-data.service'
+import type { IGalleryDataService } from '../../services/gallery-data.types'
+import { StaticManifestGalleryDataService } from '../../services/static-manifest.gallery-data.service'
 import { ImageErrorHandler } from '../../utils/image-error-handler'
 
 export class MasonryGallery extends HTMLElement implements IMasonryGallery {
@@ -24,8 +25,12 @@ export class MasonryGallery extends HTMLElement implements IMasonryGallery {
   private cachedImageData: GalleryImageData[] | null = null
 
   // Service instances
-  private dataService = new GalleryDataService()
+  private _dataService: IGalleryDataService | null = null
   private errorHandler = new ImageErrorHandler()
+
+  set dataService(service: IGalleryDataService) {
+    this._dataService = service
+  }
 
   // Static shared observers
   private static sharedImageObserver?: IntersectionObserver | undefined
@@ -91,32 +96,63 @@ export class MasonryGallery extends HTMLElement implements IMasonryGallery {
 
   connectedCallback() {
     MasonryGallery.initializeTemplates()
-    this.initialize()
+    // setTimeout(0) fires after deferred module scripts — gives main.ts a chance to
+    // inject a service before the fallback fires; also handles pre-connection injection
+    setTimeout(() => {
+      if (!this.isInitialized) {
+        if (!this._dataService) {
+          const url = this.getAttribute('data-manifest-url') || '/gallery-data.json'
+          this._dataService = new StaticManifestGalleryDataService(url)
+        }
+        this.isInitialized = true
+        this.runInitialize()
+      }
+    }, 0)
   }
 
   disconnectedCallback() {
     this.cleanup()
   }
 
-  private async initialize(): Promise<void> {
-    if (this.isInitialized) return
+  private showLoadingSpinner(): void {
+    const spinner = document.createElement('div')
+    spinner.className = 'gallery-spinner'
+    spinner.setAttribute('role', 'status')
+    spinner.setAttribute('aria-label', 'Loading gallery')
+    spinner.innerHTML = `<svg width="48" height="48" viewBox="0 0 48 48" aria-hidden="true">
+    <circle cx="24" cy="24" r="20" fill="none"
+      stroke="currentColor" stroke-width="4"
+      stroke-dasharray="31.4 31.4" />
+  </svg>`
+    this.appendChild(spinner)
+  }
 
+  private hideLoadingSpinner(): void {
+    this.querySelector('.gallery-spinner')?.remove()
+  }
+
+  private async runInitialize(): Promise<void> {
     this.className = 'masonry-gallery'
     this.setupLazyLoading()
-    await this.loadImages()
+    this.showLoadingSpinner()
+    try {
+      await this.loadImages()
+    } finally {
+      this.hideLoadingSpinner()
+    }
     this.createColumns()
     this.distributeImages()
     this.setupViewerIntegration()
-
-    this.isInitialized = true
     this.dispatchEvent(new CustomEvent('gallery:initialized'))
   }
 
   private async loadImages(): Promise<void> {
-    const manifestUrl = this.getAttribute('data-manifest-url') || '/gallery-data.json'
-
+    if (!this._dataService) {
+      this.showError('Failed to load gallery')
+      return
+    }
     try {
-      this.images = await this.dataService.loadImages(manifestUrl)
+      this.images = await this._dataService.getImages()
     } catch (error) {
       console.error('Failed to load gallery images:', error)
       this.showError('Failed to load gallery')

@@ -5,9 +5,7 @@
 
 import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest'
 import { MasonryGallery } from '../../src/components/gallery/gallery'
-
-// Mock fetch for image loading tests
-global.fetch = vi.fn()
+import { createMockResponsiveImage, setupGalleryWithMockService } from './test-utils'
 
 describe('Gallery UI Tests', () => {
   let gallery: MasonryGallery
@@ -32,42 +30,6 @@ describe('Gallery UI Tests', () => {
     // ResizeObserver is mocked in tests/setup.ts with functional callback support
     // No need to override it here
 
-    // Mock fetch to return test image data
-    vi.mocked(fetch).mockResolvedValue({
-      ok: true,
-      json: () => Promise.resolve({
-        images: [
-          {
-            id: 'test-1',
-            alt: 'Test Image 1',
-            aspectRatio: 1.33,
-            sources: [{
-              format: 'jpeg',
-              sizes: [{ width: 800, height: 600, url: 'test1.jpg' }]
-            }]
-          },
-          {
-            id: 'test-2',
-            alt: 'Test Image 2',
-            aspectRatio: 0.75,
-            sources: [{
-              format: 'jpeg',
-              sizes: [{ width: 600, height: 800, url: 'test2.jpg' }]
-            }]
-          },
-          {
-            id: 'test-3',
-            alt: 'Test Image 3',
-            aspectRatio: 3.0,
-            sources: [{
-              format: 'jpeg',
-              sizes: [{ width: 1200, height: 400, url: 'test3.jpg' }]
-            }]
-          }
-        ]
-      })
-    } as Response)
-
     // Register custom element
     if (!customElements.get('masonry-gallery')) {
       customElements.define('masonry-gallery', MasonryGallery)
@@ -76,21 +38,11 @@ describe('Gallery UI Tests', () => {
     container = document.createElement('div')
     document.body.appendChild(container)
 
-    gallery = document.createElement('masonry-gallery') as MasonryGallery
-    gallery.setAttribute('data-manifest-url', 'test-manifest.json')
-    container.appendChild(gallery)
-
-    // Wait for component initialization
-    await new Promise(resolve => {
-      const handler = () => {
-        gallery.removeEventListener('gallery:initialized', handler)
-        resolve(undefined)
-      }
-      gallery.addEventListener('gallery:initialized', handler)
-
-      // Fallback timeout
-      setTimeout(resolve, 500)
-    })
+    gallery = await setupGalleryWithMockService([
+      createMockResponsiveImage({ id: 'test-1', alt: 'Test Image 1', aspectRatio: 1.33 }),
+      createMockResponsiveImage({ id: 'test-2', alt: 'Test Image 2', aspectRatio: 0.75 }),
+      createMockResponsiveImage({ id: 'test-3', alt: 'Test Image 3', aspectRatio: 3.0 })
+    ], container)
   })
 
   afterEach(() => {
@@ -185,12 +137,11 @@ describe('Gallery UI Tests', () => {
     })
 
     it('should handle error states gracefully', async () => {
-      // Mock fetch to fail
-      vi.mocked(fetch).mockRejectedValueOnce(new Error('Network error'))
+      const failingService = { getImages: vi.fn().mockRejectedValue(new Error('Network error')) }
 
       const errorGallery = document.createElement('masonry-gallery') as MasonryGallery
-      errorGallery.setAttribute('data-manifest-url', 'invalid-manifest.json')
       container.appendChild(errorGallery)
+      ;(errorGallery as any).dataService = failingService
 
       // Should handle load errors without crashing
       await new Promise(resolve => setTimeout(resolve, 100))

@@ -5,9 +5,7 @@
 
 import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest'
 import { MasonryGallery } from '../../src/components/gallery/gallery'
-
-// Mock fetch for image loading tests
-global.fetch = vi.fn()
+import { createMockResponsiveImage, setupGalleryWithMockService } from './test-utils'
 
 describe('Gallery Accessibility Tests', () => {
   let gallery: MasonryGallery
@@ -36,51 +34,6 @@ describe('Gallery Accessibility Tests', () => {
       disconnect: vi.fn(),
     }))
 
-    // Mock fetch to return test image data
-    vi.mocked(fetch).mockResolvedValue({
-      ok: true,
-      json: () => Promise.resolve({
-        images: [
-          {
-            id: 'test-1',
-            alt: 'Beautiful landscape with mountains and lake',
-            aspectRatio: 1.33,
-            sources: [{
-              format: 'jpeg',
-              sizes: [{ width: 800, height: 600, url: 'test1.jpg' }]
-            }]
-          },
-          {
-            id: 'test-2',
-            alt: 'Portrait of a person smiling',
-            aspectRatio: 0.75,
-            sources: [{
-              format: 'jpeg',
-              sizes: [{ width: 600, height: 800, url: 'test2.jpg' }]
-            }]
-          },
-          {
-            id: 'test-3',
-            alt: 'Abstract art with colorful geometric shapes',
-            aspectRatio: 3.0,
-            sources: [{
-              format: 'jpeg',
-              sizes: [{ width: 1200, height: 400, url: 'test3.jpg' }]
-            }]
-          },
-          {
-            id: 'test-4',
-            alt: 'City skyline at sunset',
-            aspectRatio: 1.67,
-            sources: [{
-              format: 'jpeg',
-              sizes: [{ width: 1000, height: 600, url: 'test4.jpg' }]
-            }]
-          }
-        ]
-      })
-    } as Response)
-
     // Register custom element
     if (!customElements.get('masonry-gallery')) {
       customElements.define('masonry-gallery', MasonryGallery)
@@ -89,15 +42,12 @@ describe('Gallery Accessibility Tests', () => {
     container = document.createElement('div')
     document.body.appendChild(container)
 
-    gallery = document.createElement('masonry-gallery') as MasonryGallery
-    gallery.setAttribute('data-manifest-url', 'test-manifest.json')
-    container.appendChild(gallery)
-
-    // Wait for initialization
-    await new Promise(resolve => {
-      gallery.addEventListener('gallery:initialized', resolve)
-      setTimeout(resolve, 500) // Fallback timeout
-    })
+    gallery = await setupGalleryWithMockService([
+      createMockResponsiveImage({ id: 'test-1', alt: 'Beautiful landscape with mountains and lake', aspectRatio: 1.33 }),
+      createMockResponsiveImage({ id: 'test-2', alt: 'Portrait of a person smiling', aspectRatio: 0.75 }),
+      createMockResponsiveImage({ id: 'test-3', alt: 'Abstract art with colorful geometric shapes', aspectRatio: 3.0 }),
+      createMockResponsiveImage({ id: 'test-4', alt: 'City skyline at sunset', aspectRatio: 1.67 })
+    ], container)
   })
 
   afterEach(() => {
@@ -428,19 +378,15 @@ describe('Gallery Accessibility Tests', () => {
 
   describe('Error Handling Accessibility', () => {
     it('should handle image loading errors accessibly', async () => {
-      // Mock fetch to fail for some images
-      vi.mocked(fetch).mockResolvedValueOnce({
-        ok: true,
-        json: () => Promise.resolve({
-          images: [
-            { id: 'broken', alt: 'Image that will fail to load', aspectRatio: 1.33, sources: [{ format: 'jpeg', sizes: [{ width: 800, height: 600, url: 'broken.jpg' }] }] }
-          ]
-        })
-      } as Response)
+      const mockService = {
+        getImages: vi.fn().mockResolvedValue([
+          createMockResponsiveImage({ id: 'broken', alt: 'Image that will fail to load' })
+        ])
+      }
 
       const errorGallery = document.createElement('masonry-gallery') as MasonryGallery
-      errorGallery.setAttribute('data-manifest-url', 'test-manifest.json')
       container.appendChild(errorGallery)
+      ;(errorGallery as any).dataService = mockService
 
       await new Promise(resolve => setTimeout(resolve, 100))
 
@@ -454,12 +400,11 @@ describe('Gallery Accessibility Tests', () => {
     })
 
     it('should provide accessible error messages', async () => {
-      // Mock fetch to fail completely
-      vi.mocked(fetch).mockRejectedValueOnce(new Error('Network error'))
+      const failingService = { getImages: vi.fn().mockRejectedValue(new Error('Network error')) }
 
       const failedGallery = document.createElement('masonry-gallery') as MasonryGallery
-      failedGallery.setAttribute('data-manifest-url', 'invalid-manifest.json')
       container.appendChild(failedGallery)
+      ;(failedGallery as any).dataService = failingService
 
       // Should handle load errors accessibly
       await new Promise(resolve => setTimeout(resolve, 100))

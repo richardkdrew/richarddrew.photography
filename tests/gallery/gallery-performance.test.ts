@@ -5,9 +5,7 @@
 
 import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest'
 import { MasonryGallery } from '../../src/components/gallery/gallery'
-
-// Mock fetch for controlled performance testing
-global.fetch = vi.fn()
+import { createMockResponsiveImage, setupGalleryWithMockService } from './test-utils'
 
 describe('Gallery Performance Tests', () => {
   let gallery: MasonryGallery
@@ -36,48 +34,6 @@ describe('Gallery Performance Tests', () => {
       disconnect: vi.fn(),
     }))
 
-    // Mock fetch with realistic timing
-    vi.mocked(fetch).mockImplementation(() =>
-      new Promise(resolve => {
-        setTimeout(() => {
-          resolve({
-            ok: true,
-            json: () => Promise.resolve({
-              images: [
-                {
-                  id: 'test-1',
-                  alt: 'Test Image 1',
-                  aspectRatio: 1.33,
-                  sources: [{
-                    format: 'jpeg',
-                    sizes: [{ width: 800, height: 600, url: 'test1.jpg' }]
-                  }]
-                },
-                {
-                  id: 'test-2',
-                  alt: 'Test Image 2',
-                  aspectRatio: 0.75,
-                  sources: [{
-                    format: 'jpeg',
-                    sizes: [{ width: 600, height: 800, url: 'test2.jpg' }]
-                  }]
-                },
-                {
-                  id: 'test-3',
-                  alt: 'Test Image 3',
-                  aspectRatio: 3.0,
-                  sources: [{
-                    format: 'jpeg',
-                    sizes: [{ width: 1200, height: 400, url: 'test3.jpg' }]
-                  }]
-                }
-              ]
-            })
-          } as Response)
-        }, 50) // Simulate 50ms network delay
-      })
-    )
-
     // Register custom element
     if (!customElements.get('masonry-gallery')) {
       customElements.define('masonry-gallery', MasonryGallery)
@@ -86,11 +42,11 @@ describe('Gallery Performance Tests', () => {
     container = document.createElement('div')
     document.body.appendChild(container)
 
-    gallery = document.createElement('masonry-gallery') as MasonryGallery
-    gallery.setAttribute('data-manifest-url', 'test-manifest.json')
-    container.appendChild(gallery)
-
-    await new Promise(resolve => requestAnimationFrame(resolve))
+    gallery = await setupGalleryWithMockService([
+      createMockResponsiveImage({ id: 'test-1', alt: 'Test Image 1', aspectRatio: 1.33 }),
+      createMockResponsiveImage({ id: 'test-2', alt: 'Test Image 2', aspectRatio: 0.75 }),
+      createMockResponsiveImage({ id: 'test-3', alt: 'Test Image 3', aspectRatio: 3.0 })
+    ], container)
   })
 
   afterEach(() => {
@@ -105,8 +61,8 @@ describe('Gallery Performance Tests', () => {
       const startTime = performance.now()
 
       const newGallery = document.createElement('masonry-gallery') as MasonryGallery
-      newGallery.setAttribute('data-manifest-url', 'test-manifest.json')
       container.appendChild(newGallery)
+      ;(newGallery as any).dataService = { getImages: vi.fn().mockResolvedValue([createMockResponsiveImage()]) }
 
       // Wait for initialization
       await new Promise(resolve => {
@@ -214,8 +170,8 @@ describe('Gallery Performance Tests', () => {
       // Create multiple gallery instances
       for (let i = 0; i < 3; i++) {
         const testGallery = document.createElement('masonry-gallery') as MasonryGallery
-        testGallery.setAttribute('data-manifest-url', 'test-manifest.json')
         container.appendChild(testGallery)
+        ;(testGallery as any).dataService = { getImages: vi.fn().mockResolvedValue([createMockResponsiveImage()]) }
         galleries.push(testGallery)
       }
 
@@ -236,27 +192,20 @@ describe('Gallery Performance Tests', () => {
 
   describe('Network Performance', () => {
     it('should handle network delays gracefully', async () => {
-      // Mock slow network
-      vi.mocked(fetch).mockImplementation(() =>
-        new Promise(resolve => {
-          setTimeout(() => {
-            resolve({
-              ok: true,
-              json: () => Promise.resolve({
-                images: [
-                  { id: 'test1', alt: 'Test 1', aspectRatio: 1.33, sources: [{ format: 'jpeg', sizes: [{ width: 800, height: 600, url: 'test1.jpg' }] }] }
-                ]
-              })
-            } as Response)
-          }, 200) // 200ms delay
-        })
-      )
+      // Slow service: resolves after 200ms
+      const slowService = {
+        getImages: vi.fn().mockImplementation(() =>
+          new Promise(resolve =>
+            setTimeout(() => resolve([createMockResponsiveImage({ id: 'test1' })]), 200)
+          )
+        )
+      }
 
       const slowGallery = document.createElement('masonry-gallery') as MasonryGallery
-      slowGallery.setAttribute('data-manifest-url', 'slow-manifest.json')
 
       const startTime = performance.now()
       container.appendChild(slowGallery)
+      ;(slowGallery as any).dataService = slowService
 
       const initiationTime = performance.now() - startTime
       expect(initiationTime).toBeLessThan(50) // Quick initiation
@@ -265,14 +214,13 @@ describe('Gallery Performance Tests', () => {
     })
 
     it('should handle network failures without performance degradation', async () => {
-      // Mock network failure
-      vi.mocked(fetch).mockRejectedValueOnce(new Error('Network error'))
+      const failingService = { getImages: vi.fn().mockRejectedValue(new Error('Network error')) }
 
       const failedGallery = document.createElement('masonry-gallery') as MasonryGallery
-      failedGallery.setAttribute('data-manifest-url', 'invalid-manifest.json')
 
       const startTime = performance.now()
       container.appendChild(failedGallery)
+      ;(failedGallery as any).dataService = failingService
 
       // Should handle errors quickly
       await new Promise(resolve => setTimeout(resolve, 100))

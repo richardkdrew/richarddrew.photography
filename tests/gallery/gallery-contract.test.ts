@@ -15,11 +15,9 @@ import {
 import {
   type SimpleImage,
   isValidSimpleImage,
-  createMockResponsiveImage
+  createMockResponsiveImage,
+  setupGalleryWithMockService
 } from './test-utils'
-
-// Mock fetch for tests
-global.fetch = vi.fn()
 
 describe('Gallery Contract Tests', () => {
   let gallery: MasonryGallery
@@ -48,24 +46,6 @@ describe('Gallery Contract Tests', () => {
       disconnect: vi.fn(),
     }))
 
-    // Mock fetch to return test image data
-    vi.mocked(fetch).mockResolvedValue({
-      ok: true,
-      json: () => Promise.resolve({
-        images: [
-          {
-            id: 'test-1',
-            alt: 'Test Image 1',
-            aspectRatio: 1.33,
-            sources: [{
-              format: 'jpeg',
-              sizes: [{ width: 800, height: 600, url: 'test1.jpg' }]
-            }]
-          }
-        ]
-      })
-    } as Response)
-
     // Register custom element if not already registered
     if (!customElements.get('masonry-gallery')) {
       customElements.define('masonry-gallery', MasonryGallery)
@@ -74,11 +54,10 @@ describe('Gallery Contract Tests', () => {
     container = document.createElement('div')
     document.body.appendChild(container)
 
-    gallery = document.createElement('masonry-gallery') as MasonryGallery
-    container.appendChild(gallery)
-
-    // Wait for component initialization
-    await new Promise(resolve => requestAnimationFrame(resolve))
+    gallery = await setupGalleryWithMockService(
+      [createMockResponsiveImage({ id: 'test-1', alt: 'Test Image 1' })],
+      container
+    )
   })
 
   afterEach(() => {
@@ -256,6 +235,7 @@ describe('Gallery Contract Tests', () => {
     })
 
     it('falls back to static manifest service when no service injected', async () => {
+      global.fetch = vi.fn()
       vi.mocked(fetch).mockResolvedValue({
         ok: true,
         json: () => Promise.resolve({ images: [

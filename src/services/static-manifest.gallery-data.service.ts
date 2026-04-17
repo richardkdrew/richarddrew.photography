@@ -1,11 +1,10 @@
 import type { ResponsiveImage } from '../components/gallery/gallery.types'
-import type { IGalleryDataService } from './gallery-data.service'
 
 interface GalleryManifest {
   images: ResponsiveImage[]
 }
 
-export class StaticManifestGalleryDataService implements IGalleryDataService {
+export class StaticManifestGalleryDataService {
   private cache: ResponsiveImage[] | null = null
   private loadingPromise: Promise<ResponsiveImage[]> | null = null
 

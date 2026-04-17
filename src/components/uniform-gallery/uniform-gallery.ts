@@ -7,7 +7,7 @@ import type {
   IImageViewer
 } from '../gallery/gallery.types'
 import { PictureElementFactory } from '../../utils/picture-element-factory'
-import type { IGalleryDataService } from '../../services/gallery-data.service'
+import type { IGalleryDataService } from '../../services/gallery-data.types'
 import { StaticManifestGalleryDataService } from '../../services/static-manifest.gallery-data.service'
 import { ImageErrorHandler } from '../../utils/image-error-handler'
 import './uniform-gallery.css'

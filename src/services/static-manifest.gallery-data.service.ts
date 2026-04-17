@@ -2,7 +2,6 @@ import type { ResponsiveImage } from '../components/gallery/gallery.types'
 import type { IGalleryDataService } from './gallery-data.service'
 
 interface GalleryManifest {
-  version?: string
   images: ResponsiveImage[]
 }
 
@@ -54,6 +53,13 @@ export class StaticManifestGalleryDataService implements IGalleryDataService {
     if (!image.alt || typeof image.alt !== 'string' || !image.alt.trim()) return false
     if (typeof image.aspectRatio !== 'number' || image.aspectRatio <= 0) return false
     if (!Array.isArray(image.sources) || image.sources.length === 0) return false
+
+    if (image.metadata !== undefined) {
+      if (typeof image.metadata !== 'object') return false
+      if (typeof image.metadata.originalWidth !== 'number') return false
+      if (typeof image.metadata.originalHeight !== 'number') return false
+      if (typeof image.metadata.fileSize !== 'number') return false
+    }
 
     return image.sources.some((source: any) => {
       if (!source || typeof source !== 'object') return false

@@ -7,8 +7,8 @@ export interface IGalleryDataService {
 }
 
 export function createGalleryDataService(config: { manifestUrl: string }): IGalleryDataService {
-  const env = (import.meta as unknown as { env: Record<string, string> }).env
-  if (env.VITE_GALLERY_SOURCE === 'r2') {
+  // CloudflareR2GalleryDataService is a stub — not for production use until implemented
+  if (import.meta.env.VITE_GALLERY_SOURCE === 'r2') {
     return new CloudflareR2GalleryDataService()
   }
   return new StaticManifestGalleryDataService(config.manifestUrl)

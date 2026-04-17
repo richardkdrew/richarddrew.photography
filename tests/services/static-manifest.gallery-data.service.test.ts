@@ -1,8 +1,6 @@
 import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest'
 import { StaticManifestGalleryDataService } from '../../src/services/static-manifest.gallery-data.service'
 
-global.fetch = vi.fn()
-
 const makeManifest = (overrides = {}) => ({
   images: [
     {
@@ -26,12 +24,12 @@ describe('StaticManifestGalleryDataService', () => {
   let service: StaticManifestGalleryDataService
 
   beforeEach(() => {
+    vi.stubGlobal('fetch', vi.fn())
     service = new StaticManifestGalleryDataService('/gallery-data.json')
-    vi.mocked(fetch).mockReset()
   })
 
   afterEach(() => {
-    vi.clearAllMocks()
+    vi.unstubAllGlobals()
   })
 
   it('fetches and returns images from the manifest URL', async () => {

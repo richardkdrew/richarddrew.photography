@@ -6,7 +6,8 @@
 
 import { ResponsiveImage, GalleryImageData, IImageViewer, IMasonryGallery } from './gallery.types'
 import { PictureElementFactory } from '../../utils/picture-element-factory'
-import { GalleryDataService } from '../../services/gallery-data.service'
+import type { IGalleryDataService } from '../../services/gallery-data.service'
+import { StaticManifestGalleryDataService } from '../../services/static-manifest.gallery-data.service'
 import { ImageErrorHandler } from '../../utils/image-error-handler'
 
 export class MasonryGallery extends HTMLElement implements IMasonryGallery {
@@ -24,8 +25,16 @@ export class MasonryGallery extends HTMLElement implements IMasonryGallery {
   private cachedImageData: GalleryImageData[] | null = null
 
   // Service instances
-  private dataService = new GalleryDataService()
+  private _dataService: IGalleryDataService | null = null
   private errorHandler = new ImageErrorHandler()
+
+  set dataService(service: IGalleryDataService) {
+    this._dataService = service
+    if (this.isConnected && !this.isInitialized) {
+      this.isInitialized = true
+      this.runInitialize()
+    }
+  }
 
   // Static shared observers
   private static sharedImageObserver?: IntersectionObserver | undefined
@@ -91,16 +100,23 @@ export class MasonryGallery extends HTMLElement implements IMasonryGallery {
 
   connectedCallback() {
     MasonryGallery.initializeTemplates()
-    this.initialize()
+    // setTimeout(0) fires after deferred module scripts — gives main.ts
+    // a chance to inject a service before the fallback fires
+    setTimeout(() => {
+      if (!this.isInitialized) {
+        const url = this.getAttribute('data-manifest-url') || '/gallery-data.json'
+        this._dataService = new StaticManifestGalleryDataService(url)
+        this.isInitialized = true
+        this.runInitialize()
+      }
+    }, 0)
   }
 
   disconnectedCallback() {
     this.cleanup()
   }
 
-  private async initialize(): Promise<void> {
-    if (this.isInitialized) return
-
+  private async runInitialize(): Promise<void> {
     this.className = 'masonry-gallery'
     this.setupLazyLoading()
     await this.loadImages()
@@ -108,15 +124,12 @@ export class MasonryGallery extends HTMLElement implements IMasonryGallery {
     this.distributeImages()
     this.setupViewerIntegration()
 
-    this.isInitialized = true
     this.dispatchEvent(new CustomEvent('gallery:initialized'))
   }
 
   private async loadImages(): Promise<void> {
-    const manifestUrl = this.getAttribute('data-manifest-url') || '/gallery-data.json'
-
     try {
-      this.images = await this.dataService.loadImages(manifestUrl)
+      this.images = await this._dataService!.getImages()
     } catch (error) {
       console.error('Failed to load gallery images:', error)
       this.showError('Failed to load gallery')

@@ -14,7 +14,8 @@ import {
 } from '../../src/components/gallery/gallery.types'
 import {
   type SimpleImage,
-  isValidSimpleImage
+  isValidSimpleImage,
+  createMockResponsiveImage
 } from './test-utils'
 
 // Mock fetch for tests
@@ -238,6 +239,53 @@ describe('Gallery Contract Tests', () => {
       window.dispatchEvent(new Event('resize'))
 
       expect(gallery.isConnected).toBe(true)
+    })
+  })
+
+  describe('Gallery dataService injection', () => {
+    it('accepts injected service and calls getImages()', async () => {
+      const mockService = {
+        getImages: vi.fn().mockResolvedValue([createMockResponsiveImage()])
+      }
+      const g = document.createElement('masonry-gallery') as MasonryGallery
+      container.appendChild(g)
+      ;(g as any).dataService = mockService
+      await new Promise(resolve => setTimeout(resolve, 50))
+
+      expect(mockService.getImages).toHaveBeenCalledTimes(1)
+    })
+
+    it('falls back to static manifest service when no service injected', async () => {
+      vi.mocked(fetch).mockResolvedValue({
+        ok: true,
+        json: () => Promise.resolve({ images: [
+          {
+            id: 'fallback-1', alt: 'Fallback', aspectRatio: 1.5,
+            sources: [{ format: 'jpeg', sizes: [{ width: 800, height: 533, url: 'f.jpg' }] }],
+            metadata: { originalWidth: 800, originalHeight: 533, fileSize: 0 }
+          }
+        ]})
+      } as Response)
+
+      const g = document.createElement('masonry-gallery') as MasonryGallery
+      container.appendChild(g)
+      // Do NOT inject service
+      await new Promise(resolve => setTimeout(resolve, 50))
+
+      expect(fetch).toHaveBeenCalled()
+    })
+
+    it('does not initialize twice if dataService setter called twice', async () => {
+      const mockService = {
+        getImages: vi.fn().mockResolvedValue([createMockResponsiveImage()])
+      }
+      const g = document.createElement('masonry-gallery') as MasonryGallery
+      container.appendChild(g)
+      ;(g as any).dataService = mockService
+      ;(g as any).dataService = mockService
+      await new Promise(resolve => setTimeout(resolve, 50))
+
+      expect(mockService.getImages).toHaveBeenCalledTimes(1)
     })
   })
 })

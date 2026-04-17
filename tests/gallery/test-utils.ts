@@ -3,7 +3,10 @@
  * Helper types and functions for gallery tests
  */
 
+import { vi } from 'vitest'
 import { ResponsiveImage } from '../../src/components/gallery/gallery.types'
+import type { MasonryGallery } from '../../src/components/gallery/gallery'
+import type { IGalleryDataService } from '../../src/services/gallery-data.service'
 
 // ============================================================================
 // Test-Only Types
@@ -170,4 +173,20 @@ export function waitForElement(selector: string, timeout: number = 5000): Promis
       reject(new Error(`Element ${selector} not found within ${timeout}ms`))
     }, timeout)
   })
+}
+
+export function createMockDataService(images = [createMockResponsiveImage()]): IGalleryDataService {
+  return {
+    getImages: vi.fn().mockResolvedValue(images)
+  }
+}
+
+export async function setupGalleryWithMockService(
+  images = [createMockResponsiveImage()]
+): Promise<MasonryGallery> {
+  const gallery = document.createElement('masonry-gallery') as MasonryGallery
+  document.body.appendChild(gallery)
+  ;(gallery as any).dataService = createMockDataService(images)
+  await new Promise(resolve => setTimeout(resolve, 50))
+  return gallery
 }

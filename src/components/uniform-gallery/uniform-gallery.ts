@@ -7,7 +7,8 @@ import type {
   IImageViewer
 } from '../gallery/gallery.types'
 import { PictureElementFactory } from '../../utils/picture-element-factory'
-import { GalleryDataService } from '../../services/gallery-data.service'
+import type { IGalleryDataService } from '../../services/gallery-data.service'
+import { StaticManifestGalleryDataService } from '../../services/static-manifest.gallery-data.service'
 import { ImageErrorHandler } from '../../utils/image-error-handler'
 import './uniform-gallery.css'
 
@@ -21,8 +22,16 @@ export class UniformGallery extends HTMLElement implements IUniformGallery {
   private isInitialized = false
   private viewer: IImageViewer | null = null
 
-  private dataService = new GalleryDataService()
+  private _dataService: IGalleryDataService | null = null
   private errorHandler = new ImageErrorHandler()
+
+  set dataService(service: IGalleryDataService) {
+    this._dataService = service
+    if (this.isConnected && !this.isInitialized) {
+      this.isInitialized = true
+      this.runInitialize()
+    }
+  }
 
   // Shared static observers (same pattern as MasonryGallery)
   private static sharedImageObserver?: IntersectionObserver
@@ -31,15 +40,23 @@ export class UniformGallery extends HTMLElement implements IUniformGallery {
   private static observedGalleries = new Set<UniformGallery>()
 
   connectedCallback() {
-    this.initialize()
+    // setTimeout(0) fires after deferred module scripts — gives main.ts
+    // a chance to inject a service before the fallback fires
+    setTimeout(() => {
+      if (!this.isInitialized) {
+        const url = this.getAttribute('data-manifest-url') || '/gallery-data.json'
+        this._dataService = new StaticManifestGalleryDataService(url)
+        this.isInitialized = true
+        this.runInitialize()
+      }
+    }, 0)
   }
 
   disconnectedCallback() {
     this.cleanup()
   }
 
-  private async initialize(): Promise<void> {
-    if (this.isInitialized) return
+  private async runInitialize(): Promise<void> {
     this.className = 'uniform-gallery'
     this.setupLazyLoading()
     this.setupRevealObserver()
@@ -52,14 +69,12 @@ export class UniformGallery extends HTMLElement implements IUniformGallery {
     }
     this.renderImages()
     this.setupViewerIntegration()
-    this.isInitialized = true
     this.dispatchEvent(new CustomEvent('uniform-gallery:initialized'))
   }
 
   private async loadImages(): Promise<void> {
-    const manifestUrl = this.getAttribute('data-manifest-url') || '/gallery-data.json'
     try {
-      this.images = await this.dataService.loadImages(manifestUrl)
+      this.images = await this._dataService!.getImages()
     } catch {
       this.showError('Failed to load gallery')
     }

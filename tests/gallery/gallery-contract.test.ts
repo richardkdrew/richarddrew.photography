@@ -288,4 +288,44 @@ describe('Gallery Contract Tests', () => {
       expect(mockService.getImages).toHaveBeenCalledTimes(1)
     })
   })
+
+  describe('Loading spinner', () => {
+    it('shows spinner while getImages() is in flight', async () => {
+      let resolveImages!: (images: any[]) => void
+      const pendingService = {
+        getImages: vi.fn().mockReturnValue(
+          new Promise<any[]>(resolve => { resolveImages = resolve })
+        )
+      }
+
+      const g = document.createElement('masonry-gallery') as MasonryGallery
+      container.appendChild(g)
+      ;(g as any).dataService = pendingService
+
+      await new Promise(resolve => setTimeout(resolve, 10))
+
+      expect(g.querySelector('.gallery-spinner')).not.toBeNull()
+
+      resolveImages([])
+      await new Promise(resolve => setTimeout(resolve, 50))
+    })
+
+    it('removes spinner after getImages() resolves', async () => {
+      const g = document.createElement('masonry-gallery') as MasonryGallery
+      container.appendChild(g)
+      ;(g as any).dataService = { getImages: vi.fn().mockResolvedValue([createMockResponsiveImage()]) }
+      await new Promise(resolve => setTimeout(resolve, 50))
+
+      expect(g.querySelector('.gallery-spinner')).toBeNull()
+    })
+
+    it('removes spinner after getImages() rejects', async () => {
+      const g = document.createElement('masonry-gallery') as MasonryGallery
+      container.appendChild(g)
+      ;(g as any).dataService = { getImages: vi.fn().mockRejectedValue(new Error('load failed')) }
+      await new Promise(resolve => setTimeout(resolve, 50))
+
+      expect(g.querySelector('.gallery-spinner')).toBeNull()
+    })
+  })
 })

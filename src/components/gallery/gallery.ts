@@ -114,14 +114,35 @@ export class MasonryGallery extends HTMLElement implements IMasonryGallery {
     this.cleanup()
   }
 
+  private showLoadingSpinner(): void {
+    const spinner = document.createElement('div')
+    spinner.className = 'gallery-spinner'
+    spinner.setAttribute('role', 'status')
+    spinner.setAttribute('aria-label', 'Loading gallery')
+    spinner.innerHTML = `<svg width="48" height="48" viewBox="0 0 48 48" aria-hidden="true">
+    <circle cx="24" cy="24" r="20" fill="none"
+      stroke="currentColor" stroke-width="4"
+      stroke-dasharray="31.4 31.4" />
+  </svg>`
+    this.appendChild(spinner)
+  }
+
+  private hideLoadingSpinner(): void {
+    this.querySelector('.gallery-spinner')?.remove()
+  }
+
   private async runInitialize(): Promise<void> {
     this.className = 'masonry-gallery'
     this.setupLazyLoading()
-    await this.loadImages()
+    this.showLoadingSpinner()
+    try {
+      await this.loadImages()
+    } finally {
+      this.hideLoadingSpinner()
+    }
     this.createColumns()
     this.distributeImages()
     this.setupViewerIntegration()
-
     this.dispatchEvent(new CustomEvent('gallery:initialized'))
   }
 

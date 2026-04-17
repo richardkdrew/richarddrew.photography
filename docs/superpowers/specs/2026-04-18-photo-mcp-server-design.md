@@ -233,6 +233,8 @@ Implements `IGalleryDataService` — interface unchanged.
 {base_url}/cdn-cgi/image/width={w},format=webp,quality={q}/{path}
 ```
 
+**Pixel density:** Retina/HiDPI screens are handled automatically by the browser via `w` descriptors in `srcset`. A Retina MacBook Pro (DPR=2) viewing a 400px column will pick the 800w image — no `dpr` parameter or explicit 2x variants needed. The `density` field on the existing `ImageSize` type is not used and should not be populated.
+
 **`aspectRatio`** derived from manifest `dimensions.width / dimensions.height`.
 
 `StaticManifestGalleryDataService` is unchanged — continues to serve `gallery-data.json` for local dev and tests.
@@ -289,7 +291,7 @@ Following the 4-category pattern from the web UI, adapted for Python/FastMCP:
 
 **Web UI side:** `CloudflareR2GalleryDataService` tests follow existing 4-category pattern — contract (interface), unit (URL construction with mock manifest), error (fetch failure, malformed manifest).
 
-**Coverage target:** 80%+ enforced via `--cov-fail-under=80` in `pyproject.toml`.
+**Coverage target:** 90%+ enforced via `--cov-fail-under=90` in `pyproject.toml`, consistent with the project Constitution.
 
 ---
 

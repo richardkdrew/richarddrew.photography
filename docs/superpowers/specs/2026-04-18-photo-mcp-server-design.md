@@ -335,6 +335,11 @@ Both docs should be written to be generalisable — avoid hard-coding project-sp
 - EXIF extraction at upload time (date\_taken from image metadata)
 - Cloudflare Worker API layer for manifest serving with filtering/pagination
 
+**Potential enhancements (post v1.5):**
+
+- **Multi-gallery support** — change `gallery: string` to `galleries: string[]` in the manifest, allowing a photo to appear in multiple curated collections without duplicating the R2 file
+- **Tagging** — add `tags: string[]` to manifest entries for cross-cutting descriptive metadata (e.g. `["black-and-white", "golden-hour"]`). Complements galleries rather than replacing them — galleries are editorial collections, tags enable filtering/discovery. Natural input for the future Worker API filtering layer.
+
 ---
 
 ## 13. Open Questions (resolved)

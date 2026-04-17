@@ -27,10 +27,6 @@ export class UniformGallery extends HTMLElement implements IUniformGallery {
 
   set dataService(service: IGalleryDataService) {
     this._dataService = service
-    if (this.isConnected && !this.isInitialized) {
-      this.isInitialized = true
-      this.runInitialize()
-    }
   }
 
   // Shared static observers (same pattern as MasonryGallery)
@@ -40,12 +36,14 @@ export class UniformGallery extends HTMLElement implements IUniformGallery {
   private static observedGalleries = new Set<UniformGallery>()
 
   connectedCallback() {
-    // setTimeout(0) fires after deferred module scripts — gives main.ts
-    // a chance to inject a service before the fallback fires
+    // setTimeout(0) fires after deferred module scripts — gives main.ts a chance to
+    // inject a service before the fallback fires; also handles pre-connection injection
     setTimeout(() => {
       if (!this.isInitialized) {
-        const url = this.getAttribute('data-manifest-url') || '/gallery-data.json'
-        this._dataService = new StaticManifestGalleryDataService(url)
+        if (!this._dataService) {
+          const url = this.getAttribute('data-manifest-url') || '/gallery-data.json'
+          this._dataService = new StaticManifestGalleryDataService(url)
+        }
         this.isInitialized = true
         this.runInitialize()
       }
@@ -73,8 +71,12 @@ export class UniformGallery extends HTMLElement implements IUniformGallery {
   }
 
   private async loadImages(): Promise<void> {
+    if (!this._dataService) {
+      this.showError('Failed to load gallery')
+      return
+    }
     try {
-      this.images = await this._dataService!.getImages()
+      this.images = await this._dataService.getImages()
     } catch {
       this.showError('Failed to load gallery')
     }

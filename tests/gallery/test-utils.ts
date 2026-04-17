@@ -182,10 +182,11 @@ export function createMockDataService(images = [createMockResponsiveImage()]): I
 }
 
 export async function setupGalleryWithMockService(
-  images = [createMockResponsiveImage()]
+  images = [createMockResponsiveImage()],
+  container: HTMLElement = document.body
 ): Promise<MasonryGallery> {
   const gallery = document.createElement('masonry-gallery') as MasonryGallery
-  document.body.appendChild(gallery)
+  container.appendChild(gallery)
   ;(gallery as any).dataService = createMockDataService(images)
   await new Promise(resolve => setTimeout(resolve, 50))
   return gallery

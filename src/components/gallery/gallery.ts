@@ -30,10 +30,6 @@ export class MasonryGallery extends HTMLElement implements IMasonryGallery {
 
   set dataService(service: IGalleryDataService) {
     this._dataService = service
-    if (this.isConnected && !this.isInitialized) {
-      this.isInitialized = true
-      this.runInitialize()
-    }
   }
 
   // Static shared observers
@@ -100,12 +96,14 @@ export class MasonryGallery extends HTMLElement implements IMasonryGallery {
 
   connectedCallback() {
     MasonryGallery.initializeTemplates()
-    // setTimeout(0) fires after deferred module scripts — gives main.ts
-    // a chance to inject a service before the fallback fires
+    // setTimeout(0) fires after deferred module scripts — gives main.ts a chance to
+    // inject a service before the fallback fires; also handles pre-connection injection
     setTimeout(() => {
       if (!this.isInitialized) {
-        const url = this.getAttribute('data-manifest-url') || '/gallery-data.json'
-        this._dataService = new StaticManifestGalleryDataService(url)
+        if (!this._dataService) {
+          const url = this.getAttribute('data-manifest-url') || '/gallery-data.json'
+          this._dataService = new StaticManifestGalleryDataService(url)
+        }
         this.isInitialized = true
         this.runInitialize()
       }
@@ -128,8 +126,12 @@ export class MasonryGallery extends HTMLElement implements IMasonryGallery {
   }
 
   private async loadImages(): Promise<void> {
+    if (!this._dataService) {
+      this.showError('Failed to load gallery')
+      return
+    }
     try {
-      this.images = await this._dataService!.getImages()
+      this.images = await this._dataService.getImages()
     } catch (error) {
       console.error('Failed to load gallery images:', error)
       this.showError('Failed to load gallery')

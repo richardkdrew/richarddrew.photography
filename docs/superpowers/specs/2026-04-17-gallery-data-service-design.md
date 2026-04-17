@@ -146,6 +146,35 @@ Existing tests continue to pass; mock fetch can be removed from gallery test set
 **`CloudflareR2GalleryDataService` stub test**:
 - `getImages()` throws `'not implemented'`
 
+## Gallery Loading State Enhancement
+
+While the service abstraction is in place, the gallery `initialize()` method gains a proper loading state — replacing the current static HTML fallback with a consistent in-component spinner.
+
+**Pattern:** Matches the image viewer spinner (SVG circle, `var(--color-interactive)`, centred). The existing `.masonry-gallery.loading` CSS class hook is already present in `gallery.css` and used as the attachment point.
+
+```typescript
+private async initialize(): Promise<void> {
+  this.showLoadingSpinner()
+  try {
+    this.images = await this._dataService.getImages()
+    this.hideLoadingSpinner()
+    this.render()
+  } catch (error) {
+    this.hideLoadingSpinner()
+    this.showError(error)
+  }
+}
+```
+
+**HTML:** A `<div class="gallery-spinner" aria-label="Loading gallery" role="status">` with the same SVG circle used in `image-viewer.css` is injected at the top of the gallery on `connectedCallback` and removed once `initialize()` completes. The existing `gallery-loading-fallback` in `index.html` continues to cover the period before JS loads (FOUC prevention) — the in-component spinner covers the period after JS loads but while the fetch is in flight.
+
+**CSS:** Added to `gallery.css` — reuses the same `@keyframes` animation name convention as `viewer-spin`, named `gallery-spin` to avoid collision. Uses `var(--color-interactive)` to match design system.
+
+**Testing:**
+
+- Gallery contract test: mock service resolves after a tick — verify spinner present then absent
+- Gallery contract test: mock service rejects — verify spinner absent and error state shown
+
 ## What Does Not Change
 
 - `index.html` — `data-manifest-url` attribute stays as-is

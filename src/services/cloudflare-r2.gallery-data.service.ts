@@ -1,5 +1,5 @@
 import type { IGalleryDataService } from './gallery-data.types'
-import type { ResponsiveImage, ResponsiveImageSource, ImageSize } from '../components/gallery/gallery.types'
+import type { ResponsiveImage, ResponsiveImageSource, ImageSize, ImageMetadata } from '../components/gallery/gallery.types'
 
 interface R2ManifestDimensions {
   width: number
@@ -62,13 +62,11 @@ export class CloudflareR2GalleryDataService implements IGalleryDataService {
 
     const source: ResponsiveImageSource = { format: 'webp', sizes }
 
-    const metadata: import('../components/gallery/gallery.types').ImageMetadata = {
+    const metadata: ImageMetadata = {
       originalWidth: image.dimensions.width,
       originalHeight: image.dimensions.height,
-      fileSize: 0,
-    }
-    if (image.date_taken !== undefined) {
-      metadata.dateTaken = image.date_taken
+      fileSize: 0, // originals are stored without size info; not required by the UI
+      ...(image.date_taken !== undefined && { dateTaken: image.date_taken }),
     }
 
     return {

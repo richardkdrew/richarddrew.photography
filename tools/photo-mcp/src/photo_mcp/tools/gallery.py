@@ -4,7 +4,7 @@ import unicodedata
 from datetime import datetime, timezone
 
 from photo_mcp.manifest import load_manifest, save_manifest
-from photo_mcp.types import ManifestGallery
+from photo_mcp.types import GallerySummary, ManifestGallery
 
 logger = logging.getLogger(__name__)
 
@@ -46,10 +46,10 @@ def list_galleries() -> list[dict]:
     result = []
     for slug, gallery in manifest.galleries.items():
         photo_count = sum(1 for img in manifest.images.values() if img.gallery == slug)
-        result.append({
-            "slug": slug,
-            "title": gallery.title,
-            "description": gallery.description,
-            "photo_count": photo_count,
-        })
+        result.append(GallerySummary(
+            slug=slug,
+            title=gallery.title,
+            description=gallery.description,
+            photo_count=photo_count,
+        ).model_dump())
     return result

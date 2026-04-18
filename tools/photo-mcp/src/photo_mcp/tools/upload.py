@@ -1,5 +1,6 @@
 import logging
 import re
+import unicodedata
 from datetime import datetime, timezone
 from pathlib import Path
 
@@ -19,7 +20,8 @@ _CONTENT_TYPES = {".jpg": "image/jpeg", ".jpeg": "image/jpeg", ".png": "image/pn
 def derive_id(file_path: str) -> str:
     """Derive a URL-safe ID from a filename stem."""
     stem = Path(file_path).stem
-    slug = stem.lower()
+    # NFD normalisation strips combining accents (e.g. é → e)
+    slug = unicodedata.normalize("NFD", stem.lower()).encode("ascii", "ignore").decode("ascii")
     slug = re.sub(r"[^\w\s-]", "", slug)
     slug = re.sub(r"[\s_]+", "-", slug)
     slug = re.sub(r"-+", "-", slug)
@@ -111,6 +113,10 @@ def batch_upload(folder_path: str, gallery: str, alt_prefix: str = "", date_take
 
     if not folder.exists() or not folder.is_dir():
         raise ValueError(f"Folder not found: {folder_path}")
+
+    manifest = load_manifest()
+    if gallery not in manifest.galleries:
+        raise ValueError(f"Gallery '{gallery}' does not exist. Create it first with create_gallery().")
 
     files = sorted(f for f in folder.iterdir() if f.suffix.lower() in VALID_EXTENSIONS)
     uploaded, skipped, failed = 0, 0, 0

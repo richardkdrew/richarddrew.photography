@@ -1,5 +1,3 @@
-import shutil
-import tempfile
 from datetime import datetime, timezone
 from pathlib import Path
 from unittest.mock import MagicMock
@@ -43,6 +41,11 @@ def test_derive_id_strips_extension():
     assert derive_id("/path/IMG_1234.jpg") == "img-1234"
 
 
+def test_derive_id_strips_unicode_accents():
+    from photo_mcp.tools.upload import derive_id
+    assert derive_id("/path/café-sunset.jpg") == "cafe-sunset"
+
+
 # --- humanise_filename ---
 
 def test_humanise_filename_title_cases_stem():
@@ -53,6 +56,16 @@ def test_humanise_filename_title_cases_stem():
 def test_humanise_filename_replaces_underscores():
     from photo_mcp.tools.upload import humanise_filename
     assert humanise_filename("/path/IMG_1234.jpg") == "Img 1234"
+
+
+# --- _get_dimensions ---
+
+def test_get_dimensions_returns_correct_size(tmp_path):
+    from photo_mcp.tools.upload import _get_dimensions
+    img_path = _create_test_image(tmp_path)  # creates 100x75 JPEG
+    dims = _get_dimensions(str(img_path))
+    assert dims.width == 100
+    assert dims.height == 75
 
 
 # --- upload_photo validation ---
@@ -147,6 +160,15 @@ def test_batch_upload_raises_for_missing_folder(mocker):
 
     with pytest.raises(ValueError, match="Folder not found"):
         batch_upload("/nonexistent/folder", "landscapes")
+
+
+def test_batch_upload_raises_for_missing_gallery(mocker, tmp_path):
+    from photo_mcp.tools.upload import batch_upload
+    manifest = _make_manifest_with_gallery("portraits")
+    mocker.patch("photo_mcp.tools.upload.load_manifest", return_value=manifest)
+
+    with pytest.raises(ValueError, match="Gallery 'landscapes' does not exist"):
+        batch_upload(str(tmp_path), "landscapes")
 
 
 def test_batch_upload_processes_all_valid_images(mocker, tmp_path):

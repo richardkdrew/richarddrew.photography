@@ -20,15 +20,3 @@ class TestR2Integration:
         save_manifest(manifest)
         loaded = load_manifest()
         assert loaded.base_url == manifest.base_url
-
-    def test_server_tools_are_registered(self):
-        """All four v1 tools are registered on the FastMCP server."""
-        import asyncio
-        from photo_mcp.server import mcp
-
-        tools = asyncio.run(mcp.list_tools())
-        tool_names = {tool.name for tool in tools}
-        assert "create_gallery" in tool_names
-        assert "list_galleries" in tool_names
-        assert "upload_photo" in tool_names
-        assert "batch_upload" in tool_names

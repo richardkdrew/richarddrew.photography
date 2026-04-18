@@ -31,6 +31,9 @@ testpaths = ["tests"]
 pythonpath = ["src"]
 addopts = "--cov=photo_mcp --cov-report=term-missing --cov-fail-under=90"
 
+[tool.coverage.run]
+omit = ["tests/test_integration.py"]
+
 [tool.ruff]
 line-length = 100
 target-version = "py313"

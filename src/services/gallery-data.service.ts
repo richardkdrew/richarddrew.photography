@@ -5,9 +5,10 @@ export type { IGalleryDataService } from './gallery-data.types'
 import type { IGalleryDataService } from './gallery-data.types'
 
 export function createGalleryDataService(config: { manifestUrl: string }): IGalleryDataService {
-  // CloudflareR2GalleryDataService is a stub — not for production use until implemented
   if (import.meta.env.VITE_GALLERY_SOURCE === 'r2') {
-    return new CloudflareR2GalleryDataService()
+    const r2ManifestUrl = import.meta.env.VITE_R2_MANIFEST_URL
+      ?? 'https://photos.richarddrew.photography/manifest.json'
+    return new CloudflareR2GalleryDataService(r2ManifestUrl)
   }
   return new StaticManifestGalleryDataService(config.manifestUrl)
 }

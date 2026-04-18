@@ -62,17 +62,21 @@ export class CloudflareR2GalleryDataService implements IGalleryDataService {
 
     const source: ResponsiveImageSource = { format: 'webp', sizes }
 
+    const metadata: import('../components/gallery/gallery.types').ImageMetadata = {
+      originalWidth: image.dimensions.width,
+      originalHeight: image.dimensions.height,
+      fileSize: 0,
+    }
+    if (image.date_taken !== undefined) {
+      metadata.dateTaken = image.date_taken
+    }
+
     return {
       id: image.id,
       alt: image.alt,
       aspectRatio,
       sources: [source],
-      metadata: {
-        originalWidth: image.dimensions.width,
-        originalHeight: image.dimensions.height,
-        fileSize: 0,
-        dateTaken: image.date_taken,
-      },
+      metadata,
     }
   }
 }

@@ -9,8 +9,12 @@ describe('createGalleryDataService factory', () => {
     expect(service).toBeInstanceOf(StaticManifestGalleryDataService)
   })
 
-  it('CloudflareR2GalleryDataService getImages() throws not-implemented', async () => {
-    const service = new CloudflareR2GalleryDataService()
-    await expect(service.getImages()).rejects.toThrow('not implemented')
+  it('returns CloudflareR2GalleryDataService when VITE_GALLERY_SOURCE is r2', () => {
+    import.meta.env.VITE_GALLERY_SOURCE = 'r2'
+    import.meta.env.VITE_R2_MANIFEST_URL = 'https://photos.test.com/manifest.json'
+    const service = createGalleryDataService({ manifestUrl: '/gallery-data.json' })
+    expect(service).toBeInstanceOf(CloudflareR2GalleryDataService)
+    import.meta.env.VITE_GALLERY_SOURCE = undefined
+    import.meta.env.VITE_R2_MANIFEST_URL = undefined
   })
 })

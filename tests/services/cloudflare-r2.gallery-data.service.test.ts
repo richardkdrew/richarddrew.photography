@@ -130,7 +130,7 @@ describe('CloudflareR2GalleryDataService', () => {
 
   it('throws when manifest fetch fails', async () => {
     vi.mocked(fetch).mockResolvedValue(makeErrorResponse(500))
-    await expect(service.getImages()).rejects.toThrow('Failed to load R2 manifest: 500')
+    await expect(service.getImages()).rejects.toThrow('Failed to load R2 manifest: 500 Server Error')
   })
 
   it('throws when manifest has no images field', async () => {

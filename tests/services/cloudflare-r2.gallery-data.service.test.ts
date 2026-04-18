@@ -126,6 +126,17 @@ describe('CloudflareR2GalleryDataService', () => {
     expect(images).toHaveLength(2)
   })
 
+  it('omits dateTaken from metadata when date_taken is absent', async () => {
+    const manifest = makeManifest({
+      images: {
+        'no-date': { id: 'no-date', filename: 'no-date.jpg', path: 'landscapes/no-date.jpg', gallery: 'landscapes', alt: 'No date', uploaded: '2026-04-18T10:00:00Z', dimensions: { width: 3000, height: 2000 } }
+      }
+    })
+    vi.mocked(fetch).mockResolvedValue(makeOkResponse(manifest))
+    const images = await service.getImages()
+    expect('dateTaken' in images[0].metadata).toBe(false)
+  })
+
   // --- Error ---
 
   it('throws when manifest fetch fails', async () => {

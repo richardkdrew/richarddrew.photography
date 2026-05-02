@@ -192,4 +192,5 @@
   .uniform-gallery { background: transparent; }
   .gallery-item { break-inside: avoid; opacity: 1; }
   .gallery-item > div:not(.loaded)::before { display: none; }
+  .gallery-item picture img { transform: none; opacity: 1; }
 }

@@ -3,7 +3,6 @@
 /* ── Layout ───────────────────────────────────────────── */
 
 .uniform-gallery {
-  --row-height: 18.75rem;  /* 300px */
   display: flex;
   flex-wrap: wrap;
   gap: var(--space-sm);        /* 8px — matches masonry-gallery */
@@ -15,10 +14,7 @@
 }
 
 .gallery-item {
-  flex-grow: var(--ar);
   flex-shrink: 1;
-  flex-basis: calc(var(--ar) * var(--row-height));
-  height: var(--row-height);
   overflow: hidden;
   border-radius: var(--border-radius);
   cursor: pointer;
@@ -41,12 +37,6 @@
 }
 
 /* ── Breakpoints ──────────────────────────────────────── */
-
-@media (min-width: 36rem) and (max-width: 56rem) {  /* 576–896px tablet */
-  .uniform-gallery {
-    --row-height: 17.5rem;  /* 280px */
-  }
-}
 
 @media (max-width: 36rem) {       /* ≤576px all phones */
   .gallery-item {

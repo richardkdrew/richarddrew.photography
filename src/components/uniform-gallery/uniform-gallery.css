@@ -64,6 +64,17 @@
   height: 100%;
   object-fit: cover;
   display: block;
+  transform: scale(0.82);
+  opacity: 0;
+  transform-origin: center center;
+  transition:
+    transform 1600ms cubic-bezier(0.33, 1, 0.68, 1) 300ms,
+    opacity   600ms ease-out 300ms;
+}
+
+.gallery-item > div.loaded picture img {
+  transform: scale(1);
+  opacity: 1;
 }
 
 /* ── LQIP Placeholder ─────────────────────────────────── */
@@ -150,13 +161,18 @@
 
 @media (prefers-reduced-motion: reduce) {
   .gallery-item {
-    opacity: 1;           /* skip reveal animation */
+    opacity: 1;
     transition: none;
   }
   .gallery-item > div:not(.loaded)::before {
     animation: none;
   }
   .gallery-item [data-placeholder] {
+    transition: none;
+  }
+  .gallery-item picture img {
+    transform: none;
+    opacity: 1;
     transition: none;
   }
 }

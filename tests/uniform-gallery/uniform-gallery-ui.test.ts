@@ -97,6 +97,21 @@ describe('UniformGallery UI Tests', () => {
         expect(items[i].classList.contains('visible')).toBe(true)
       }
     })
+
+    it('should add loaded class to wrapper div when img fires onload', () => {
+      const item = gallery.querySelector<HTMLElement>('.gallery-item')
+      const wrapper = item?.querySelector<HTMLElement>(':scope > div')
+      const img = wrapper?.querySelector<HTMLImageElement>('img')
+
+      expect(wrapper?.classList.contains('loaded')).toBe(false)
+      img?.dispatchEvent(new Event('load'))
+      expect(wrapper?.classList.contains('loaded')).toBe(true)
+    })
+
+    it('should nest img as .gallery-item > div picture img so animation CSS selector matches', () => {
+      const img = gallery.querySelector<HTMLImageElement>('.gallery-item > div picture img')
+      expect(img).not.toBeNull()
+    })
   })
 
   describe('Events', () => {

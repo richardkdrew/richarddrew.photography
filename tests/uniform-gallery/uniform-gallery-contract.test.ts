@@ -128,59 +128,60 @@ describe('UniformGallery Contract Tests', () => {
     })
   })
 
-  describe('computeRows()', () => {
-    it('returns [] for containerWidth <= 0', () => {
-      expect(computeRows([1, 1], 0, 300, 10, 0.6)).toEqual([])
-    })
+})
 
-    it('returns [] for empty aspectRatios', () => {
-      expect(computeRows([], 1200, 300, 10, 0.6)).toEqual([])
-    })
+describe('computeRows()', () => {
+  it('returns [] for containerWidth <= 0', () => {
+    expect(computeRows([1, 1], 0, 300, 10, 0.6)).toEqual([])
+  })
 
-    it('single group of images becomes one last row at targetHeight', () => {
-      const rows = computeRows([1.5, 2.0], 1000, 300, 10, 0.6)
-      expect(rows).toHaveLength(1)
-      expect(rows[0].isLastRow).toBe(true)
-      expect(rows[0].height).toBe(300)
-      expect(rows[0].items[0].width).toBeCloseTo(1.5 * 300)
-      expect(rows[0].items[1].width).toBeCloseTo(2.0 * 300)
-    })
+  it('returns [] for empty aspectRatios', () => {
+    expect(computeRows([], 1200, 300, 10, 0.6)).toEqual([])
+  })
 
-    it('breaks into two rows when height would drop below minimum', () => {
-      // 6 equal AR=1 images at 600px container, gap=0, target=300, minRatio=0.6 (min=180px)
-      // After 3 images: height = 600/3 = 200 > 180 ✓
-      // Adding 4th: height = 600/4 = 150 < 180 → row breaks
-      const rows = computeRows([1, 1, 1, 1, 1, 1], 600, 300, 0, 0.6)
-      expect(rows).toHaveLength(2)
-      expect(rows[0].items).toHaveLength(3)
-      expect(rows[0].isLastRow).toBe(false)
-      expect(rows[1].isLastRow).toBe(true)
-    })
+  it('single group of images becomes one last row at targetHeight', () => {
+    const rows = computeRows([1.5, 2.0], 1000, 300, 10, 0.6)
+    expect(rows).toHaveLength(1)
+    expect(rows[0].isLastRow).toBe(true)
+    expect(rows[0].height).toBe(300)
+    expect(rows[0].items[0].width).toBeCloseTo(1.5 * 300)
+    expect(rows[0].items[1].width).toBeCloseTo(2.0 * 300)
+  })
 
-    it('last row always uses targetHeight, not computed height', () => {
-      const rows = computeRows([1.5, 2.0, 0.5], 1200, 300, 10, 0.6)
-      const lastRow = rows[rows.length - 1]
-      expect(lastRow.isLastRow).toBe(true)
-      expect(lastRow.height).toBe(300)
-    })
+  it('breaks into two rows when height would drop below minimum', () => {
+    // 6 equal AR=1 images at 600px container, gap=0, target=300, minRatio=0.6 (min=180px)
+    // After 3 images: height = 600/3 = 200 > 180 ✓
+    // Adding 4th: height = 600/4 = 150 < 180 → row breaks
+    const rows = computeRows([1, 1, 1, 1, 1, 1], 600, 300, 0, 0.6)
+    expect(rows).toHaveLength(2)
+    expect(rows[0].items).toHaveLength(3)
+    expect(rows[0].isLastRow).toBe(false)
+    expect(rows[1].isLastRow).toBe(true)
+  })
 
-    it('non-last row height = (containerWidth - gaps) / sumAR', () => {
-      // [1.5, 2.0] fills first row; adding 1.0 would drop height below min (153 < 180)
-      // so first row is finalised at height = (710-10)/(1.5+2.0) = 700/3.5 = 200
-      const rows = computeRows([1.5, 2.0, 1.0], 710, 300, 10, 0.6)
-      expect(rows[0].isLastRow).toBe(false)
-      expect(rows[0].height).toBeCloseTo(200)
-      expect(rows[0].items[0].width).toBeCloseTo(1.5 * 200)
-      expect(rows[0].items[1].width).toBeCloseTo(2.0 * 200)
-    })
+  it('last row always uses targetHeight, not computed height', () => {
+    const rows = computeRows([1.5, 2.0, 0.5], 1200, 300, 10, 0.6)
+    const lastRow = rows[rows.length - 1]
+    expect(lastRow.isLastRow).toBe(true)
+    expect(lastRow.height).toBe(300)
+  })
 
-    it('each item width = aspectRatio × row height', () => {
-      const rows = computeRows([1.5, 0.75, 1.33], 1200, 300, 10, 0.6)
-      for (const row of rows) {
-        for (const item of row.items) {
-          expect(item.width).toBeCloseTo(item.aspectRatio * row.height)
-        }
+  it('non-last row height = (containerWidth - gaps) / sumAR', () => {
+    // [1.5, 2.0] fills first row; adding 1.0 would drop height below min (153 < 180)
+    // so first row is finalised at height = (710-10)/(1.5+2.0) = 700/3.5 = 200
+    const rows = computeRows([1.5, 2.0, 1.0], 710, 300, 10, 0.6)
+    expect(rows[0].isLastRow).toBe(false)
+    expect(rows[0].height).toBeCloseTo(200)
+    expect(rows[0].items[0].width).toBeCloseTo(1.5 * 200)
+    expect(rows[0].items[1].width).toBeCloseTo(2.0 * 200)
+  })
+
+  it('each item width = aspectRatio × row height', () => {
+    const rows = computeRows([1.5, 0.75, 1.33], 1200, 300, 10, 0.6)
+    for (const row of rows) {
+      for (const item of row.items) {
+        expect(item.width).toBeCloseTo(item.aspectRatio * row.height)
       }
-    })
+    }
   })
 })

@@ -18,7 +18,7 @@ export class UniformGallery extends HTMLElement implements IUniformGallery {
   private static readonly REVEAL_MARGIN = '50px'
   private static readonly HIGH_PRIORITY_IMAGE_COUNT = 3
   private static readonly LAYOUT_TARGET_HEIGHT = 300
-  private static readonly LAYOUT_GAP = 10
+  private static readonly LAYOUT_GAP = 8
   private static readonly LAYOUT_MIN_ROW_RATIO = 0.6
   private static readonly MOBILE_BREAKPOINT = 576
   private static layoutRafPending = false

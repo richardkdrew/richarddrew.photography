@@ -5,7 +5,7 @@
 .uniform-gallery {
   display: flex;
   flex-wrap: wrap;
-  gap: var(--space-sm);        /* 8px — matches masonry-gallery */
+  gap: var(--gallery-gap);
   width: 100%;
   box-sizing: border-box;
   background: var(--color-pure);

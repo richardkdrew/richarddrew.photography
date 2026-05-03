@@ -155,4 +155,55 @@ describe('UniformGallery UI Tests', () => {
       expect(first).toBe(second)
     })
   })
+
+  describe('Layout', () => {
+    let layoutGallery: UniformGallery
+    let layoutContainer: HTMLElement
+
+    beforeEach(async () => {
+      // Make clientWidth return 1200 so applyLayout computes non-zero widths/heights
+      Object.defineProperty(HTMLElement.prototype, 'clientWidth', {
+        configurable: true,
+        get: () => 1200
+      })
+      vi.mocked(fetch).mockResolvedValue({
+        ok: true,
+        json: () => Promise.resolve({ images: TEST_IMAGES })
+      } as Response)
+      layoutContainer = document.createElement('div')
+      document.body.appendChild(layoutContainer)
+      layoutGallery = document.createElement('uniform-gallery') as UniformGallery
+      layoutGallery.setAttribute('data-manifest-url', '/test.json')
+      layoutContainer.appendChild(layoutGallery)
+      await new Promise(resolve => setTimeout(resolve, 50))
+    })
+
+    afterEach(() => {
+      layoutContainer.parentNode && document.body.removeChild(layoutContainer)
+      delete (HTMLElement.prototype as any).clientWidth
+    })
+
+    it('should apply inline width and height to each gallery item', () => {
+      const items = layoutGallery.querySelectorAll<HTMLElement>('.gallery-item')
+      expect(items.length).toBeGreaterThan(0)
+      items.forEach(item => {
+        expect(item.style.width).toBeTruthy()
+        expect(item.style.height).toBeTruthy()
+      })
+    })
+
+    it('should set flex-grow to 0 on each gallery item', () => {
+      const items = layoutGallery.querySelectorAll<HTMLElement>('.gallery-item')
+      items.forEach(item => {
+        expect(item.style.flexGrow).toBe('0')
+      })
+    })
+
+    it('should set flex-basis equal to item width on each gallery item', () => {
+      const items = layoutGallery.querySelectorAll<HTMLElement>('.gallery-item')
+      items.forEach(item => {
+        expect(item.style.flexBasis).toBe(item.style.width)
+      })
+    })
+  })
 })

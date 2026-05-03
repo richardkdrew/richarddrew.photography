@@ -8,7 +8,7 @@
   --columns: 5; /* default: large-desktop */
 
   display: flex;
-  gap: 0.5rem; /* 8px -> rem */
+  gap: var(--gallery-gap);
   width: 100%;
   min-height: 400px;
   box-sizing: border-box;
@@ -49,7 +49,7 @@
 .masonry-column {
   display: flex;
   flex-direction: column;
-  gap: 0.5rem; /* 8px -> rem */
+  gap: var(--gallery-gap);
   flex: 1; /* Equal width columns */
 }
 

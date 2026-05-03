@@ -97,7 +97,7 @@
       document.documentElement.classList.remove('initial-load');
 
       // Register Service Worker for PWA functionality
-      if ('serviceWorker' in navigator) {
+      if ('serviceWorker' in navigator && location.protocol === 'https:') {
         navigator.serviceWorker.register('/sw.js').catch(() => {
           // Silently fail - PWA is optional enhancement
         });

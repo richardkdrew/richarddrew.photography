@@ -38,6 +38,9 @@
   /* Spacing Scale */
   --space-xs: 0.25rem;
   --space-sm: 0.5rem;
+
+  /* Component Tokens */
+  --gallery-gap: 0.625rem;  /* 10px — gap between gallery items */
   --space-md: 1rem;
   --space-lg: 1.5rem;
   --space-xl: 2rem;

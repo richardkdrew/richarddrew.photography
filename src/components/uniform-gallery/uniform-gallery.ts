@@ -11,11 +11,17 @@ import type { IGalleryDataService } from '../../services/gallery-data.types'
 import { StaticManifestGalleryDataService } from '../../services/static-manifest.gallery-data.service'
 import { ImageErrorHandler } from '../../utils/image-error-handler'
 import './uniform-gallery.css'
+import { computeRows } from './uniform-gallery.layout'
 
 export class UniformGallery extends HTMLElement implements IUniformGallery {
   private static readonly LAZY_LOAD_MARGIN = '200px'
   private static readonly REVEAL_MARGIN = '50px'
   private static readonly HIGH_PRIORITY_IMAGE_COUNT = 3
+  private static readonly LAYOUT_TARGET_HEIGHT = 300
+  private static readonly LAYOUT_GAP = 10
+  private static readonly LAYOUT_MIN_ROW_RATIO = 0.6
+  private static readonly MOBILE_BREAKPOINT = 576
+  private static layoutRafPending = false
 
   private images: ResponsiveImage[] = []
   private cachedImageData: GalleryImageData[] | null = null
@@ -94,6 +100,43 @@ export class UniformGallery extends HTMLElement implements IUniformGallery {
     const spacer = document.createElement('div')
     spacer.className = 'gallery-spacer'
     this.appendChild(spacer)
+
+    this.applyLayout(this.clientWidth)
+  }
+
+  private applyLayout(containerWidth: number): void {
+    const items = Array.from(this.querySelectorAll<HTMLElement>('.gallery-item'))
+    if (!items.length) return
+
+    if (containerWidth <= UniformGallery.MOBILE_BREAKPOINT) {
+      items.forEach(item => {
+        item.style.removeProperty('width')
+        item.style.removeProperty('height')
+        item.style.removeProperty('flex-basis')
+        item.style.removeProperty('flex-grow')
+      })
+      return
+    }
+
+    const rows = computeRows(
+      this.images.map(img => img.aspectRatio),
+      containerWidth,
+      UniformGallery.LAYOUT_TARGET_HEIGHT,
+      UniformGallery.LAYOUT_GAP,
+      UniformGallery.LAYOUT_MIN_ROW_RATIO
+    )
+
+    let itemIndex = 0
+    for (const row of rows) {
+      for (const layoutItem of row.items) {
+        const el = items[itemIndex++]
+        if (!el) continue
+        el.style.width = `${layoutItem.width}px`
+        el.style.height = `${row.height}px`
+        el.style.flexBasis = `${layoutItem.width}px`
+        el.style.flexGrow = '0'
+      }
+    }
   }
 
   private createItem(image: ResponsiveImage, index: number): HTMLElement {
@@ -259,10 +302,18 @@ export class UniformGallery extends HTMLElement implements IUniformGallery {
 
   private setupResizeObserver(): void {
     if (!UniformGallery.sharedResizeObserver) {
-      UniformGallery.sharedResizeObserver = new ResizeObserver(() => {
-        UniformGallery.observedGalleries.forEach(g => {
-          if (g.viewer) g.viewer.setEnabled(!g.isMobile())
-        })
+      UniformGallery.sharedResizeObserver = new ResizeObserver((entries) => {
+        if (!UniformGallery.layoutRafPending) {
+          UniformGallery.layoutRafPending = true
+          requestAnimationFrame(() => {
+            UniformGallery.layoutRafPending = false
+            entries.forEach(entry => {
+              const gallery = entry.target as UniformGallery
+              gallery.applyLayout(entry.contentRect.width)
+              if (gallery.viewer) gallery.viewer.setEnabled(!gallery.isMobile())
+            })
+          })
+        }
       })
     }
     UniformGallery.observedGalleries.add(this)
@@ -310,6 +361,7 @@ export class UniformGallery extends HTMLElement implements IUniformGallery {
       delete UniformGallery.sharedRevealObserver
       UniformGallery.sharedResizeObserver?.disconnect()
       delete UniformGallery.sharedResizeObserver
+      UniformGallery.layoutRafPending = false
     }
     this.isInitialized = false
     this.cachedImageData = null

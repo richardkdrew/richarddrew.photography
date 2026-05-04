@@ -106,6 +106,7 @@ temp/
 # Test results
 test-results/
 coverage/
+reports/
 
 # Claude Code specific
 settings.local.json

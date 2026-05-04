@@ -1,5 +1,4 @@
-/* Preconnect to Google Fonts for fallbacks */
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600&family=Inter:wght@300;400;500;600&family=Lora:wght@300;400;500&display=swap');
+/* Google Fonts loaded asynchronously via <link> in HTML — no @import here */
 
 /**
  * Local Font Definitions

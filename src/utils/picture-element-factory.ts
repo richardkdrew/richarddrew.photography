@@ -153,11 +153,10 @@ export class PictureElementFactory {
       img.fetchPriority = 'high'
     }
     
-    // Set native loading attribute based on context and priority
     if (context === 'gallery') {
-      img.loading = (options.originalIndex !== undefined && options.originalIndex < 6) ? 'eager' : 'lazy'
+      img.loading = options.highPriority ? 'eager' : 'lazy'
     } else {
-      img.loading = 'eager' // Viewer images should load immediately
+      img.loading = 'eager'
     }
     
     // Set dimensions if available to prevent layout shift

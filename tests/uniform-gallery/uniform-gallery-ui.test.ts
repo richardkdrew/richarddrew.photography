@@ -90,6 +90,41 @@ describe('UniformGallery UI Tests', () => {
     })
   })
 
+  describe('Native image loading', () => {
+    it('should set src directly on all images (no data-src)', () => {
+      const imgs = gallery.querySelectorAll<HTMLImageElement>('.gallery-item img')
+      imgs.forEach(img => {
+        expect(img.src).toBeTruthy()
+        expect(img.dataset.src).toBeUndefined()
+      })
+    })
+
+    it('should not add lazy class to any image', () => {
+      const imgs = gallery.querySelectorAll<HTMLImageElement>('.gallery-item img')
+      imgs.forEach(img => {
+        expect(img.classList.contains('lazy')).toBe(false)
+      })
+    })
+
+    it('should set loading="eager" on first 6 images', () => {
+      const imgs = gallery.querySelectorAll<HTMLImageElement>('.gallery-item img')
+      const priority = Array.from(imgs).slice(0, Math.min(6, imgs.length))
+      priority.forEach(img => expect(img.loading).toBe('eager'))
+    })
+
+    it('should set loading="lazy" on images beyond first 6', () => {
+      const imgs = gallery.querySelectorAll<HTMLImageElement>('.gallery-item img')
+      const nonPriority = Array.from(imgs).slice(6)
+      nonPriority.forEach(img => expect(img.loading).toBe('lazy'))
+    })
+
+    it('should set fetchpriority="high" on first 6 images', () => {
+      const imgs = gallery.querySelectorAll<HTMLImageElement>('.gallery-item img')
+      const priority = Array.from(imgs).slice(0, Math.min(6, imgs.length))
+      priority.forEach(img => expect(img.fetchPriority).toBe('high'))
+    })
+  })
+
   describe('Reveal animation', () => {
     it('should add visible class to first 3 items immediately', () => {
       const items = gallery.querySelectorAll('.gallery-item')

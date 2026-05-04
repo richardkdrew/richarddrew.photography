@@ -755,6 +755,246 @@
         "type": "blur",
         "data": "data:image/jpeg;base64,/9j/2wBDABsbGxscGx4hIR4qLSgtKj04MzM4PV1CR0JHQl2NWGdYWGdYjX2Xe3N7l33gsJycsOD/2c7Z////////////////2wBDARsbGxscGx4hIR4qLSgtKj04MzM4PV1CR0JHQl2NWGdYWGdYjX2Xe3N7l33gsJycsOD/2c7Z////////////////wgARCAAoACgDASIAAhEBAxEB/8QAGAABAQEBAQAAAAAAAAAAAAAAAAQCAQX/xAAWAQEBAQAAAAAAAAAAAAAAAAAAAQL/2gAMAwEAAhADEAAAAPZ7H3Wa0gqRiPsGkt5JmqkYk2S6FYB//8QAGBABAQEBAQAAAAAAAAAAAAAAABITAQL/2gAIAQEAAT8ApSlrWtbRo0aNGjRotbvt3257c9KU76f/xAAUEQEAAAAAAAAAAAAAAAAAAAAw/9oACAECAQE/AB//xAAUEQEAAAAAAAAAAAAAAAAAAAAw/9oACAEDAQE/AB//2Q=="
       }
+    },
+    {
+      "id": "landscape-004",
+      "alt": "Winter lake reflection",
+      "aspectRatio": 1.5,
+      "sources": [
+        {
+          "format": "jpeg",
+          "sizes": [
+            { "width": 400, "height": 267, "density": 1, "url": "https://picsum.photos/id/1019/400/267", "breakpoint": "mobile" },
+            { "width": 600, "height": 400, "density": 1, "url": "https://picsum.photos/id/1019/600/400", "breakpoint": "tablet" },
+            { "width": 800, "height": 533, "density": 1, "url": "https://picsum.photos/id/1019/800/533", "breakpoint": "large-tablet" },
+            { "width": 1000, "height": 667, "density": 1, "url": "https://picsum.photos/id/1019/1000/667", "breakpoint": "large-tablet-2x" },
+            { "width": 1200, "height": 800, "density": 1, "url": "https://picsum.photos/id/1019/1200/800", "breakpoint": "desktop" },
+            { "width": 1600, "height": 1067, "density": 1, "url": "https://picsum.photos/id/1019/1600/1067", "breakpoint": "large-desktop" }
+          ]
+        }
+      ],
+      "metadata": { "originalWidth": 1600, "originalHeight": 1067, "fileSize": 0 },
+      "lqip": { "type": "blur", "data": "data:image/jpeg;base64,/9j/2wBDABsbGxscGx4hIR4qLSgtKj04MzM4PV1CR0JHQl2NWGdYWGdYjX2Xe3N7l33gsJycsOD/2c7Z////////////////2wBDARsbGxscGx4hIR4qLSgtKj04MzM4PV1CR0JHQl2NWGdYWGdYjX2Xe3N7l33gsJycsOD/2c7Z////////////////wgARCAAbACgDASIAAhEBAxEB/8QAGQAAAgMBAAAAAAAAAAAAAAAAAgMAAQQF/8QAFQEBAQAAAAAAAAAAAAAAAAAAAAH/2gAMAwEAAhADEAAAAOsOETavEqN05kKpFI1QgpRUP//EABkQAQEBAQEBAAAAAAAAAAAAAAABAwITEP/aAAgBAQABPwD0XRdF1XV6rquq6rq9F0Xte17+1Vf/xAAUEQEAAAAAAAAAAAAAAAAAAAAg/9oACAECAQE/AF//xAAUEQEAAAAAAAAAAAAAAAAAAAAg/9oACAEDAQE/AF//2Q==" }
+    },
+    {
+      "id": "portrait-004",
+      "alt": "Evening silhouette",
+      "aspectRatio": 0.75,
+      "sources": [
+        {
+          "format": "jpeg",
+          "sizes": [
+            { "width": 400, "height": 533, "density": 1, "url": "https://picsum.photos/id/1020/400/533", "breakpoint": "mobile" },
+            { "width": 600, "height": 800, "density": 1, "url": "https://picsum.photos/id/1020/600/800", "breakpoint": "tablet" },
+            { "width": 800, "height": 1067, "density": 1, "url": "https://picsum.photos/id/1020/800/1067", "breakpoint": "large-tablet" },
+            { "width": 1000, "height": 1333, "density": 1, "url": "https://picsum.photos/id/1020/1000/1333", "breakpoint": "large-tablet-2x" },
+            { "width": 1200, "height": 1600, "density": 1, "url": "https://picsum.photos/id/1020/1200/1600", "breakpoint": "desktop" },
+            { "width": 1600, "height": 2133, "density": 1, "url": "https://picsum.photos/id/1020/1600/2133", "breakpoint": "large-desktop" }
+          ]
+        }
+      ],
+      "metadata": { "originalWidth": 1600, "originalHeight": 2133, "fileSize": 0 },
+      "lqip": { "type": "blur", "data": "data:image/jpeg;base64,/9j/2wBDABsbGxscGx4hIR4qLSgtKj04MzM4PV1CR0JHQl2NWGdYWGdYjX2Xe3N7l33gsJycsOD/2c7Z////////////////2wBDARsbGxscGx4hIR4qLSgtKj04MzM4PV1CR0JHQl2NWGdYWGdYjX2Xe3N7l33gsJycsOD/2c7Z////////////////wgARCAA1ACgDASIAAhEBAxEB/8QAGQABAAMBAQAAAAAAAAAAAAAAAAECAwQF/8QAFwEBAQEBAAAAAAAAAAAAAAAAAgEAA//aAAwDAQACEAMQAAAA97OmIXRbj1u62YXlwvn1MbY6bdTJzWdbGazKWUJQYQRQJf/EABoQAAMBAAMAAAAAAAAAAAAAAAABAhEQEjD/2gAIAQEAAT8AbHR3FQmVQ7FZNEsqhsTJZNDGYSJ8YZ6//8QAGREBAQADAAAAAAAAAAAAAAAAAQACEDD/2gAIAQIBAT8ACcdE8P/EABQRAQAAAAAAAAAAAAAAAAAAADD/2gAIAQMBAT8AT//Z" }
+    },
+    {
+      "id": "landscape-005",
+      "alt": "Rolling hills at dusk",
+      "aspectRatio": 1.6,
+      "sources": [
+        {
+          "format": "jpeg",
+          "sizes": [
+            { "width": 400, "height": 250, "density": 1, "url": "https://picsum.photos/id/1021/400/250", "breakpoint": "mobile" },
+            { "width": 600, "height": 375, "density": 1, "url": "https://picsum.photos/id/1021/600/375", "breakpoint": "tablet" },
+            { "width": 800, "height": 500, "density": 1, "url": "https://picsum.photos/id/1021/800/500", "breakpoint": "large-tablet" },
+            { "width": 1000, "height": 625, "density": 1, "url": "https://picsum.photos/id/1021/1000/625", "breakpoint": "large-tablet-2x" },
+            { "width": 1200, "height": 750, "density": 1, "url": "https://picsum.photos/id/1021/1200/750", "breakpoint": "desktop" },
+            { "width": 1600, "height": 1000, "density": 1, "url": "https://picsum.photos/id/1021/1600/1000", "breakpoint": "large-desktop" }
+          ]
+        }
+      ],
+      "metadata": { "originalWidth": 1600, "originalHeight": 1000, "fileSize": 0 },
+      "lqip": { "type": "blur", "data": "data:image/jpeg;base64,/9j/2wBDABsbGxscGx4hIR4qLSgtKj04MzM4PV1CR0JHQl2NWGdYWGdYjX2Xe3N7l33gsJycsOD/2c7Z////////////////2wBDARsbGxscGx4hIR4qLSgtKj04MzM4PV1CR0JHQl2NWGdYWGdYjX2Xe3N7l33gsJycsOD/2c7Z////////////////wgARCAAbACgDASIAAhEBAxEB/8QAGQAAAgMBAAAAAAAAAAAAAAAAAgMAAQQF/8QAFQEBAQAAAAAAAAAAAAAAAAAAAAH/2gAMAwEAAhADEAAAAOsOETavEqN05kKpFI1QgpRUP//EABkQAQEBAQEBAAAAAAAAAAAAAAABAwITEP/aAAgBAQABPwD0XRdF1XV6rquq6rq9F0Xte17+1Vf/xAAUEQEAAAAAAAAAAAAAAAAAAAAg/9oACAECAQE/AF//xAAUEQEAAAAAAAAAAAAAAAAAAAAg/9oACAEDAQE/AF//2Q==" }
+    },
+    {
+      "id": "wide-003",
+      "alt": "Desert horizon",
+      "aspectRatio": 2,
+      "sources": [
+        {
+          "format": "jpeg",
+          "sizes": [
+            { "width": 400, "height": 200, "density": 1, "url": "https://picsum.photos/id/1023/400/200", "breakpoint": "mobile" },
+            { "width": 600, "height": 300, "density": 1, "url": "https://picsum.photos/id/1023/600/300", "breakpoint": "tablet" },
+            { "width": 800, "height": 400, "density": 1, "url": "https://picsum.photos/id/1023/800/400", "breakpoint": "large-tablet" },
+            { "width": 1000, "height": 500, "density": 1, "url": "https://picsum.photos/id/1023/1000/500", "breakpoint": "large-tablet-2x" },
+            { "width": 1200, "height": 600, "density": 1, "url": "https://picsum.photos/id/1023/1200/600", "breakpoint": "desktop" },
+            { "width": 1600, "height": 800, "density": 1, "url": "https://picsum.photos/id/1023/1600/800", "breakpoint": "large-desktop" }
+          ]
+        }
+      ],
+      "metadata": { "originalWidth": 1600, "originalHeight": 800, "fileSize": 0 },
+      "lqip": { "type": "blur", "data": "data:image/jpeg;base64,/9j/2wBDABsbGxscGx4hIR4qLSgtKj04MzM4PV1CR0JHQl2NWGdYWGdYjX2Xe3N7l33gsJycsOD/2c7Z////////////////2wBDARsbGxscGx4hIR4qLSgtKj04MzM4PV1CR0JHQl2NWGdYWGdYjX2Xe3N7l33gsJycsOD/2c7Z////////////////wgARCAAUACgDASIAAhEBAxEB/8QAGAAAAwEBAAAAAAAAAAAAAAAAAAECAwT/xAAWAQEBAQAAAAAAAAAAAAAAAAAAAQL/2gAMAwEAAhADEAAAAOrNrNekWWITmYWXoE0wD//EABgQAQEBAQEAAAAAAAAAAAAAAAEQAAIg/9oACAEBAAE/AOoYiwx4MT//xAAUEQEAAAAAAAAAAAAAAAAAAAAg/9oACAECAQE/AF//xAAVEQEBAAAAAAAAAAAAAAAAAAAQAf/aAAgBAwEBPwBj/9k=" }
+    },
+    {
+      "id": "portrait-005",
+      "alt": "Waterfall close-up",
+      "aspectRatio": 0.6,
+      "sources": [
+        {
+          "format": "jpeg",
+          "sizes": [
+            { "width": 400, "height": 667, "density": 1, "url": "https://picsum.photos/id/1024/400/667", "breakpoint": "mobile" },
+            { "width": 600, "height": 1000, "density": 1, "url": "https://picsum.photos/id/1024/600/1000", "breakpoint": "tablet" },
+            { "width": 800, "height": 1333, "density": 1, "url": "https://picsum.photos/id/1024/800/1333", "breakpoint": "large-tablet" },
+            { "width": 1000, "height": 1667, "density": 1, "url": "https://picsum.photos/id/1024/1000/1667", "breakpoint": "large-tablet-2x" },
+            { "width": 1200, "height": 2000, "density": 1, "url": "https://picsum.photos/id/1024/1200/2000", "breakpoint": "desktop" },
+            { "width": 1600, "height": 2667, "density": 1, "url": "https://picsum.photos/id/1024/1600/2667", "breakpoint": "large-desktop" }
+          ]
+        }
+      ],
+      "metadata": { "originalWidth": 1600, "originalHeight": 2667, "fileSize": 0 },
+      "lqip": { "type": "blur", "data": "data:image/jpeg;base64,/9j/2wBDABsbGxscGx4hIR4qLSgtKj04MzM4PV1CR0JHQl2NWGdYWGdYjX2Xe3N7l33gsJycsOD/2c7Z////////////////2wBDARsbGxscGx4hIR4qLSgtKj04MzM4PV1CR0JHQl2NWGdYWGdYjX2Xe3N7l33gsJycsOD/2c7Z////////////////wgARCABDACgDASIAAhEBAxEB/8QAGQAAAwEBAQAAAAAAAAAAAAAAAAIDAQQF/8QAFQEBAQAAAAAAAAAAAAAAAAAAAAH/2gAMAwEAAhADEAAAAOfmRAxcHJAzLQXK4QHDKycqTc0sRwGpTW57HeaS+dMLMsB3gS//xAAaEAACAwEBAAAAAAAAAAAAAAAAAQIQEQMS/9oACAEBAAE/AJ9CUhs0UhzG702sGhiEjBocRCvzSZoiEa00gzkMdQOQx1A5H//EABQRAQAAAAAAAAAAAAAAAAAAADD/2gAIAQIBAT8Af//EABQRAQAAAAAAAAAAAAAAAAAAADD/2gAIAQMBAT8Af//Z" }
+    },
+    {
+      "id": "square-004",
+      "alt": "Stone wall texture",
+      "aspectRatio": 1,
+      "sources": [
+        {
+          "format": "jpeg",
+          "sizes": [
+            { "width": 400, "height": 400, "density": 1, "url": "https://picsum.photos/id/1025/400/400", "breakpoint": "mobile" },
+            { "width": 600, "height": 600, "density": 1, "url": "https://picsum.photos/id/1025/600/600", "breakpoint": "tablet" },
+            { "width": 800, "height": 800, "density": 1, "url": "https://picsum.photos/id/1025/800/800", "breakpoint": "large-tablet" },
+            { "width": 1000, "height": 1000, "density": 1, "url": "https://picsum.photos/id/1025/1000/1000", "breakpoint": "large-tablet-2x" },
+            { "width": 1200, "height": 1200, "density": 1, "url": "https://picsum.photos/id/1025/1200/1200", "breakpoint": "desktop" },
+            { "width": 1600, "height": 1600, "density": 1, "url": "https://picsum.photos/id/1025/1600/1600", "breakpoint": "large-desktop" }
+          ]
+        }
+      ],
+      "metadata": { "originalWidth": 1600, "originalHeight": 1600, "fileSize": 0 },
+      "lqip": { "type": "blur", "data": "data:image/jpeg;base64,/9j/2wBDABsbGxscGx4hIR4qLSgtKj04MzM4PV1CR0JHQl2NWGdYWGdYjX2Xe3N7l33gsJycsOD/2c7Z////////////////2wBDARsbGxscGx4hIR4qLSgtKj04MzM4PV1CR0JHQl2NWGdYWGdYjX2Xe3N7l33gsJycsOD/2c7Z////////////////wgARCAAoACgDASIAAhEBAxEB/8QAGQAAAwEBAQAAAAAAAAAAAAAAAAIEAwEB/8QAFwEBAQEBAAAAAAAAAAAAAAAAAgEAA//aAAwDAQACEAMQAAAA7lWi1o9lNOWjnWzUzIjRjBGMqP/EABkQAAMBAQEAAAAAAAAAAAAAAAABERIQAv/aAAgBAQABPwBnBaOZYLR0ei7SJR0ei7SJR0//xAAUEQEAAAAAAAAAAAAAAAAAAAAw/9oACAECAQE/AB//xAAUEQEAAAAAAAAAAAAAAAAAAAAw/9oACAEDAQE/AB//2Q==" }
+    },
+    {
+      "id": "landscape-006",
+      "alt": "Misty morning valley",
+      "aspectRatio": 1.33,
+      "sources": [
+        {
+          "format": "jpeg",
+          "sizes": [
+            { "width": 400, "height": 301, "density": 1, "url": "https://picsum.photos/id/1026/400/301", "breakpoint": "mobile" },
+            { "width": 600, "height": 451, "density": 1, "url": "https://picsum.photos/id/1026/600/451", "breakpoint": "tablet" },
+            { "width": 800, "height": 602, "density": 1, "url": "https://picsum.photos/id/1026/800/602", "breakpoint": "large-tablet" },
+            { "width": 1000, "height": 752, "density": 1, "url": "https://picsum.photos/id/1026/1000/752", "breakpoint": "large-tablet-2x" },
+            { "width": 1200, "height": 902, "density": 1, "url": "https://picsum.photos/id/1026/1200/902", "breakpoint": "desktop" },
+            { "width": 1600, "height": 1203, "density": 1, "url": "https://picsum.photos/id/1026/1600/1203", "breakpoint": "large-desktop" }
+          ]
+        }
+      ],
+      "metadata": { "originalWidth": 1600, "originalHeight": 1203, "fileSize": 0 },
+      "lqip": { "type": "blur", "data": "data:image/jpeg;base64,/9j/2wBDABsbGxscGx4hIR4qLSgtKj04MzM4PV1CR0JHQl2NWGdYWGdYjX2Xe3N7l33gsJycsOD/2c7Z////////////////2wBDARsbGxscGx4hIR4qLSgtKj04MzM4PV1CR0JHQl2NWGdYWGdYjX2Xe3N7l33gsJycsOD/2c7Z////////////////wgARCAAeACgDASIAAhEBAxEB/8QAGAAAAwEBAAAAAAAAAAAAAAAAAAEDBAL/xAAYAQADAQEAAAAAAAAAAAAAAAABAgQDAP/aAAwDAQACEAMQAAAA0PlUTdqXDdoMgRoSJKJwrm2zRMdf/8QAGRABAAMBAQEAAAAAAAAAAAAAAAABERAhAjD/2gAIAQEAAT8A7Hhw9dJqGhzMM1dQ7UxGOWS//8QAGhEAAgMBAQAAAAAAAAAAAAAAAAIBEBESMf/aAAgBAgEBPwCqqzjT/8QAGREBAQEAAwAAAAAAAAAAAAAAAQIAERIh/9oACAEDAQE/AMY4JZiMn//Z" }
+    },
+    {
+      "id": "portrait-006",
+      "alt": "Old town alleyway",
+      "aspectRatio": 0.8,
+      "sources": [
+        {
+          "format": "jpeg",
+          "sizes": [
+            { "width": 400, "height": 500, "density": 1, "url": "https://picsum.photos/id/1027/400/500", "breakpoint": "mobile" },
+            { "width": 600, "height": 750, "density": 1, "url": "https://picsum.photos/id/1027/600/750", "breakpoint": "tablet" },
+            { "width": 800, "height": 1000, "density": 1, "url": "https://picsum.photos/id/1027/800/1000", "breakpoint": "large-tablet" },
+            { "width": 1000, "height": 1250, "density": 1, "url": "https://picsum.photos/id/1027/1000/1250", "breakpoint": "large-tablet-2x" },
+            { "width": 1200, "height": 1500, "density": 1, "url": "https://picsum.photos/id/1027/1200/1500", "breakpoint": "desktop" },
+            { "width": 1600, "height": 2000, "density": 1, "url": "https://picsum.photos/id/1027/1600/2000", "breakpoint": "large-desktop" }
+          ]
+        }
+      ],
+      "metadata": { "originalWidth": 1600, "originalHeight": 2000, "fileSize": 0 },
+      "lqip": { "type": "blur", "data": "data:image/jpeg;base64,/9j/2wBDABsbGxscGx4hIR4qLSgtKj04MzM4PV1CR0JHQl2NWGdYWGdYjX2Xe3N7l33gsJycsOD/2c7Z////////////////2wBDARsbGxscGx4hIR4qLSgtKj04MzM4PV1CR0JHQl2NWGdYWGdYjX2Xe3N7l33gsJycsOD/2c7Z////////////////wgARCAAyACgDASIAAhEBAxEB/8QAGQAAAwEBAQAAAAAAAAAAAAAAAAIEAwUB/8QAFgEBAQEAAAAAAAAAAAAAAAAAAAEC/9oADAMBAAIQAxAAAADttM+bQ2DmpmHJ052uL0Xg0W0jDkaYelTS+lJICgKAIgFf/8QAHBAAAwACAwEAAAAAAAAAAAAAAAECERIDEBMg/9oACAEBAAE/AMiZntWKhUbGRcgrFYrNxWKxWKz0FQqFZuenWTY2HXyz/8QAFhEBAQEAAAAAAAAAAAAAAAAAEQAw/9oACAECAQE/AGZy/8QAFBEBAAAAAAAAAAAAAAAAAAAAMP/aAAgBAwEBPwBP/9k=" }
+    },
+    {
+      "id": "wide-004",
+      "alt": "Rocky coastline",
+      "aspectRatio": 1.8,
+      "sources": [
+        {
+          "format": "jpeg",
+          "sizes": [
+            { "width": 400, "height": 222, "density": 1, "url": "https://picsum.photos/id/1028/400/222", "breakpoint": "mobile" },
+            { "width": 600, "height": 333, "density": 1, "url": "https://picsum.photos/id/1028/600/333", "breakpoint": "tablet" },
+            { "width": 800, "height": 444, "density": 1, "url": "https://picsum.photos/id/1028/800/444", "breakpoint": "large-tablet" },
+            { "width": 1000, "height": 556, "density": 1, "url": "https://picsum.photos/id/1028/1000/556", "breakpoint": "large-tablet-2x" },
+            { "width": 1200, "height": 667, "density": 1, "url": "https://picsum.photos/id/1028/1200/667", "breakpoint": "desktop" },
+            { "width": 1600, "height": 889, "density": 1, "url": "https://picsum.photos/id/1028/1600/889", "breakpoint": "large-desktop" }
+          ]
+        }
+      ],
+      "metadata": { "originalWidth": 1600, "originalHeight": 889, "fileSize": 0 },
+      "lqip": { "type": "blur", "data": "data:image/jpeg;base64,/9j/2wBDABsbGxscGx4hIR4qLSgtKj04MzM4PV1CR0JHQl2NWGdYWGdYjX2Xe3N7l33gsJycsOD/2c7Z////////////////2wBDARsbGxscGx4hIR4qLSgtKj04MzM4PV1CR0JHQl2NWGdYWGdYjX2Xe3N7l33gsJycsOD/2c7Z////////////////wgARCAAWACgDASIAAhEBAxEB/8QAGQAAAwEBAQAAAAAAAAAAAAAAAAIDAQQF/8QAFwEAAwEAAAAAAAAAAAAAAAAAAAIDAf/aAAwDAQACEAMQAAAA8+vM8q9KTUNJDIjglGwM2YDL/8QAGBABAQEBAQAAAAAAAAAAAAAAAQACEhD/2gAIAQEAAT8AGNXU6lhhupZYYfFlv//EABcRAQEBAQAAAAAAAAAAAAAAAAARARD/2gAIAQIBAT8AVW9//8QAFxEBAQEBAAAAAAAAAAAAAAAAAAEQEf/aAAgBAwEBPwBY4m//2Q==" }
+    },
+    {
+      "id": "landscape-007",
+      "alt": "Autumn foliage",
+      "aspectRatio": 1.25,
+      "sources": [
+        {
+          "format": "jpeg",
+          "sizes": [
+            { "width": 400, "height": 320, "density": 1, "url": "https://picsum.photos/id/1029/400/320", "breakpoint": "mobile" },
+            { "width": 600, "height": 480, "density": 1, "url": "https://picsum.photos/id/1029/600/480", "breakpoint": "tablet" },
+            { "width": 800, "height": 640, "density": 1, "url": "https://picsum.photos/id/1029/800/640", "breakpoint": "large-tablet" },
+            { "width": 1000, "height": 800, "density": 1, "url": "https://picsum.photos/id/1029/1000/800", "breakpoint": "large-tablet-2x" },
+            { "width": 1200, "height": 960, "density": 1, "url": "https://picsum.photos/id/1029/1200/960", "breakpoint": "desktop" },
+            { "width": 1600, "height": 1280, "density": 1, "url": "https://picsum.photos/id/1029/1600/1280", "breakpoint": "large-desktop" }
+          ]
+        }
+      ],
+      "metadata": { "originalWidth": 1600, "originalHeight": 1280, "fileSize": 0 },
+      "lqip": { "type": "blur", "data": "data:image/jpeg;base64,/9j/2wBDABsbGxscGx4hIR4qLSgtKj04MzM4PV1CR0JHQl2NWGdYWGdYjX2Xe3N7l33gsJycsOD/2c7Z////////////////2wBDARsbGxscGx4hIR4qLSgtKj04MzM4PV1CR0JHQl2NWGdYWGdYjX2Xe3N7l33gsJycsOD/2c7Z////////////////wgARCAAdACgDASIAAhEBAxEB/8QAGAAAAwEBAAAAAAAAAAAAAAAAAAMEAQL/xAAXAQEBAQEAAAAAAAAAAAAAAAAAAQME/9oADAMBAAIQAxAAAADh8NG/PUJwYTBK+Zw7nFpgkX//xAAZEAEBAQADAAAAAAAAAAAAAAACAAEQERL/2gAIAQEAAT8AKirFarVFRV6tVqjsdu5KSjHhbLb/xAAUEQEAAAAAAAAAAAAAAAAAAAAg/9oACAECAQE/AF//xAAUEQEAAAAAAAAAAAAAAAAAAAAg/9oACAEDAQE/AF//2Q==" }
+    },
+    {
+      "id": "vertical-002",
+      "alt": "City tower at night",
+      "aspectRatio": 0.7,
+      "sources": [
+        {
+          "format": "jpeg",
+          "sizes": [
+            { "width": 400, "height": 571, "density": 1, "url": "https://picsum.photos/id/1030/400/571", "breakpoint": "mobile" },
+            { "width": 600, "height": 857, "density": 1, "url": "https://picsum.photos/id/1030/600/857", "breakpoint": "tablet" },
+            { "width": 800, "height": 1143, "density": 1, "url": "https://picsum.photos/id/1030/800/1143", "breakpoint": "large-tablet" },
+            { "width": 1000, "height": 1429, "density": 1, "url": "https://picsum.photos/id/1030/1000/1429", "breakpoint": "large-tablet-2x" },
+            { "width": 1200, "height": 1714, "density": 1, "url": "https://picsum.photos/id/1030/1200/1714", "breakpoint": "desktop" },
+            { "width": 1600, "height": 2286, "density": 1, "url": "https://picsum.photos/id/1030/1600/2286", "breakpoint": "large-desktop" }
+          ]
+        }
+      ],
+      "metadata": { "originalWidth": 1600, "originalHeight": 2286, "fileSize": 0 },
+      "lqip": { "type": "blur", "data": "data:image/jpeg;base64,/9j/2wBDABsbGxscGx4hIR4qLSgtKj04MzM4PV1CR0JHQl2NWGdYWGdYjX2Xe3N7l33gsJycsOD/2c7Z////////////////2wBDARsbGxscGx4hIR4qLSgtKj04MzM4PV1CR0JHQl2NWGdYWGdYjX2Xe3N7l33gsJycsOD/2c7Z////////////////wgARCAA5ACgDASIAAhEBAxEB/8QAGQAAAwEBAQAAAAAAAAAAAAAAAAECAwQF/8QAGAEBAQEBAQAAAAAAAAAAAAAAAQIAAwT/2gAMAwEAAIQAxAAAAPI+VHLyxOk0yMXUZHNTQsjFZmzWQ9rEM8zzdejSs6J1JCP/EABkQAAMBAQEAAAAAAAAAAAAAAAABERAgQP/aAAgBAQABPwDyUvFKUuUpRMuoWf/EABQRAQAAAAAAAAAAAAAAAAAAADD/2gAIAQIBAT8AT//EABcRAQEBAQAAAAAAAAAAAAAAAAARARD/2gAIAQMBAT8AVe1E5G4j/9k=" }
+    },
+    {
+      "id": "square-005",
+      "alt": "Geometric patterns",
+      "aspectRatio": 1,
+      "sources": [
+        {
+          "format": "jpeg",
+          "sizes": [
+            { "width": 400, "height": 400, "density": 1, "url": "https://picsum.photos/id/1031/400/400", "breakpoint": "mobile" },
+            { "width": 600, "height": 600, "density": 1, "url": "https://picsum.photos/id/1031/600/600", "breakpoint": "tablet" },
+            { "width": 800, "height": 800, "density": 1, "url": "https://picsum.photos/id/1031/800/800", "breakpoint": "large-tablet" },
+            { "width": 1000, "height": 1000, "density": 1, "url": "https://picsum.photos/id/1031/1000/1000", "breakpoint": "large-tablet-2x" },
+            { "width": 1200, "height": 1200, "density": 1, "url": "https://picsum.photos/id/1031/1200/1200", "breakpoint": "desktop" },
+            { "width": 1600, "height": 1600, "density": 1, "url": "https://picsum.photos/id/1031/1600/1600", "breakpoint": "large-desktop" }
+          ]
+        }
+      ],
+      "metadata": { "originalWidth": 1600, "originalHeight": 1600, "fileSize": 0 },
+      "lqip": { "type": "blur", "data": "data:image/jpeg;base64,/9j/2wBDABsbGxscGx4hIR4qLSgtKj04MzM4PV1CR0JHQl2NWGdYWGdYjX2Xe3N7l33gsJycsOD/2c7Z////////////////2wBDARsbGxscGx4hIR4qLSgtKj04MzM4PV1CR0JHQl2NWGdYWGdYjX2Xe3N7l33gsJycsOD/2c7Z////////////////wgARCAAoACgDASIAAhEBAxEB/8QAGAABAQEBAQAAAAAAAAAAAAAAAAQCAQX/xAAWAQEBAQAAAAAAAAAAAAAAAAAAAQL/2gAMAwEAAhADEAAAAPZ7H3Wa0gqRiPsGkt5JmqkYk2S6FYB//8QAGBABAQEBAQAAAAAAAAAAAAAAABITAQL/2gAIAQEAAT8ApSlrWtbRo0aNGjRotbvt3257c9KU76f/xAAUEQEAAAAAAAAAAAAAAAAAAAAw/9oACAECAQE/AB//xAAUEQEAAAAAAAAAAAAAAAAAAAAw/9oACAEDAQE/AB//2Q==" }
     }
   ]
 }

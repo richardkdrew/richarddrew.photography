@@ -14,9 +14,8 @@ import './uniform-gallery.css'
 import { computeRows } from './uniform-gallery.layout'
 
 export class UniformGallery extends HTMLElement implements IUniformGallery {
-  private static readonly LAZY_LOAD_MARGIN = '200px'
   private static readonly REVEAL_MARGIN = '50px'
-  private static readonly HIGH_PRIORITY_IMAGE_COUNT = 3
+  private static readonly HIGH_PRIORITY_IMAGE_COUNT = 6
   private static readonly LAYOUT_TARGET_HEIGHT = 300
   private static readonly LAYOUT_GAP = 10
   private static readonly LAYOUT_MIN_ROW_RATIO = 0.6
@@ -35,8 +34,7 @@ export class UniformGallery extends HTMLElement implements IUniformGallery {
     this._dataService = service
   }
 
-  // Shared static observers (same pattern as MasonryGallery)
-  private static sharedImageObserver?: IntersectionObserver
+  // Shared static observers
   private static sharedRevealObserver?: IntersectionObserver
   private static sharedResizeObserver?: ResizeObserver
   private static observedGalleries = new Set<UniformGallery>()
@@ -62,7 +60,6 @@ export class UniformGallery extends HTMLElement implements IUniformGallery {
 
   private async runInitialize(): Promise<void> {
     this.className = 'uniform-gallery'
-    this.setupLazyLoading()
     this.setupRevealObserver()
     await this.loadImages()
     if (!this.images.length) {
@@ -153,17 +150,13 @@ export class UniformGallery extends HTMLElement implements IUniformGallery {
     // LQIP placeholder
     this.addLQIPPlaceholder(image, wrapper)
 
-    // Picture element (lazy for non-priority images)
     const picture = PictureElementFactory.create(image, 'gallery', {
-      lazyLoad: true,
       originalIndex: index,
       highPriority: index < UniformGallery.HIGH_PRIORITY_IMAGE_COUNT
     })
 
     const img = picture.querySelector('img')
     if (img) {
-      UniformGallery.sharedImageObserver?.observe(img)
-
       img.onload = () => {
         const placeholder = wrapper.querySelector('[data-placeholder]')
         if (placeholder) {
@@ -228,25 +221,6 @@ export class UniformGallery extends HTMLElement implements IUniformGallery {
   }
 
   // ── Observers ─────────────────────────────────────────
-
-  private setupLazyLoading(): void {
-    if (!UniformGallery.sharedImageObserver) {
-      UniformGallery.sharedImageObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if (!entry.isIntersecting) return
-          const img = entry.target as HTMLImageElement
-          const picture = img.parentElement as HTMLPictureElement
-          picture.querySelectorAll('source[data-srcset]').forEach(source => {
-            const srcset = (source as HTMLSourceElement).dataset.srcset
-            if (srcset) (source as HTMLSourceElement).srcset = srcset
-          })
-          const src = img.dataset.src
-          if (src) { img.src = src; img.classList.remove('lazy') }
-          UniformGallery.sharedImageObserver?.unobserve(img)
-        })
-      }, { rootMargin: UniformGallery.LAZY_LOAD_MARGIN })
-    }
-  }
 
   private setupRevealObserver(): void {
     if (!UniformGallery.sharedRevealObserver) {
@@ -355,8 +329,6 @@ export class UniformGallery extends HTMLElement implements IUniformGallery {
     UniformGallery.observedGalleries.delete(this)
     UniformGallery.sharedResizeObserver?.unobserve(this)
     if (UniformGallery.observedGalleries.size === 0) {
-      UniformGallery.sharedImageObserver?.disconnect()
-      delete UniformGallery.sharedImageObserver
       UniformGallery.sharedRevealObserver?.disconnect()
       delete UniformGallery.sharedRevealObserver
       UniformGallery.sharedResizeObserver?.disconnect()

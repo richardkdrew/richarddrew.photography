@@ -1,90 +1,56 @@
-# Photography Portfolio Website
+# Richard Drew Photography
 
-[![PR Checks](https://github.com/richardkdrew/richarddrew.photography/actions/workflows/pr-checks.yml/badge.svg?branch=develop)](https://github.com/richardkdrew/richarddrew.photography/actions/workflows/pr-checks.yml)
-[![Accessibility](https://img.shields.io/badge/a11y-WCAG%20AA-green)](https://github.com/richardkdrew/richarddrew.photography/actions/workflows/pr-checks.yml)
 [![Dev Deploy](https://github.com/richardkdrew/richarddrew.photography/actions/workflows/deploy-dev.yml/badge.svg?branch=develop)](https://github.com/richardkdrew/richarddrew.photography/actions/workflows/deploy-dev.yml)
 [![Prod Deploy](https://github.com/richardkdrew/richarddrew.photography/actions/workflows/deploy-prod.yml/badge.svg?branch=main)](https://github.com/richardkdrew/richarddrew.photography/actions/workflows/deploy-prod.yml)
-[![Version](https://img.shields.io/github/v/tag/richardkdrew/richarddrew.photography)](https://github.com/richardkdrew/richarddrew.photography/tags)
+[![PR Checks](https://github.com/richardkdrew/richarddrew.photography/actions/workflows/pr-checks.yml/badge.svg?branch=develop)](https://github.com/richardkdrew/richarddrew.photography/actions/workflows/pr-checks.yml)
+[![Accessibility](https://img.shields.io/badge/a11y-WCAG%20AA-green)](https://github.com/richardkdrew/richarddrew.photography/actions/workflows/pr-checks.yml)
 
-A modern, professional photography portfolio built with performance and accessibility in mind. Features a responsive masonry gallery layout, full-screen image lightbox viewer and seamless dark mode support.
+A professional photography portfolio with a focus on image quality, fast loading, and a clean viewing experience across all devices.
 
-## ✨ Key Features
+## Features
 
-- **Responsive Masonry Gallery** - 5-breakpoint system
-   (1-5 columns) with CSS-only layout
-- **Full-Screen Image Viewer** - Keyboard navigation,
-  visual order, smooth transitions
-- **Dark Mode** - WCAG AA compliant theme toggle with
-  localStorage persistence
-- **Progressive Images** - WebP/JPEG fallback, srcset
-  optimization, LQIP blur placeholders
-- **Mobile-First Design** - Touch-optimized, hamburger
-   menu, optimized for all devices
-- **View Transitions API** - Smooth page navigation
-  (Chrome/Edge)
-- **About/Bio Section** - Professional photographer
-  introduction
-- **PWA Support** - Offline capability, installable,
-  service worker caching
+### Gallery
 
-## 🛠 Tech Stack
+- Justified grid layout — images display at consistent row heights with natural aspect ratios preserved, no cropping
+- Scroll-reveal animation — images fade in as you scroll, above-fold images appear immediately
+- Full-screen viewer — click any image to open a lightbox with keyboard navigation (arrow keys, Escape) and swipe support on mobile
+- LQIP placeholders — a blurred low-quality preview shows instantly while the full image loads
 
-- **TypeScript** → Vanilla JavaScript (ES2020+)
-- **Web Components** - Custom elements, no framework
-  dependencies
-- **Vite** - Lightning-fast dev server and optimized
-  builds
-- **Vitest** - Comprehensive test coverage (96%+)
-- **CSS Custom Properties** - Design system tokens
-- **Makefile** - Simple command interface
+### Images
 
-## 📚 Documentation
+- Native lazy loading — first 6 images load eagerly with high fetch priority; the rest load on demand
+- Responsive srcset — the browser selects the right image size for the screen
+- WebP/AVIF support with JPEG fallback
 
-This project has comprehensive documentation organized by purpose:
+### Experience
 
-- **[CLAUDE.md](CLAUDE.md)**: Quick start and documentation map
-  - **Start here** for fast orientation and task-type routing
-  - MANDATORY reading requirements by task type
-  - Current status, recent changes, quick reference
+- Dark mode — system preference detected automatically, toggleable, persists across sessions
+- Mobile-first — touch-optimised, full-width gallery on small screens, hamburger navigation
+- Smooth page transitions using the View Transitions API
+- Installable as a PWA with offline support
 
-- **[CONSTITUTION.md](.specify/memory/CONSTITUTION.md)**: Principles and philosophy (WHY)
-  - 20 foundational principles (vanilla-first, TDD, accessibility)
-  - Anti-patterns, quality gates, success metrics
-  - Source of truth for architectural decisions
+### Performance & Quality
 
-- **[DEVELOPMENT.md](docs/DEVELOPMENT.md)**: Workflow and development guide (HOW)
-  - Complete 6-phase workflow (spec → plan → test → implement → verify → PR)
-  - Code standards, testing requirements, TodoWrite usage
-  - Quality gates, troubleshooting, commands reference
+- Lighthouse scores (mobile, local): Performance 83, Accessibility 100, Best Practices 96, SEO 100
+- WCAG AA accessibility throughout
+- 414 automated tests across unit, UI, accessibility, and performance categories
 
-- **[ARCHITECTURE.md](docs/ARCHITECTURE.md)**: System architecture and patterns (WHAT)
-  - Component architecture, build pipeline, data flow
-  - Responsive system, performance architecture
-  - Browser support, deployment architecture
+## Built With
 
-- **[DEPLOYMENT.md](docs/DEPLOYMENT.md)**: Deployment and operations (OPS)
-  - Cloudflare Pages setup, GitHub Actions workflows
-  - Troubleshooting, rollback procedures
-  - Security best practices
+TypeScript compiled to vanilla JavaScript, Web Components (no framework), Vite, Vitest, deployed on Cloudflare Pages.
 
-- **[BRANCH-PROTECTION.md](docs/BRANCH-PROTECTION.md)**: GitHub configuration (SETUP)
-  - Branch protection rules, required status checks
-  - PR workflow, bypass procedures
+## Development
 
-### For Different Audiences
+```bash
+make dev           # Start dev server at localhost:3000
+make test-run      # Run tests + Lighthouse audit (pre-commit gate)
+make build         # Production build
+make lighthouse    # Lighthouse audit only (builds first)
+make lighthouse-full  # Lighthouse with full HTML report → reports/lighthouse.html
+```
 
-**For AI Assistants**:
+## Documentation
 
-1. Start with [CLAUDE.md](CLAUDE.md) for task-type specific MANDATORY documentation
-2. Follow the documentation requirements defined in [CONSTITUTION.md - Section IX](.specify/memory/CONSTITUTION.md#ix-documentation-requirements)
-
-**For Developers**:
-
-1. Read [DEVELOPMENT.md](docs/DEVELOPMENT.md) for complete workflow
-2. Reference [ARCHITECTURE.md](docs/ARCHITECTURE.md) for system understanding
-3. Consult [CONSTITUTION.md](.specify/memory/CONSTITUTION.md) for principles
-
-**For DevOps/Admins**:
-
-1. Start with [DEPLOYMENT.md](docs/DEPLOYMENT.md) for operations
-2. Reference [BRANCH-PROTECTION.md](docs/BRANCH-PROTECTION.md) for GitHub setup
+- [DEVELOPMENT.md](docs/DEVELOPMENT.md) — workflow, code standards, commands
+- [ARCHITECTURE.md](docs/ARCHITECTURE.md) — component structure, data flow, build pipeline
+- [DEPLOYMENT.md](docs/DEPLOYMENT.md) — Cloudflare Pages setup, CI/CD, rollback

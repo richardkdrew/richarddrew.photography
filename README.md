@@ -2,8 +2,8 @@
 
 [![Dev Deploy](https://github.com/richardkdrew/richarddrew.photography/actions/workflows/deploy-dev.yml/badge.svg?branch=develop)](https://github.com/richardkdrew/richarddrew.photography/actions/workflows/deploy-dev.yml)
 [![Prod Deploy](https://github.com/richardkdrew/richarddrew.photography/actions/workflows/deploy-prod.yml/badge.svg?branch=main)](https://github.com/richardkdrew/richarddrew.photography/actions/workflows/deploy-prod.yml)
-[![PR Checks](https://github.com/richardkdrew/richarddrew.photography/actions/workflows/pr-checks.yml/badge.svg?branch=develop)](https://github.com/richardkdrew/richarddrew.photography/actions/workflows/pr-checks.yml)
-[![Accessibility](https://img.shields.io/badge/a11y-WCAG%20AA-green)](https://github.com/richardkdrew/richarddrew.photography/actions/workflows/pr-checks.yml)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.x-3178C6?logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
+[![PWA](https://img.shields.io/badge/PWA-enabled-5A0FC8?logo=pwa&logoColor=white)](https://web.dev/progressive-web-apps/)
 
 A professional photography portfolio with a focus on image quality, fast loading, and a clean viewing experience across all devices.
 

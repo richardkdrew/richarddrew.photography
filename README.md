@@ -1,7 +1,7 @@
 # Richard Drew Photography
 
 [![Dev Deploy](https://github.com/richardkdrew/richarddrew.photography/actions/workflows/deploy-dev.yml/badge.svg?branch=develop)](https://github.com/richardkdrew/richarddrew.photography/actions/workflows/deploy-dev.yml)
-[![Prod Deploy](https://github.com/richardkdrew/richarddrew.photography/actions/workflows/deploy-prod.yml/badge.svg?branch=main)](https://github.com/richardkdrew/richarddrew.photography/actions/workflows/deploy-prod.yml)
+[![Prod Deploy](https://github.com/richardkdrew/richarddrew.photography/actions/workflows/deploy-prod.yml/badge.svg)](https://github.com/richardkdrew/richarddrew.photography/actions/workflows/deploy-prod.yml)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.x-3178C6?logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
 [![PWA](https://img.shields.io/badge/PWA-enabled-5A0FC8?logo=pwa&logoColor=white)](https://web.dev/progressive-web-apps/)
 

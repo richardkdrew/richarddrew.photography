@@ -964,17 +964,17 @@
         {
           "format": "jpeg",
           "sizes": [
-            { "width": 400, "height": 571, "density": 1, "url": "https://picsum.photos/id/1030/400/571", "breakpoint": "mobile" },
-            { "width": 600, "height": 857, "density": 1, "url": "https://picsum.photos/id/1030/600/857", "breakpoint": "tablet" },
-            { "width": 800, "height": 1143, "density": 1, "url": "https://picsum.photos/id/1030/800/1143", "breakpoint": "large-tablet" },
-            { "width": 1000, "height": 1429, "density": 1, "url": "https://picsum.photos/id/1030/1000/1429", "breakpoint": "large-tablet-2x" },
-            { "width": 1200, "height": 1714, "density": 1, "url": "https://picsum.photos/id/1030/1200/1714", "breakpoint": "desktop" },
-            { "width": 1600, "height": 2286, "density": 1, "url": "https://picsum.photos/id/1030/1600/2286", "breakpoint": "large-desktop" }
+            { "width": 400, "height": 571, "density": 1, "url": "https://picsum.photos/id/1035/400/571", "breakpoint": "mobile" },
+            { "width": 600, "height": 857, "density": 1, "url": "https://picsum.photos/id/1035/600/857", "breakpoint": "tablet" },
+            { "width": 800, "height": 1143, "density": 1, "url": "https://picsum.photos/id/1035/800/1143", "breakpoint": "large-tablet" },
+            { "width": 1000, "height": 1429, "density": 1, "url": "https://picsum.photos/id/1035/1000/1429", "breakpoint": "large-tablet-2x" },
+            { "width": 1200, "height": 1714, "density": 1, "url": "https://picsum.photos/id/1035/1200/1714", "breakpoint": "desktop" },
+            { "width": 1600, "height": 2286, "density": 1, "url": "https://picsum.photos/id/1035/1600/2286", "breakpoint": "large-desktop" }
           ]
         }
       ],
       "metadata": { "originalWidth": 1600, "originalHeight": 2286, "fileSize": 0 },
-      "lqip": { "type": "blur", "data": "data:image/jpeg;base64,/9j/2wBDABsbGxscGx4hIR4qLSgtKj04MzM4PV1CR0JHQl2NWGdYWGdYjX2Xe3N7l33gsJycsOD/2c7Z////////////////2wBDARsbGxscGx4hIR4qLSgtKj04MzM4PV1CR0JHQl2NWGdYWGdYjX2Xe3N7l33gsJycsOD/2c7Z////////////////wgARCAA5ACgDASIAAhEBAxEB/8QAGQAAAwEBAQAAAAAAAAAAAAAAAAECAwQF/8QAGAEBAQEBAQAAAAAAAAAAAAAAAQIAAwT/2gAMAwEAAIQAxAAAAPI+VHLyxOk0yMXUZHNTQsjFZmzWQ9rEM8zzdejSs6J1JCP/EABkQAAMBAQEAAAAAAAAAAAAAAAABERAgQP/aAAgBAQABPwDyUvFKUuUpRMuoWf/EABQRAQAAAAAAAAAAAAAAAAAAADD/2gAIAQIBAT8AT//EABcRAQEBAQAAAAAAAAAAAAAAAAARARD/2gAIAQMBAT8AVe1E5G4j/9k=" }
+      "lqip": { "type": "blur", "data": "data:image/jpeg;base64,/9j/2wBDABsbGxscGx4hIR4qLSgtKj04MzM4PV1CR0JHQl2NWGdYWGdYjX2Xe3N7l33gsJycsOD/2c7Z////////////////2wBDARsbGxscGx4hIR4qLSgtKj04MzM4PV1CR0JHQl2NWGdYWGdYjX2Xe3N7l33gsJycsOD/2c7Z////////////////wgARCAAdACgDASIAAhEBAxEB/8QAGAAAAwEBAAAAAAAAAAAAAAAAAAMEAQL/xAAXAQEBAQEAAAAAAAAAAAAAAAAAAQME/9oADAMBAAIQAxAAAADh8NG/PUJwYTBK+Zw7nFpgkX//xAAZEAEBAQADAAAAAAAAAAAAAAACAAEQERL/2gAIAQEAAT8AKirFarVFRV6tVqjsdu5KSjHhbLb/xAAUEQEAAAAAAAAAAAAAAAAAAAAg/9oACAECAQE/AF//xAAUEQEAAAAAAAAAAAAAAAAAAAAg/9oACAEDAQE/AF//2Q==" }
     },
     {
       "id": "square-005",

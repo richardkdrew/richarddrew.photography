@@ -158,15 +158,26 @@ export class UniformGallery extends HTMLElement implements IUniformGallery {
     const img = picture.querySelector('img')
     if (img) {
       img.onload = () => {
-        const placeholder = wrapper.querySelector('[data-placeholder]')
-        if (placeholder) {
-          (placeholder as HTMLElement).style.opacity = '0'
-          setTimeout(() => placeholder.remove(), 300)
+        const reveal = () => {
+          const placeholder = wrapper.querySelector('[data-placeholder]')
+          if (placeholder) {
+            (placeholder as HTMLElement).style.opacity = '0'
+            setTimeout(() => placeholder.remove(), 300)
+          }
+          wrapper.classList.add('loaded')
+          this.dispatchEvent(new CustomEvent('uniform-gallery:image-loaded', {
+            detail: { image }
+          }))
         }
-        wrapper.classList.add('loaded')
-        this.dispatchEvent(new CustomEvent('uniform-gallery:image-loaded', {
-          detail: { image }
-        }))
+        // Cached images fire onload synchronously before the item is in the DOM,
+        // so wrapper has no painted initial state and the CSS transition never plays.
+        // setTimeout(0) waits past DOM insertion; rAF ensures one paint cycle fires
+        // with opacity:0 / scale(0.92) before the class change triggers the transition.
+        if (!wrapper.isConnected) {
+          setTimeout(() => requestAnimationFrame(reveal), 0)
+        } else {
+          requestAnimationFrame(reveal)
+        }
       }
 
       img.onerror = async () => {

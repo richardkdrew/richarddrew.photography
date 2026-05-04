@@ -133,13 +133,15 @@ describe('UniformGallery UI Tests', () => {
       }
     })
 
-    it('should add loaded class to wrapper div when img fires onload', () => {
+    it('should add loaded class to wrapper div when img fires onload', async () => {
       const item = gallery.querySelector<HTMLElement>('.gallery-item')
       const wrapper = item?.querySelector<HTMLElement>(':scope > div')
       const img = wrapper?.querySelector<HTMLImageElement>('img')
 
       expect(wrapper?.classList.contains('loaded')).toBe(false)
       img?.dispatchEvent(new Event('load'))
+      // reveal is deferred via requestAnimationFrame — flush it before asserting
+      await new Promise(resolve => requestAnimationFrame(resolve))
       expect(wrapper?.classList.contains('loaded')).toBe(true)
     })
 

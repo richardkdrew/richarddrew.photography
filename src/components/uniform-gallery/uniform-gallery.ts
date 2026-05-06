@@ -16,9 +16,7 @@ import { computeRows } from './uniform-gallery.layout'
 export class UniformGallery extends HTMLElement implements IUniformGallery {
   private static readonly REVEAL_MARGIN = '50px'
   private static readonly HIGH_PRIORITY_IMAGE_COUNT = 6
-  private static readonly LAYOUT_TARGET_HEIGHT = 400
   private static readonly LAYOUT_GAP = 10
-  private static readonly LAYOUT_MIN_ROW_RATIO = 0.6
   private static readonly MOBILE_BREAKPOINT = 576
   private static layoutRafPending = false
 
@@ -93,12 +91,17 @@ export class UniformGallery extends HTMLElement implements IUniformGallery {
       this.appendChild(item)
     })
 
-    // Spacer prevents last row from stretching
     const spacer = document.createElement('div')
     spacer.className = 'gallery-spacer'
     this.appendChild(spacer)
 
     this.applyLayout(this.clientWidth)
+  }
+
+  private getLayoutParams(containerWidth: number): { targetHeight: number; minRowRatio: number } {
+    if (containerWidth >= 1200) return { targetHeight: 420, minRowRatio: 0.65 }
+    if (containerWidth >= 900) return { targetHeight: 360, minRowRatio: 0.65 }
+    return { targetHeight: 300, minRowRatio: 0.65 }
   }
 
   private applyLayout(containerWidth: number): void {
@@ -115,12 +118,13 @@ export class UniformGallery extends HTMLElement implements IUniformGallery {
       return
     }
 
+    const { targetHeight, minRowRatio } = this.getLayoutParams(containerWidth)
     const rows = computeRows(
       this.images.map(img => img.aspectRatio),
       containerWidth,
-      UniformGallery.LAYOUT_TARGET_HEIGHT,
+      targetHeight,
       UniformGallery.LAYOUT_GAP,
-      UniformGallery.LAYOUT_MIN_ROW_RATIO
+      minRowRatio
     )
 
     let itemIndex = 0

@@ -20,7 +20,7 @@ describe('Header Accessibility Tests', () => {
 
   describe('WCAG 2.1 AA Compliance', () => {
     describe('1.1.1 Non-text Content', () => {
-      it('should provide alternative text for logo image', () => {
+      it('should mark logo image as decorative (alt="") since link aria-label carries the accessible name', () => {
         const logo = header.querySelector('.header__logo') as HTMLImageElement
 
         expect(logo).toBeTruthy()

@@ -37,19 +37,19 @@ export class Header extends HTMLElement implements IHeader {
               <!-- Light mode logo (dark.svg on light background) -->
               <img
                 src="/images/branding/richard-drew-logo-dark.svg"
-                alt="Richard Drew"
+                alt=""
                 class="header__logo header__logo--light"
               >
               <!-- Dark mode logo (light.svg on dark background) -->
               <img
                 src="/images/branding/richard-drew-logo-light.svg"
-                alt="Richard Drew"
+                alt=""
                 class="header__logo header__logo--dark"
               >
             </a>
           </div>
 
-          <nav class="header__navigation" role="navigation" aria-label="Main navigation">
+          <nav class="header__navigation" aria-label="Main navigation">
             <ul class="header__nav-list header__nav-list--desktop">
               <li class="header__nav-item">
                 <a href="/about.html" class="header__nav-link">About</a>
@@ -75,7 +75,7 @@ export class Header extends HTMLElement implements IHeader {
         </div>
 
         <div class="header__mobile-menu" id="mobile-menu" aria-hidden="true">
-          <nav class="header__mobile-nav" role="navigation" aria-label="Mobile navigation">
+          <nav class="header__mobile-nav" aria-label="Mobile navigation">
             <ul class="header__nav-list header__nav-list--mobile">
               <li class="header__nav-item">
                 <a href="/about.html" class="header__nav-link">About</a>
@@ -117,7 +117,6 @@ export class Header extends HTMLElement implements IHeader {
     this._initialized = true
 
     this.className = 'portfolio-header'
-    this.setAttribute('role', 'banner')
 
     // Initialize static template
     Header.initializeTemplate()

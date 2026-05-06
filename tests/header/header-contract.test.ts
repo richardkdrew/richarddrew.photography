@@ -28,8 +28,8 @@ describe('Header Contract Tests', () => {
       expect(header.className).toBe('portfolio-header')
     })
 
-    it('MUST have banner role for accessibility', () => {
-      expect(header.getAttribute('role')).toBe('banner')
+    it('MUST NOT have explicit banner role on custom element (inner <header> carries it implicitly)', () => {
+      expect(header.getAttribute('role')).toBeNull()
     })
 
     it('MUST be registered as custom element', () => {
@@ -50,18 +50,15 @@ describe('Header Contract Tests', () => {
       const logo = header.querySelector('.header__logo') as HTMLImageElement
       const logoLink = header.querySelector('.header__logo-link') as HTMLAnchorElement
 
-      expect(logo.alt).toBe('Richard Drew')
+      expect(logo.alt).toBe('')
       // Sizing is controlled by CSS (max-height in rem), not HTML attributes
       expect(logoLink.getAttribute('aria-label')).toBe('Richard Drew Portfolio Home')
       expect(logoLink.href).toMatch(/\/$/) // Should end with /
     })
 
-    it('MUST have fallback for logo loading', () => {
-      const logo = header.querySelector('.header__logo') as HTMLImageElement
-
-      // Logo should have alt text as fallback
-      expect(logo.alt).toBeTruthy()
-      expect(logo.alt.length).toBeGreaterThan(0)
+    it('MUST have accessible logo link name (not alt text)', () => {
+      const logoLink = header.querySelector('.header__logo-link') as HTMLAnchorElement
+      expect(logoLink.getAttribute('aria-label')).toBe('Richard Drew Portfolio Home')
     })
   })
 
@@ -88,9 +85,9 @@ describe('Header Contract Tests', () => {
       const mainNav = header.querySelector('.header__navigation')
       const mobileNav = header.querySelector('.header__mobile-nav')
 
-      expect(mainNav?.getAttribute('role')).toBe('navigation')
+      expect(mainNav?.getAttribute('role')).toBeNull()
       expect(mainNav?.getAttribute('aria-label')).toBe('Main navigation')
-      expect(mobileNav?.getAttribute('role')).toBe('navigation')
+      expect(mobileNav?.getAttribute('role')).toBeNull()
       expect(mobileNav?.getAttribute('aria-label')).toBe('Mobile navigation')
     })
   })

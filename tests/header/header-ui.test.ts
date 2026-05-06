@@ -24,8 +24,8 @@ describe('Header UI Tests', () => {
   })
 
   describe('Component Structure', () => {
-    it('should render header with proper role', () => {
-      expect(header.getAttribute('role')).toBe('banner')
+    it('should render header with correct class and no explicit role', () => {
+      expect(header.getAttribute('role')).toBeNull()
       expect(header.className).toBe('portfolio-header')
     })
 
@@ -34,7 +34,7 @@ describe('Header UI Tests', () => {
 
       expect(logo).toBeTruthy()
       expect(logo.src).toContain('richard-drew-logo-dark.svg')
-      expect(logo.alt).toBe('Richard Drew')
+      expect(logo.alt).toBe('')
       // Sizing is controlled by CSS (max-height in rem), not HTML attributes
     })
 

@@ -24,9 +24,7 @@ describe('Header Accessibility Tests', () => {
         const logo = header.querySelector('.header__logo') as HTMLImageElement
 
         expect(logo).toBeTruthy()
-        expect(logo.alt).toBeTruthy()
-        expect(logo.alt.trim()).toBe('Richard Drew')
-        expect(logo.alt.length).toBeGreaterThan(0)
+        expect(logo.alt).toBe('')
       })
 
       it('should provide accessible names for interactive elements', () => {
@@ -55,13 +53,20 @@ describe('Header Accessibility Tests', () => {
       })
 
       it('should have proper landmark roles', () => {
-        const headerElement = header
+        const innerHeader = header.querySelector('header')
         const navigation = header.querySelector('.header__navigation')
         const mobileNav = header.querySelector('.header__mobile-nav')
 
-        expect(headerElement?.getAttribute('role')).toBe('banner')
-        expect(navigation?.getAttribute('role')).toBe('navigation')
-        expect(mobileNav?.getAttribute('role')).toBe('navigation')
+        // Custom element must NOT carry explicit role — inner <header> provides banner semantics
+        expect(header.getAttribute('role')).toBeNull()
+        // <nav> elements must NOT carry explicit role — it is implicit
+        expect(navigation?.getAttribute('role')).toBeNull()
+        expect(mobileNav?.getAttribute('role')).toBeNull()
+        // But the inner <header> element must exist
+        expect(innerHeader).toBeTruthy()
+        // And nav elements must have accessible names
+        expect(navigation?.getAttribute('aria-label')).toBe('Main navigation')
+        expect(mobileNav?.getAttribute('aria-label')).toBe('Mobile navigation')
       })
 
       it('should use proper list structure for navigation', () => {
@@ -224,10 +229,10 @@ describe('Header Accessibility Tests', () => {
         const mainNav = header.querySelector('.header__navigation')
         const mobileNav = header.querySelector('.header__mobile-nav')
 
-        expect(mainNav?.getAttribute('role')).toBe('navigation')
+        // Role is implicit on <nav> — must NOT be set explicitly
+        expect(mainNav?.getAttribute('role')).toBeNull()
         expect(mainNav?.getAttribute('aria-label')).toBe('Main navigation')
-
-        expect(mobileNav?.getAttribute('role')).toBe('navigation')
+        expect(mobileNav?.getAttribute('role')).toBeNull()
         expect(mobileNav?.getAttribute('aria-label')).toBe('Mobile navigation')
       })
     })
@@ -235,12 +240,13 @@ describe('Header Accessibility Tests', () => {
 
   describe('Screen Reader Support', () => {
     it('should provide clear navigation structure', () => {
-      // The header component itself has role="banner"
-      const banner = header.getAttribute('role')
-      const navigation = header.querySelector('[role="navigation"]')
-
-      expect(banner).toBe('banner')
-      expect(navigation).toBeTruthy()
+      // Inner <header> provides the banner landmark — custom element must not duplicate it
+      const innerHeader = header.querySelector('header')
+      expect(innerHeader).toBeTruthy()
+      expect(header.getAttribute('role')).toBeNull()
+      // Navigation landmark comes from <nav> elements, not explicit role attribute
+      const nav = header.querySelector('nav')
+      expect(nav).toBeTruthy()
     })
 
     it('should announce mobile menu state changes', () => {

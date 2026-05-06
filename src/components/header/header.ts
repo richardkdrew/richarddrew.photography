@@ -229,7 +229,19 @@ export class Header extends HTMLElement implements IHeader {
     this.scrollListener = () => {
       if (!this.scrollEnabled) return
 
-      const currentY = window.scrollY
+      // Clamp to 0: prevents negative scrollY (macOS rubber-band overscroll) from
+      // poisoning lastScrollY, which causes spring-back to look like a downward scroll.
+      const currentY = Math.max(0, window.scrollY)
+
+      // Guard must come BEFORE delta computation so overscroll spring-back
+      // events (all clamped to currentY=0) cannot accumulate phantom downward delta.
+      if (currentY === 0) {
+        this.lastScrollY = 0
+        this.showHeader()
+        this.scrollDelta = 0
+        return
+      }
+
       const direction = currentY > this.lastScrollY ? 'down' : 'up'
       const delta = Math.abs(currentY - this.lastScrollY)
 
@@ -240,13 +252,6 @@ export class Header extends HTMLElement implements IHeader {
       }
 
       this.lastScrollY = currentY
-
-      if (currentY === 0) {
-        this.lastScrollY = 0
-        this.showHeader()
-        this.scrollDelta = 0
-        return
-      }
 
       const isHidden = this.classList.contains('header--hidden')
 

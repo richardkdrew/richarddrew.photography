@@ -308,6 +308,7 @@ describe('Header UI Tests', () => {
 
   describe('Scroll Hide/Show Behavior', () => {
     beforeEach(() => {
+      Object.defineProperty(window, 'scrollY', { value: 0, writable: true, configurable: true })
       setViewportWidth(1024)
       header.handleResize()
     })

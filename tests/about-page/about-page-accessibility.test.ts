@@ -37,6 +37,7 @@ describe('About Page Accessibility Tests', () => {
             </picture>
           </div>
           <div class="about-hero__text">
+            <h1 class="about-hero__heading">About</h1>
             <p class="about-hero__summary professional-summary">
               Lorem ipsum dolor sit amet, consectetur adipiscing elit. This is test content for accessibility testing.
             </p>
@@ -56,9 +57,9 @@ describe('About Page Accessibility Tests', () => {
   })
 
   describe('ARIA and Semantic HTML', () => {
-    it('should have proper ARIA attributes', () => {
-      expect(aboutPage.getAttribute('role')).toBe('main')
-      expect(aboutPage.getAttribute('aria-label')).toBe('About page')
+    it('should NOT have explicit role or aria-label (main landmark is on the <main> element)', () => {
+      expect(aboutPage.getAttribute('role')).toBeNull()
+      expect(aboutPage.getAttribute('aria-label')).toBeNull()
     })
 
     it('should use semantic HTML structure', () => {
@@ -70,17 +71,23 @@ describe('About Page Accessibility Tests', () => {
     })
 
     it('should have accessible content structure', () => {
-      // Page relies on main role and navigation for structure
-      expect(aboutPage.getAttribute('role')).toBe('main')
+      // Custom element must NOT carry main role — that belongs on <main>
+      expect(aboutPage.getAttribute('role')).toBeNull()
 
       // Content should be accessible to screen readers
       const summary = aboutPage.querySelector('.about-hero__summary')
       expect(summary).toBeTruthy()
       expect(summary?.textContent?.trim().length).toBeGreaterThan(20)
 
-      // Check for any headings (should be none in current structure)
-      const headings = aboutPage.querySelectorAll('h1, h2, h3, h4, h5, h6')
-      expect(headings.length).toBe(0) // No headings, relying on page title and nav
+      // Must have an h1 heading
+      const h1 = aboutPage.querySelector('h1')
+      expect(h1).toBeTruthy()
+    })
+
+    it('should have a visible h1 heading', () => {
+      const h1 = aboutPage.querySelector('h1.about-hero__heading')
+      expect(h1).toBeTruthy()
+      expect(h1?.textContent?.trim()).toBe('About')
     })
   })
 
@@ -140,7 +147,7 @@ describe('About Page Accessibility Tests', () => {
     })
 
     it('should use proper landmark roles', () => {
-      expect(aboutPage.getAttribute('role')).toBe('main')
+      expect(aboutPage.getAttribute('role')).toBeNull()
     })
   })
 
@@ -182,14 +189,14 @@ describe('About Page Accessibility Tests', () => {
       window.dispatchEvent(new Event('resize'))
       await new Promise(resolve => setTimeout(resolve, 100))
 
-      expect(aboutPage.getAttribute('role')).toBe('main')
+      expect(aboutPage.getAttribute('role')).toBeNull()
 
       // Test desktop
       Object.defineProperty(window, 'innerWidth', { value: 1400, configurable: true })
       window.dispatchEvent(new Event('resize'))
       await new Promise(resolve => setTimeout(resolve, 100))
 
-      expect(aboutPage.getAttribute('role')).toBe('main')
+      expect(aboutPage.getAttribute('role')).toBeNull()
     })
 
     it('should have minimum touch target sizes on mobile', async () => {

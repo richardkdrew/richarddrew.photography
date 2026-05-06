@@ -60,12 +60,12 @@ describe('About Page Contract Tests', () => {
       expect(aboutPage.className).toBe('about-page')
     })
 
-    it('should have role="main"', () => {
-      expect(aboutPage.getAttribute('role')).toBe('main')
+    it('should NOT have explicit role (main landmark belongs on <main> element)', () => {
+      expect(aboutPage.getAttribute('role')).toBeNull()
     })
 
-    it('should have aria-label', () => {
-      expect(aboutPage.getAttribute('aria-label')).toBeTruthy()
+    it('should NOT have aria-label on custom element', () => {
+      expect(aboutPage.getAttribute('aria-label')).toBeNull()
     })
   })
 

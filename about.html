@@ -56,21 +56,20 @@
   </style>
 </head>
 <body>
+  <portfolio-header data-current-page="about" style="view-transition-name: header"></portfolio-header>
+
   <!-- Page Container - Unified Width Management -->
   <div class="page-container">
-    <!-- Portfolio Header -->
-    <portfolio-header data-current-page="about" style="view-transition-name: header"></portfolio-header>
-
     <main style="view-transition-name: main">
       <!-- About Page Content -->
-      <section class="about-container">
+      <div class="about-container">
         <about-page>
           <!-- Loading state shown while component loads its template -->
           <div class="about-loading-fallback">
             Loading about page...
           </div>
         </about-page>
-      </section>
+      </div>
     </main>
   </div>
 

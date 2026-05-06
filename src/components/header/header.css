@@ -24,16 +24,22 @@
 }
 
 .header__container {
-  /* Inherits width from .page-container parent */
-  width: 100%;
-  padding: var(--space-md) 0; /* Remove horizontal padding to prevent overflow */
+  width: var(--page-width-full);
+  margin: 0 auto;
+  padding: var(--space-md) 0;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  min-height: 4rem; /* Consistent header height */
+  min-height: 4rem;
   box-sizing: border-box;
   position: relative;
-  z-index: 1001; /* Ensure entire header is above mobile menu overlay */
+  z-index: 1001;
+}
+
+@media (min-width: 52.5rem) {
+  .header__container {
+    width: var(--page-width-constrained);
+  }
 }
 
 /* Logo and Branding */
@@ -333,8 +339,6 @@ html.mobile-menu-open {
     display: none !important;
   }
 }
-
-/* Width is now handled by .page-container parent */
 
 @media (min-width: 75rem) { /* Desktop */
   .header__container {

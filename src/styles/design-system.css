@@ -273,17 +273,18 @@ a:hover {
   margin: -1px;
   overflow: hidden;
   clip: rect(0, 0, 0, 0);
+  clip-path: inset(50%);
   white-space: nowrap;
   border: 0;
 }
 
 /* Page Container - Unified Width Management */
 .page-container {
-  width: var(--page-width-full); /* 96% default */
+  width: var(--page-width-full);
   /* max-width: var(--max-width-content); */
   margin: 0 auto;
   box-sizing: border-box;
-  padding-top: var(--header-height, 5.5rem);
+  padding-top: var(--header-height, 7.5rem);
 }
 
 /* Responsive page width - matches gallery breakpoint */

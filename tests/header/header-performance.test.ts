@@ -3,9 +3,9 @@
  * Performance validation tests for constitutional requirements
  */
 
-import { describe, it, expect, beforeEach, afterEach } from 'vitest'
+import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest'
 import { Header } from '../../src/components/header/header'
-import { setupHeader, cleanupHeader } from './test-utils'
+import { setupHeader, cleanupHeader, setViewportWidth } from './test-utils'
 
 describe('Header Performance Tests', () => {
   let header: Header
@@ -318,6 +318,43 @@ describe('Header Performance Tests', () => {
 
       // ARIA updates should be very fast
       expect(totalTime).toBeLessThan(50)
+    })
+  })
+
+  describe('Scroll Behavior Performance', () => {
+    it('scroll listener should be registered as passive', async () => {
+      const addEventSpy = vi.spyOn(window, 'addEventListener')
+
+      setViewportWidth(1024)
+      const testHeader = document.createElement('portfolio-header') as Header
+      document.body.appendChild(testHeader)
+      await new Promise(resolve => setTimeout(resolve, 50))
+
+      const scrollCall = addEventSpy.mock.calls.find(([event]) => event === 'scroll')
+      expect(scrollCall).toBeTruthy()
+      expect(scrollCall?.[2]).toMatchObject({ passive: true })
+
+      document.body.removeChild(testHeader)
+      addEventSpy.mockRestore()
+    })
+
+    it('should not trigger layout reads during scroll events', () => {
+      setViewportWidth(1024)
+      header.handleResize()
+
+      let getBCRCallCount = 0
+      const spy = vi.spyOn(header, 'getBoundingClientRect').mockImplementation(() => {
+        getBCRCallCount++
+        return { height: 80, top: 0, bottom: 0, left: 0, right: 0, width: 0, x: 0, y: 0, toJSON: () => ({}) } as DOMRect
+      })
+
+      for (let i = 0; i < 10; i++) {
+        Object.defineProperty(window, 'scrollY', { value: i * 10, writable: true, configurable: true })
+        window.dispatchEvent(new Event('scroll'))
+      }
+
+      expect(getBCRCallCount).toBe(0)
+      spy.mockRestore()
     })
   })
 })

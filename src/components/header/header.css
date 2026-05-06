@@ -17,13 +17,14 @@
   right: 0;
   width: 100%;
   z-index: 100;
-  padding-top: 1.25rem;
-  transition: transform var(--transition-slow);
+  background: var(--color-pure);
+  transition: transform 250ms ease-out;
   will-change: transform;
 }
 
 .portfolio-header.header--hidden {
   transform: translateY(-100%);
+  transition: transform 180ms ease-out;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -42,7 +43,7 @@
 .header__container {
   width: var(--page-width-full);
   margin: 0 auto;
-  padding: var(--space-md) 0;
+  padding: var(--space-lg) 0;
   display: flex;
   align-items: center;
   justify-content: space-between;

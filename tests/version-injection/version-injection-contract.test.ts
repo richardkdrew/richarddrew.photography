@@ -88,7 +88,7 @@ describe('Version Injection - Contract Tests', () => {
 
   describe('User-visible version display', () => {
     beforeAll(() => {
-      process.env.VERSION = 'v1.0.0';
+      process.env.VERSION = 'v2025.001';
       execSync('npm run build', { stdio: 'inherit' });
     });
 
@@ -96,36 +96,16 @@ describe('Version Injection - Contract Tests', () => {
       delete process.env.VERSION;
     });
 
-    it('should NOT display version in visible page content', () => {
+    it('should inject version into meta tag for portfolio-footer to read', () => {
       const html = readFileSync(indexHtmlPath, 'utf-8');
-
-      // Extract visible body content (rough approximation)
-      const bodyMatch = html.match(/<body[^>]*>([\s\S]*)<\/body>/);
-      expect(bodyMatch).toBeTruthy();
-
-      if (bodyMatch) {
-        const bodyContent = bodyMatch[1];
-
-        // Version should NOT appear in visible text
-        // (excluding meta tags, which are in <head>)
-        expect(bodyContent).not.toMatch(/Version v?\d+\.\d+\.\d+/i);
-        expect(bodyContent).not.toMatch(/v\d+\.\d+\.\d+/);
-      }
+      expect(html).toContain('<meta name="version" content="v2025.001">');
     });
 
-    it('should NOT display version in footer or header', () => {
+    it('should NOT display version in header', () => {
       const html = readFileSync(indexHtmlPath, 'utf-8');
-
-      // Check footer specifically
-      const footerMatch = html.match(/<footer[^>]*>([\s\S]*?)<\/footer>/i);
-      if (footerMatch) {
-        expect(footerMatch[1]).not.toMatch(/v?\d+\.\d+\.\d+/);
-      }
-
-      // Check header specifically
       const headerMatch = html.match(/<header[^>]*>([\s\S]*?)<\/header>/i);
       if (headerMatch) {
-        expect(headerMatch[1]).not.toMatch(/v?\d+\.\d+\.\d+/);
+        expect(headerMatch[1]).not.toMatch(/v\d{4}\.\d{3}/);
       }
     });
   });

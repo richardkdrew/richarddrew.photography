@@ -12,6 +12,7 @@ import '../components/gallery/gallery'
 import '../components/image-viewer/image-viewer'
 import '../components/uniform-gallery/uniform-gallery.css'
 import '../components/uniform-gallery/uniform-gallery'
+import '../components/footer/footer'
 import { createGalleryDataService } from '../services/gallery-data.service'
 import type { MasonryGallery } from '../components/gallery/gallery'
 

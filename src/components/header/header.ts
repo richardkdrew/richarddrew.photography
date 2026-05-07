@@ -5,8 +5,6 @@
 
 import type { IHeader, BreakpointType } from './header.types'
 
-// Import theme toggle component
-import '../theme-toggle/theme-toggle.js'
 
 export class Header extends HTMLElement implements IHeader {
   // Constants
@@ -59,9 +57,6 @@ export class Header extends HTMLElement implements IHeader {
               <li class="header__nav-item">
                 <a href="/about.html" class="header__nav-link">About</a>
               </li>
-              <li class="header__nav-item">
-                <theme-toggle></theme-toggle>
-              </li>
             </ul>
 
             <button
@@ -84,9 +79,6 @@ export class Header extends HTMLElement implements IHeader {
             <ul class="header__nav-list header__nav-list--mobile">
               <li class="header__nav-item">
                 <a href="/about.html" class="header__nav-link">About</a>
-              </li>
-              <li class="header__nav-item">
-                <theme-toggle></theme-toggle>
               </li>
             </ul>
           </nav>

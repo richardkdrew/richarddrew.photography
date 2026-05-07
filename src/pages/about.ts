@@ -9,6 +9,7 @@ import '../styles/design-system.css'
 import '../components/header/header.css'
 import '../components/header/header'
 import '../components/about-page/about-page'
+import '../components/footer/footer'
 
 console.log('📸 About Page: Loading...')
 

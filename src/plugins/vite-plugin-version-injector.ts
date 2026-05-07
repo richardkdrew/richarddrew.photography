@@ -18,7 +18,8 @@
 import type { Plugin } from 'vite';
 
 export function versionInjector(): Plugin {
-  const version = process.env.VERSION || 'dev-local';
+  const year = new Date().getFullYear();
+  const version = process.env.VERSION || `v${year}.dev-local`;
   const buildDate = new Date().toISOString();
 
   return {

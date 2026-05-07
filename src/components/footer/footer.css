@@ -31,15 +31,12 @@ portfolio-footer {
 .footer__meta {
   font-family: var(--font-caption);
   font-size: var(--text-sm);
-  font-weight: var(--weight-light);
-  color: var(--color-secondary);
+  font-weight: var(--weight-regular);
+  color: var(--color-primary);
   letter-spacing: 0.01em;
   transition: color var(--transition-medium);
 }
 
-.footer__version {
-  opacity: 0.6;
-}
 
 /* ── Toggle group ──────────────────────────────── */
 
@@ -73,14 +70,15 @@ portfolio-footer {
   cursor: pointer;
   padding: var(--space-sm) var(--space-lg);
   min-width: 8rem;
-  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   background: var(--color-primary);
   color: var(--color-pure);
   transition:
     background-color var(--transition-medium),
     color var(--transition-medium),
     opacity var(--transition-fast);
-  line-height: 1;
 }
 
 .footer__toggle:hover {
@@ -93,11 +91,11 @@ portfolio-footer {
 }
 
 /* Show/hide based on theme */
-.footer__toggle--dark-room { display: block; }
+.footer__toggle--dark-room { display: flex; }
 .footer__toggle--light-box { display: none; }
 
 [data-theme="dark"] .footer__toggle--dark-room { display: none; }
-[data-theme="dark"] .footer__toggle--light-box { display: block; }
+[data-theme="dark"] .footer__toggle--light-box { display: flex; }
 
 /* ── Mobile: centre-stack ──────────────────────── */
 

@@ -345,7 +345,6 @@ html.mobile-menu-open {
 
   .header__nav-list--desktop {
     display: flex;
-    margin-right: var(--space-2xl); /* Move desktop nav away from right edge */
   }
 
   .header__mobile-toggle {

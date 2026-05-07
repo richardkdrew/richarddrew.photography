@@ -29,11 +29,12 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Set version (dev-{sha})
+      - name: Set version (v{year}.dev-{sha})
         id: version
         run: |
+          YEAR=$(date +%Y)
           SHORT_SHA=$(git rev-parse --short HEAD)
-          VERSION="dev-${SHORT_SHA}"
+          VERSION="v${YEAR}.dev-${SHORT_SHA}"
           echo "VERSION=$VERSION" >> $GITHUB_ENV
           echo "version=$VERSION" >> $GITHUB_OUTPUT
           echo "📦 Building with version: $VERSION"
@@ -74,7 +75,7 @@ jobs:
       - name: Deployment summary
         run: |
           echo "✅ Deployment complete!"
-          echo "📦 Version: ${{ env.VERSION }}"
+          echo "📦 Version: ${{ steps.version.outputs.version }}"
           echo "🌐 Environment: Staging (dev.richarddrew.photography)"
           echo "🔗 URL: https://dev.richarddrew.photography"
           echo "📋 Commit: ${{ github.sha }}"

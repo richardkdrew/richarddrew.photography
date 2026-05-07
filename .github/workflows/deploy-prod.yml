@@ -17,7 +17,6 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       new_tag: ${{ steps.tag_version.outputs.new_tag }}
-      changelog: ${{ steps.tag_version.outputs.changelog }}
 
     steps:
       - name: Checkout code
@@ -25,21 +24,29 @@ jobs:
         with:
           fetch-depth: 0  # Fetch all history for tagging
 
-      - name: Bump version and push tag
+      - name: Create year-based version tag
         id: tag_version
-        uses: anothrNick/github-tag-action@1.67.0
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          WITH_V: true
-          DEFAULT_BUMP: patch
-          INITIAL_VERSION: 1.0.0
-          PRERELEASE: false
-          DRY_RUN: false
-
-      - name: Tag summary
         run: |
-          echo "🏷️ New version tag created: ${{ steps.tag_version.outputs.new_tag }}"
-          echo "📝 Previous tag: ${{ steps.tag_version.outputs.tag }}"
+          YEAR=$(date +%Y)
+
+          # Find highest release number for this year (exclude dev tags)
+          LAST_NUM=$(git tag -l "v${YEAR}.*" | grep -v "dev" | sed "s/v${YEAR}\.//" | sort -n | tail -1)
+
+          if [ -z "$LAST_NUM" ]; then
+            RELEASE_NUM=1
+          else
+            RELEASE_NUM=$((10#$LAST_NUM + 1))
+          fi
+
+          NEW_TAG="v${YEAR}.$(printf '%03d' $RELEASE_NUM)"
+
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git tag "$NEW_TAG"
+          git push origin "$NEW_TAG"
+
+          echo "new_tag=$NEW_TAG" >> $GITHUB_OUTPUT
+          echo "🏷️ New version tag created: $NEW_TAG"
 
   build-and-deploy:
     name: Build and Deploy to Production
@@ -59,14 +66,9 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Set version from tag
-        run: |
-          echo "VERSION=${{ needs.tag.outputs.new_tag }}" >> $GITHUB_ENV
-          echo "📦 Building with version: ${{ needs.tag.outputs.new_tag }}"
-
       - name: Build project with version
         env:
-          VERSION: ${{ env.VERSION }}
+          VERSION: ${{ needs.tag.outputs.new_tag }}
         run: make build
 
       - name: Verify build output
@@ -110,9 +112,6 @@ jobs:
             **Version**: ${{ needs.tag.outputs.new_tag }}
             **Commit**: ${{ github.sha }}
             **Deployed by**: ${{ github.actor }}
-
-            ### Changes
-            ${{ needs.tag.outputs.changelog }}
 
             ### Deployment Details
             - **Environment**: Production (richarddrew-photography)

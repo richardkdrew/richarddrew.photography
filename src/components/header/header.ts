@@ -11,7 +11,7 @@ export class Header extends HTMLElement implements IHeader {
   private static readonly MOBILE_BREAKPOINT = 768
   private static readonly DESKTOP_BREAKPOINT = 1200
   private static readonly RESIZE_DEBOUNCE = 100
-  private static readonly SCROLL_THRESHOLD = 30
+  private static readonly SCROLL_THRESHOLD = 100
 
   // State
   private _initialized = false
@@ -221,9 +221,10 @@ export class Header extends HTMLElement implements IHeader {
     this.scrollListener = () => {
       if (!this.scrollEnabled) return
 
-      // Clamp to 0: prevents negative scrollY (macOS rubber-band overscroll) from
-      // poisoning lastScrollY, which causes spring-back to look like a downward scroll.
-      const currentY = Math.max(0, window.scrollY)
+      // Clamp to [0, maxScrollY]: prevents rubber-band overscroll at either end
+      // from poisoning lastScrollY and causing phantom hide/show transitions.
+      const maxScrollY = document.documentElement.scrollHeight - window.innerHeight
+      const currentY = Math.min(Math.max(0, window.scrollY), maxScrollY)
 
       // Guard must come BEFORE delta computation so overscroll spring-back
       // events (all clamped to currentY=0) cannot accumulate phantom downward delta.

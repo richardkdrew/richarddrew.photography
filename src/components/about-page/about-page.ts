@@ -13,9 +13,6 @@ export class AboutPage extends HTMLElement {
 
   connectedCallback() {
     this.className = 'about-page'
-    this.setAttribute('role', 'main')
-    this.setAttribute('aria-label', 'About page')
-
     this.loadTemplate()
   }
 
@@ -52,6 +49,7 @@ export class AboutPage extends HTMLElement {
             </picture>
           </div>
           <div class="about-hero__text">
+            <h1 class="about-hero__heading">About</h1>
             <p class="about-hero__summary professional-summary">
               Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
             </p>

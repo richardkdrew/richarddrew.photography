@@ -5,7 +5,7 @@
 
 import { describe, it, expect, beforeEach, afterEach } from 'vitest'
 import { Header } from '../../src/components/header/header'
-import { setupHeader, cleanupHeader } from './test-utils'
+import { setupHeader, cleanupHeader, simulateScroll, setViewportWidth } from './test-utils'
 
 describe('Header Accessibility Tests', () => {
   let header: Header
@@ -348,6 +348,39 @@ describe('Header Accessibility Tests', () => {
 
       // Focus should return to toggle button or be manageable
       expect(mobileToggle).toBeTruthy() // Button should still be available
+    })
+  })
+
+  describe('Scroll Accessibility', () => {
+    it('should not hide header at scrollY=0 (always visible at top)', () => {
+      setViewportWidth(1024)
+      header.handleResize()
+      simulateScroll(0)
+
+      expect(header.classList.contains('header--hidden')).toBe(false)
+    })
+
+    it('should not hide header when viewport width < 768px (portrait mobile)', () => {
+      setViewportWidth(600)
+      header.handleResize()
+      simulateScroll(200)
+
+      expect(header.classList.contains('header--hidden')).toBe(false)
+    })
+
+    it('should not hide header when mobile menu is open', () => {
+      setViewportWidth(1024)
+      header.handleResize()
+      const mobileToggle = header.querySelector('.header__mobile-toggle') as HTMLButtonElement
+      mobileToggle.click()
+      simulateScroll(200)
+
+      expect(header.classList.contains('header--hidden')).toBe(false)
+    })
+
+    it('should set --header-height on :root so content is not obscured', () => {
+      const value = document.documentElement.style.getPropertyValue('--header-height')
+      expect(value).not.toBe('')
     })
   })
 })

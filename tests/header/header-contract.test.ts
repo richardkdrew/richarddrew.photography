@@ -5,7 +5,7 @@
 
 import { describe, it, expect, beforeEach, afterEach } from 'vitest'
 import { Header } from '../../src/components/header/header'
-import { setupHeader, cleanupHeader } from './test-utils'
+import { setupHeader, cleanupHeader, simulateScroll, setViewportWidth } from './test-utils'
 
 describe('Header Contract Tests', () => {
   let header: Header
@@ -165,6 +165,64 @@ describe('Header Contract Tests', () => {
       // Should not have increased listener count significantly
       const finalListenerCount = document.eventListeners?.length || 0
       expect(finalListenerCount).toBeLessThanOrEqual(originalListenerCount + 1)
+    })
+  })
+
+  describe('Scroll Behavior Contract', () => {
+    it('MUST dispatch header:scroll-hide event when header is hidden', () => {
+      setViewportWidth(1024)
+      header.handleResize()
+      let firedHide = false
+      header.addEventListener('header:scroll-hide', () => { firedHide = true })
+
+      simulateScroll(50)
+      simulateScroll(100)
+
+      expect(firedHide).toBe(true)
+    })
+
+    it('MUST dispatch header:scroll-show event when header is shown after being hidden', () => {
+      setViewportWidth(1024)
+      header.handleResize()
+      simulateScroll(50)
+      simulateScroll(100)
+
+      let firedShow = false
+      header.addEventListener('header:scroll-show', () => { firedShow = true })
+
+      simulateScroll(60)
+
+      expect(firedShow).toBe(true)
+    })
+
+    it('MUST set --header-height CSS variable on :root after init', () => {
+      const heightVar = document.documentElement.style.getPropertyValue('--header-height')
+      expect(heightVar).not.toBe('')
+    })
+
+    it('header:scroll-hide event MUST bubble', () => {
+      setViewportWidth(1024)
+      header.handleResize()
+      let captured = false
+      document.addEventListener('header:scroll-hide', () => { captured = true }, { once: true })
+
+      simulateScroll(50)
+      simulateScroll(100)
+
+      expect(captured).toBe(true)
+    })
+
+    it('header:scroll-show event MUST bubble', () => {
+      setViewportWidth(1024)
+      header.handleResize()
+      simulateScroll(50)
+      simulateScroll(100)
+      let captured = false
+      document.addEventListener('header:scroll-show', () => { captured = true }, { once: true })
+
+      simulateScroll(60)
+
+      expect(captured).toBe(true)
     })
   })
 })

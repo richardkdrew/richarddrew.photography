@@ -36,3 +36,20 @@ export function cleanupHeader(header: Header): void {
     header.parentNode.removeChild(header)
   }
 }
+
+export function simulateScroll(y: number): void {
+  Object.defineProperty(window, 'scrollY', {
+    value: y,
+    writable: true,
+    configurable: true
+  })
+  window.dispatchEvent(new Event('scroll'))
+}
+
+export function setViewportWidth(width: number): void {
+  Object.defineProperty(window, 'innerWidth', {
+    value: width,
+    writable: true,
+    configurable: true
+  })
+}

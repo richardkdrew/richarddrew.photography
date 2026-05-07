@@ -5,7 +5,7 @@
 
 import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest'
 import { Header } from '../../src/components/header/header'
-import { setupHeader, cleanupHeader } from './test-utils'
+import { setupHeader, cleanupHeader, simulateScroll, setViewportWidth } from './test-utils'
 
 // Mock fetch for any potential resource requests
 global.fetch = vi.fn()
@@ -303,6 +303,80 @@ describe('Header UI Tests', () => {
 
       // Toggle should not have active class
       expect(mobileToggle.classList.contains('header__mobile-toggle--active')).toBe(false)
+    })
+  })
+
+  describe('Scroll Hide/Show Behavior', () => {
+    beforeEach(() => {
+      Object.defineProperty(window, 'scrollY', { value: 0, writable: true, configurable: true })
+      setViewportWidth(1024)
+      header.handleResize()
+    })
+
+    it('should add header--hidden after 31px of downward scroll', () => {
+      simulateScroll(31)
+
+      expect(header.classList.contains('header--hidden')).toBe(true)
+    })
+
+    it('should NOT add header--hidden after only 29px of downward scroll', () => {
+      simulateScroll(29)
+
+      expect(header.classList.contains('header--hidden')).toBe(false)
+    })
+
+    it('should remove header--hidden after 31px of upward scroll', () => {
+      simulateScroll(100)
+      expect(header.classList.contains('header--hidden')).toBe(true)
+
+      simulateScroll(69)
+
+      expect(header.classList.contains('header--hidden')).toBe(false)
+    })
+
+    it('should NOT add header--hidden when mobile menu is open', () => {
+      const mobileToggle = header.querySelector('.header__mobile-toggle') as HTMLButtonElement
+      mobileToggle.click()
+
+      simulateScroll(100)
+
+      expect(header.classList.contains('header--hidden')).toBe(false)
+    })
+
+    it('should remove header--hidden when scrolled to top (scrollY=0)', () => {
+      simulateScroll(100)
+      expect(header.classList.contains('header--hidden')).toBe(true)
+
+      simulateScroll(0)
+
+      expect(header.classList.contains('header--hidden')).toBe(false)
+    })
+
+    it('should disable scroll behavior and show header when resized to < 768px', () => {
+      simulateScroll(100)
+      expect(header.classList.contains('header--hidden')).toBe(true)
+
+      setViewportWidth(600)
+      header.handleResize()
+
+      expect(header.classList.contains('header--hidden')).toBe(false)
+
+      simulateScroll(200)
+      expect(header.classList.contains('header--hidden')).toBe(false)
+    })
+
+    it('should enable scroll behavior when resized to >= 768px', () => {
+      setViewportWidth(600)
+      header.handleResize()
+
+      simulateScroll(100)
+      expect(header.classList.contains('header--hidden')).toBe(false)
+
+      setViewportWidth(1024)
+      header.handleResize()
+      simulateScroll(200)
+
+      expect(header.classList.contains('header--hidden')).toBe(true)
     })
   })
 })

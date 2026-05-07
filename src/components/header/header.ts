@@ -13,6 +13,7 @@ export class Header extends HTMLElement implements IHeader {
   private static readonly MOBILE_BREAKPOINT = 768
   private static readonly DESKTOP_BREAKPOINT = 1200
   private static readonly RESIZE_DEBOUNCE = 100
+  private static readonly SCROLL_THRESHOLD = 30
 
   // State
   private _initialized = false
@@ -21,6 +22,10 @@ export class Header extends HTMLElement implements IHeader {
   private mobileMenuButton: HTMLElement | null = null
   private mobileMenu: HTMLElement | null = null
   private resizeTimeout: ReturnType<typeof setTimeout> | null = null
+  private lastScrollY = 0
+  private scrollDelta = 0
+  private scrollEnabled = false
+  private scrollListener: (() => void) | null = null
 
   // Static template (parsed once, cloned many times)
   private static template: HTMLTemplateElement | null = null
@@ -135,9 +140,16 @@ export class Header extends HTMLElement implements IHeader {
 
     // Dispatch initialization event
     this.dispatchEvent(new CustomEvent('header:initialized', { bubbles: true }))
+
+    this.measureAndSetHeight()
+    this.setupScrollBehavior()
   }
 
   destroy(): void {
+    if (this.scrollListener) {
+      window.removeEventListener('scroll', this.scrollListener)
+      this.scrollListener = null
+    }
     this.removeEventListeners()
   }
 
@@ -158,6 +170,9 @@ export class Header extends HTMLElement implements IHeader {
     this._isMobileMenuOpen = false
     this.updateMobileMenuState()
 
+    this.lastScrollY = window.scrollY
+    this.scrollDelta = 0
+
     // Dispatch toggle event
     this.dispatchEvent(new CustomEvent('header:mobile-menu-toggle', {
       detail: { isOpen: false },
@@ -168,6 +183,14 @@ export class Header extends HTMLElement implements IHeader {
   handleResize(): void {
     const previousBreakpoint = this._currentBreakpoint
     this.updateBreakpoint()
+
+    this.measureAndSetHeight()
+    this.scrollEnabled = window.innerWidth >= Header.MOBILE_BREAKPOINT
+    this.lastScrollY = window.scrollY
+    if (!this.scrollEnabled) {
+      this.showHeader()
+      this.scrollDelta = 0
+    }
 
     if (previousBreakpoint !== this._currentBreakpoint) {
       // Close mobile menu when switching to desktop
@@ -181,6 +204,65 @@ export class Header extends HTMLElement implements IHeader {
         bubbles: true
       }))
     }
+  }
+
+  private measureAndSetHeight(): void {
+    const height = this.getBoundingClientRect().height
+    document.documentElement.style.setProperty('--header-height', `${height}px`)
+  }
+
+  private hideHeader(): void {
+    this.classList.add('header--hidden')
+    this.dispatchEvent(new CustomEvent('header:scroll-hide', { bubbles: true }))
+  }
+
+  private showHeader(): void {
+    this.classList.remove('header--hidden')
+    this.dispatchEvent(new CustomEvent('header:scroll-show', { bubbles: true }))
+  }
+
+  private setupScrollBehavior(): void {
+    this.scrollEnabled = window.innerWidth >= Header.MOBILE_BREAKPOINT
+    this.lastScrollY = window.scrollY
+    this.scrollDelta = 0
+
+    this.scrollListener = () => {
+      if (!this.scrollEnabled) return
+
+      // Clamp to 0: prevents negative scrollY (macOS rubber-band overscroll) from
+      // poisoning lastScrollY, which causes spring-back to look like a downward scroll.
+      const currentY = Math.max(0, window.scrollY)
+
+      // Guard must come BEFORE delta computation so overscroll spring-back
+      // events (all clamped to currentY=0) cannot accumulate phantom downward delta.
+      if (currentY === 0) {
+        this.lastScrollY = 0
+        this.showHeader()
+        this.scrollDelta = 0
+        return
+      }
+
+      const direction = currentY > this.lastScrollY ? 'down' : 'up'
+      const delta = Math.abs(currentY - this.lastScrollY)
+
+      if (direction === 'down') {
+        this.scrollDelta = this.scrollDelta > 0 ? this.scrollDelta + delta : delta
+      } else {
+        this.scrollDelta = this.scrollDelta < 0 ? this.scrollDelta - delta : -delta
+      }
+
+      this.lastScrollY = currentY
+
+      const isHidden = this.classList.contains('header--hidden')
+
+      if (this.scrollDelta >= Header.SCROLL_THRESHOLD && !this._isMobileMenuOpen && !isHidden) {
+        this.hideHeader()
+      } else if (this.scrollDelta <= -Header.SCROLL_THRESHOLD && isHidden) {
+        this.showHeader()
+      }
+    }
+
+    window.addEventListener('scroll', this.scrollListener, { passive: true })
   }
 
   private setupEventListeners(): void {

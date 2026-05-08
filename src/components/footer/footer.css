@@ -39,6 +39,7 @@ portfolio-footer {
 
 .footer__version {
   opacity: 0.5;
+  white-space: nowrap;
 }
 
 /* ── Toggle group ──────────────────────────────── */

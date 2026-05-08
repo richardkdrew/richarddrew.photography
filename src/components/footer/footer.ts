@@ -37,8 +37,8 @@ export class PortfolioFooter extends HTMLElement {
     this.innerHTML = `
       <div class="footer__container">
         <p class="footer__meta">
-          <span class="footer__version">${version}</span>
-          &nbsp;© ${year} Richard Drew Photography
+          © ${year} Richard Drew Photography
+          ·&nbsp;<span class="footer__version">${version}</span>
         </p>
         <div class="footer__toggle-group">
           <button

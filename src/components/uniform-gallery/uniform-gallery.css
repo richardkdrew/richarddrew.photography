@@ -87,7 +87,7 @@
   background-position: center;
   background-repeat: no-repeat;
   opacity: 1;
-  transition: opacity 300ms ease-out;
+  transition: opacity var(--transition-medium);
 }
 
 .gallery-item [data-placeholder][data-lqip-type="blur"] {
@@ -141,7 +141,7 @@
 /* ── Error States ─────────────────────────────────────── */
 
 .uniform-gallery-error {
-  padding: 2rem;
+  padding: var(--space-xl);
   text-align: center;
   color: var(--color-secondary);
   width: 100%;

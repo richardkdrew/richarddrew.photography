@@ -143,7 +143,7 @@
 }
 
 .gallery-error-icon {
-  font-size: 2rem;
+  font-size: var(--text-3xl);
   margin-bottom: 1rem;
 }
 
@@ -213,7 +213,7 @@
 
 .portfolio-image .error-fallback .icon {
   margin-bottom: var(--space-xs);
-  font-size: 1.5rem; /* 24px -> rem */
+  font-size: var(--text-2xl);
 }
 
 /* Gallery Container States */

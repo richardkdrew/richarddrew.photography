@@ -16,7 +16,7 @@
   background-color: var(--background-color, var(--color-pure, #ffffff));
   color: var(--text-color, var(--color-dark, #000000));
 
-  transition: opacity 300ms ease-out;
+  transition: opacity var(--transition-medium);
 }
 
 /* Visibility States */
@@ -35,8 +35,8 @@
 /* Close Button - Floating Overlay (Top Right) */
 .viewer__close {
   position: fixed;
-  top: 1rem;
-  right: 1rem;
+  top: var(--space-md);
+  right: var(--space-md);
   z-index: 20;
 
   background: rgba(255, 255, 255, 0.3);
@@ -44,7 +44,7 @@
   color: rgba(0, 0, 0, 0.6);
   cursor: pointer;
 
-  padding: 0.5rem;
+  padding: var(--space-sm);
   border-radius: 50%;
   width: 2.5rem;
   height: 2.5rem;
@@ -84,7 +84,7 @@
 /* Counter - Floating Overlay (Bottom Center) */
 .viewer__counter {
   position: fixed;
-  bottom: 1.5rem;
+  bottom: var(--space-lg);
   left: 50%;
   transform: translateX(-50%);
   z-index: 20;
@@ -93,7 +93,7 @@
   border: 1px solid var(--color-interactive);
   color: var(--color-interactive);
 
-  padding: 0.5rem 1rem;
+  padding: var(--space-sm) var(--space-md);
   border-radius: 1.5rem;
 
   font-size: var(--text-sm);
@@ -222,11 +222,11 @@
 }
 
 .viewer__nav--prev {
-  left: 1rem;
+  left: var(--space-md);
 }
 
 .viewer__nav--next {
-  right: 1rem;
+  right: var(--space-md);
 }
 
 .viewer__nav:hover:not(:disabled) {

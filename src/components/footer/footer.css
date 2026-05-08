@@ -37,6 +37,9 @@ portfolio-footer {
   transition: color var(--transition-medium);
 }
 
+.footer__version {
+  opacity: 0.5;
+}
 
 /* ── Toggle group ──────────────────────────────── */
 
@@ -61,7 +64,7 @@ portfolio-footer {
 
 .footer__toggle {
   font-family: var(--font-navigation);
-  font-size: clamp(0.875rem, 2vw, 1rem);
+  font-size: var(--text-sm);
   font-weight: var(--weight-regular);
   letter-spacing: 0.06em;
   text-transform: uppercase;
@@ -77,12 +80,12 @@ portfolio-footer {
   color: var(--color-pure);
   transition:
     background-color var(--transition-medium),
-    color var(--transition-medium),
-    opacity var(--transition-fast);
+    color var(--transition-medium);
 }
 
 .footer__toggle:hover {
-  opacity: 0.75;
+  background: var(--color-interactive);
+  color: var(--color-pure);
 }
 
 .footer__toggle:focus-visible {

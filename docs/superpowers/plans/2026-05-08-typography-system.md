@@ -165,17 +165,17 @@ git commit -m "fix(footer): use --text-sm token for toggle button font-size"
 ### Task 4: Update image-viewer.css — counter desktop and mobile
 
 **Files:**
-- Modify: `src/components/image-viewer/image-viewer.css:99,299`
+- Modify: `src/components/image-viewer/image-viewer.css:99,100,299`
 
 - [ ] **Step 1: Verify current values**
 
 Run:
 ```bash
-grep -n "font-size" src/components/image-viewer/image-viewer.css
+grep -n "font-size\|font-weight" src/components/image-viewer/image-viewer.css
 ```
-Expected — `0.875rem` at line ~99 (desktop counter), `0.75rem` at line ~299 (mobile counter inside media query).
+Expected — `0.875rem` at line ~99, `font-weight: 400` at line ~100, `0.75rem` at line ~299.
 
-- [ ] **Step 2: Replace desktop counter font-size**
+- [ ] **Step 2: Replace desktop counter font-size and font-weight**
 
 In `src/components/image-viewer/image-viewer.css`, find:
 ```css
@@ -186,7 +186,7 @@ In `src/components/image-viewer/image-viewer.css`, find:
 Replace with:
 ```css
   font-size: var(--text-sm);
-  font-weight: 400;
+  font-weight: var(--weight-regular);
   user-select: none;
 ```
 
@@ -205,13 +205,13 @@ Replace with:
     padding: 0.375rem 0.75rem;
 ```
 
-- [ ] **Step 4: Verify no hardcoded font-sizes remain in image-viewer**
+- [ ] **Step 4: Verify no hardcoded font-sizes or bare font-weights remain in image-viewer**
 
 Run:
 ```bash
-grep -n "font-size" src/components/image-viewer/image-viewer.css
+grep -n "font-size\|font-weight" src/components/image-viewer/image-viewer.css
 ```
-Expected — only `var(--text-sm)` and `var(--text-xs)` appear, no bare rem values.
+Expected — only `var(--text-sm)`, `var(--text-xs)`, and `var(--weight-regular)` appear, no bare rem or numeric weight values.
 
 - [ ] **Step 5: Run image-viewer tests**
 
@@ -225,7 +225,7 @@ Expected — all image-viewer tests pass.
 
 ```bash
 git add src/components/image-viewer/image-viewer.css
-git commit -m "fix(image-viewer): use --text-sm and --text-xs tokens for counter font sizes"
+git commit -m "fix(image-viewer): use --text-sm, --text-xs and --weight-regular tokens"
 ```
 
 ---

@@ -102,10 +102,15 @@ export class Header extends HTMLElement implements IHeader {
 
   connectedCallback() {
     this.initialize()
+    this.updateActiveLink(this.dataset.currentPage ?? '')
   }
 
   disconnectedCallback() {
     this.destroy()
+  }
+
+  attributeChangedCallback(_name: string, _old: string, value: string): void {
+    this.updateActiveLink(value ?? '')
   }
 
   // Public methods (implementing IHeader interface)
@@ -135,6 +140,19 @@ export class Header extends HTMLElement implements IHeader {
 
     this.measureAndSetHeight()
     this.setupScrollBehavior()
+  }
+
+  private updateActiveLink(page: string): void {
+    this.querySelectorAll<HTMLAnchorElement>('.header__nav-link').forEach(link => {
+      const linkPage = (link.getAttribute('href') ?? '')
+        .replace(/^\//, '')
+        .replace(/\.html$/, '')
+      if (linkPage === page) {
+        link.setAttribute('aria-current', 'page')
+      } else {
+        link.removeAttribute('aria-current')
+      }
+    })
   }
 
   destroy(): void {

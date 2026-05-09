@@ -167,7 +167,8 @@
 }
 
 .header__nav-link:hover::after,
-.header__nav-link:focus::after {
+.header__nav-link:focus::after,
+.header__nav-link[aria-current="page"]::after {
   width: 100%;
 }
 

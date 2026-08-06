@@ -169,6 +169,11 @@ describe('Header Contract Tests', () => {
   })
 
   describe('Scroll Behavior Contract', () => {
+    beforeEach(() => {
+      // window.scrollY is a global that otherwise leaks between tests in this file
+      Object.defineProperty(window, 'scrollY', { value: 0, writable: true, configurable: true })
+    })
+
     it('MUST dispatch header:scroll-hide event when header is hidden', () => {
       setViewportWidth(1024)
       header.handleResize()
@@ -184,13 +189,13 @@ describe('Header Contract Tests', () => {
     it('MUST dispatch header:scroll-show event when header is shown after being hidden', () => {
       setViewportWidth(1024)
       header.handleResize()
-      simulateScroll(50)
       simulateScroll(100)
+      simulateScroll(200)
 
       let firedShow = false
       header.addEventListener('header:scroll-show', () => { firedShow = true })
 
-      simulateScroll(60)
+      simulateScroll(99)
 
       expect(firedShow).toBe(true)
     })
@@ -215,12 +220,12 @@ describe('Header Contract Tests', () => {
     it('header:scroll-show event MUST bubble', () => {
       setViewportWidth(1024)
       header.handleResize()
-      simulateScroll(50)
       simulateScroll(100)
+      simulateScroll(200)
       let captured = false
       document.addEventListener('header:scroll-show', () => { captured = true }, { once: true })
 
-      simulateScroll(60)
+      simulateScroll(99)
 
       expect(captured).toBe(true)
     })

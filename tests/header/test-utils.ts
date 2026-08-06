@@ -15,6 +15,16 @@ export async function setupHeader(): Promise<Header> {
     customElements.define('portfolio-header', Header)
   }
 
+  // JSDOM doesn't run layout, so scrollHeight defaults to 0. The header's
+  // overscroll clamp treats scrollHeight as the scrollable page height, so
+  // without this it looks like there's nothing to scroll and hide/show never
+  // triggers. Simulate a page much taller than the viewport.
+  Object.defineProperty(document.documentElement, 'scrollHeight', {
+    value: 5000,
+    writable: true,
+    configurable: true
+  })
+
   const header = document.createElement('portfolio-header') as Header
   document.body.appendChild(header)
 

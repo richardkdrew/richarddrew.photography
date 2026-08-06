@@ -241,7 +241,8 @@ export class Header extends HTMLElement implements IHeader {
 
       // Clamp to [0, maxScrollY]: prevents rubber-band overscroll at either end
       // from poisoning lastScrollY and causing phantom hide/show transitions.
-      const maxScrollY = document.documentElement.scrollHeight - window.innerHeight
+      // maxScrollY floors at 0 for pages shorter than the viewport (nothing to scroll).
+      const maxScrollY = Math.max(0, document.documentElement.scrollHeight - window.innerHeight)
       const currentY = Math.min(Math.max(0, window.scrollY), maxScrollY)
 
       // Guard must come BEFORE delta computation so overscroll spring-back

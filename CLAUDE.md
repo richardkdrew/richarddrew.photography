@@ -1,9 +1,8 @@
 # Claude Code Quick Start
 
-**Last Updated**: 2025-10-28
-**Current Branch**: 008-add-build-actions
-**Latest Feature**: Feature 007 Complete ✅
-**Constitution**: v2.0.0
+**Last Updated**: 2026-08-06
+**Current Branch**: 022-docs-refresh
+**Constitution**: v3.0.0
 
 > **For AI Assistants**: This file provides fast context loading and routes you to comprehensive documentation. Read this first (2 min), then dive into detailed docs as required by your task type.
 
@@ -18,51 +17,49 @@
 **Triggers**: User says "add", "create", "implement", "build new feature"
 **Example**: "Add dark mode toggle to the header"
 
-**MANDATORY - Read Before ANY Work**:
+**Start with**: the `superpowers:brainstorming` skill — it drives the spec/plan process described in [CONSTITUTION.md](docs/CONSTITUTION.md) Section V (feature tier).
 
-1. ✅ [CONSTITUTION.md](docs/CONSTITUTION.md) - Sections I-III (Principles, Anti-Patterns, Quality Gates)
+**Read before starting**:
+
+1. ✅ [CONSTITUTION.md](docs/CONSTITUTION.md) - Sections I-III (Principles, Anti-Patterns, Quality Gates) and Section V (feature-tier workflow)
 2. ✅ [DEVELOPMENT.md](docs/DEVELOPMENT.md) - Sections 1-7 (Quick Start → Quality Gates)
 3. ✅ CLAUDE.md (this file) - Current Status section
-
-**BEFORE PROCEEDING**: State "I have read [list]. I understand: (1) Specification-first is mandatory, (2) TDD with 4-category tests is required, (3) TodoWrite tracking with task IDs is non-negotiable."
 
 ### Task Type 2: Bug Fix / Investigation
 
 **Triggers**: User says "fix", "bug", "error", "broken", "not working"
 **Example**: "Fix the navigation menu on mobile"
 
-**MANDATORY - Read Before ANY Work**:
+**Start with**: the `superpowers:systematic-debugging` skill if the root cause isn't already obvious — find root cause before proposing a fix.
+
+**Read before starting**:
 
 1. ✅ [ARCHITECTURE.md](docs/ARCHITECTURE.md) - Sections 1-5 (Quick Reference → Testing Infrastructure)
 2. ✅ [DEVELOPMENT.md](docs/DEVELOPMENT.md) - Sections 8-10 (Common Tasks → Troubleshooting)
 3. ✅ CLAUDE.md (this file) - Current Status section
 
-**BEFORE PROCEEDING**: State "I have read [list]. I understand the component architecture and troubleshooting approach."
+This is fix-tier work per [CONSTITUTION.md](docs/CONSTITUTION.md) Section V — no formal spec/plan required, tests appropriate to the fix, straight to a PR.
 
 ### Task Type 3: Codebase Exploration
 
 **Triggers**: User says "how does", "explain", "show me", "where is"
 **Example**: "How does the image viewer component work?"
 
-**MANDATORY - Read Before ANY Work**:
+**Read before starting**:
 
 1. ✅ [ARCHITECTURE.md](docs/ARCHITECTURE.md) - Complete file (understand system structure)
 2. ✅ CLAUDE.md (this file) - Current Status section
-
-**BEFORE PROCEEDING**: State "I have read ARCHITECTURE.md. I understand the system structure."
 
 ### Task Type 4: Deployment / Operations
 
 **Triggers**: User says "deploy", "CI/CD", "GitHub Actions", "Cloudflare"
 **Example**: "Update the deployment workflow"
 
-**MANDATORY - Read Before ANY Work**:
+**Read before starting**:
 
 1. ✅ [DEPLOYMENT.md](docs/DEPLOYMENT.md) - Complete file
 2. ✅ [ARCHITECTURE.md](docs/ARCHITECTURE.md) - Section 11 (Deployment Architecture)
 3. ✅ CLAUDE.md (this file) - Current Status section
-
-**BEFORE PROCEEDING**: State "I have read [list]. I understand the deployment architecture and workflows."
 
 ---
 
@@ -106,20 +103,22 @@
 
 ## ✅ Current Status
 
-### Completed Features (7)
+### Completed Features
 
-- ✅ **Masonry Gallery** - Responsive, lazy loading, 5-breakpoint system
-- ✅ **Full-Screen Image Viewer** - White overlay, visual navigation, keyboard controls
+- ✅ **Masonry / Uniform Gallery** - Responsive, lazy loading, scroll-reveal animation
+- ✅ **Full-Screen Image Viewer** - Lightbox, keyboard navigation, swipe support
 - ✅ **Dark Mode** - WCAG AA, localStorage persistence, FOUC prevention
 - ✅ **Responsive Images** - WebP/JPEG, srcset, LQIP blur placeholders
 - ✅ **PWA** - Service worker, offline, installable
 - ✅ **About Page** - Hero layout, responsive
-- ✅ **CI/CD** - GitHub Actions, Cloudflare Pages, automated deployments
+- ✅ **Smart Header** - Scroll hide/show, active nav link underline
+- ✅ **Footer** - Dark Room / Light Box theme toggle
+- ✅ **404 Page** - Photography-themed redesign
+- ✅ **CI/CD** - GitHub Actions, Cloudflare Pages, dual-environment deploys
 
 ### Current Work
-- **Branch**: 008-add-build-actions
-- **Status**: Complete, ready to merge
-- **Next**: Merge to develop → QA → production (v1.0.0)
+- **Branch**: 022-docs-refresh (this documentation refresh)
+- **In progress**: `015-photo-mcp-server` (Python FastMCP server for R2 photo uploads, rebased onto current develop 2026-08-06, not yet merged)
 
 ---
 

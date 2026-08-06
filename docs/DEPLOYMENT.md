@@ -8,12 +8,12 @@ The project uses two separate Cloudflare Pages projects for independent staging 
 
 - **Staging**: `dev-richarddrew-photography` project → `dev.richarddrew.photography`
   - Deploys from `develop` branch
-  - Version format: `dev-{git-sha}` (e.g., `dev-a1b2c3d`)
+  - Version format: `v{year}.dev-{git-sha}` (e.g., `v2026.dev-a1b2c3d`)
 
 - **Production**: `richarddrew-photography` project → `richarddrew.photography`
   - Deploys from `main` branch
-  - Version format: Semantic versioning (e.g., `v1.2.3`)
-  - Auto-tagging on merge using conventional commits
+  - Version format: `v{year}.NNN` sequential counter (e.g., `v2026.004`)
+  - Auto-tagging on every push to `main` (not driven by conventional commit types)
 
 This two-project architecture ensures complete environment isolation and stable URLs for both staging and production.
 
@@ -128,7 +128,7 @@ After adding secrets, you should see them listed under "Actions secrets":
 
 1. Checkout code
 2. Install dependencies
-3. Generate version: `dev-{git-sha}` (e.g., `dev-a1b2c3d`)
+3. Generate version: `v{year}.dev-{git-sha}` (e.g., `v2026.dev-a1b2c3d`)
 4. Build with `VERSION` environment variable
 5. Upload build artifact (30-day retention)
 6. Deploy to `dev-richarddrew-photography` project
@@ -148,16 +148,13 @@ After adding secrets, you should see them listed under "Actions secrets":
 
 **Process**:
 1. **Tag Job**:
-   - Create semantic version tag using conventional commits
-   - Initial version: `v1.0.0`
-   - `feat:` → minor bump (v1.0.0 → v1.1.0)
-   - `fix:` → patch bump (v1.0.0 → v1.0.1)
-   - `feat!:` → major bump (v1.0.0 → v2.0.0)
+   - Create sequential `v{year}.NNN` version tag on every push to main
+   - Initial version each year: `v{year}.001`
 
 2. **Build and Deploy Job**:
    - Checkout code
    - Install dependencies
-   - Build with semantic version (e.g., `v1.2.3`)
+   - Build with the generated version (e.g., `v2026.004`)
    - Upload build artifact (30-day retention)
    - Deploy to `richarddrew-photography` project
    - Create GitHub Release with changelog
@@ -172,16 +169,17 @@ After adding secrets, you should see them listed under "Actions secrets":
 The build process injects version information into HTML meta tags:
 
 ```html
-<meta name="version" content="v1.2.3">
+<meta name="version" content="v2026.004">
 <meta name="build-date" content="2025-10-16T14:32:00Z">
 ```
 
 **Implementation**: Vite plugin (`src/plugins/vite-plugin-version-injector.ts`)
 
 **Version Formats**:
-- **Production**: `v{MAJOR}.{MINOR}.{PATCH}` (e.g., `v1.2.3`)
-- **Staging**: `dev-{git-sha}` (e.g., `dev-a1b2c3d`)
-- **Local**: `dev-local` (default when VERSION not set)
+
+- **Dev**: `v{year}.dev-{git-sha}` (e.g., `v2026.dev-a1b2c3d`) — set by `deploy-dev.yml` on every push to `develop`
+- **Prod**: `v{year}.NNN` (e.g., `v2026.004`) — sequential counter set by the `tag` job in `deploy-prod.yml` on every push to `main`
+- **Local**: `v{year}.dev-local` (default when `VERSION` env var not set)
 
 ## Manual Deployments
 

@@ -440,7 +440,7 @@ Security and privacy MUST be respected.
 2. **CSS-in-JS** - Use CSS Custom Properties and external stylesheets
 3. **Layout-Triggering Animations** - Never animate top, left, width, height
 4. **Code-First Development** - Tests MUST be written before implementation
-5. **Implementation Without Specs** - No coding without approved specification
+5. **Feature-Tier Implementation Without Specs** - No feature-tier coding without an approved spec (fix-tier work is exempt — see Section V)
 6. **CSS !important** - Use specificity correctly (exception: body scroll lock)
 7. **Hover-Dependent UX** - Design for touch-first
 8. **Magic Numbers** - Use CSS custom properties for all design values
@@ -453,7 +453,7 @@ Security and privacy MUST be respected.
 2. **Use Native Features** - Platform APIs over third-party libraries
 3. **GPU-Accelerated Animations** - Transform/opacity only
 4. **Test-Driven Development** - Write tests first, always
-5. **Complete Specifications** - Full spec before any implementation
+5. **Complete Specifications (Feature Tier)** - Full spec before any feature-tier implementation (see Section V)
 6. **CSS Specificity** - Proper cascade, no !important hacks
 7. **Touch-First Design** - Mobile before desktop
 8. **Design Tokens** - Use CSS custom properties for all values
@@ -466,13 +466,12 @@ Security and privacy MUST be respected.
 
 ### Before ANY Commit
 
-- [ ] Tests written and passing (90%+ coverage)
+- [ ] Tests written and passing
 - [ ] Build successful (`make build`)
 - [ ] No console errors/warnings
-- [ ] Accessibility tested (keyboard + screen reader)
-- [ ] Performance verified (60fps animations, Lighthouse 95+)
-- [ ] Documentation updated (CLAUDE.md, specs, comments)
-- [ ] TodoWrite tasks marked completed
+- [ ] Accessibility tested (keyboard + screen reader, where relevant)
+- [ ] Performance verified (60fps animations, Lighthouse 95+, where relevant)
+- [ ] Documentation updated (CLAUDE.md, comments — specs/plans additionally for feature-tier work)
 
 ### Before ANY Feature
 
@@ -483,6 +482,8 @@ Security and privacy MUST be respected.
 - [ ] Performance budget defined and validated
 - [ ] Component folder structure created
 - [ ] Tasks numbered and sequenced
+- [ ] TodoWrite tasks marked completed
+- [ ] 90%+ coverage target met
 
 ---
 

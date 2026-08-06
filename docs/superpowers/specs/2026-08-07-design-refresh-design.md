@@ -182,6 +182,15 @@ or `localStorage`/cross-tab sync in `footer.ts`.
   existing breakpoint constants rather than removing the tiering structure) —
   a numeric tuning change to an existing parameterized function, not a
   structural change to the layout algorithm.
+- **Gap/layout-math coupling**: `uniform-gallery.ts` has its own
+  `LAYOUT_GAP = 10` constant, passed into `computeRows()` for the row
+  width/height math — it is **not** read from the CSS `--gallery-gap` custom
+  property. The CSS `gap` on `.uniform-gallery` and this JS constant must be
+  changed together (`LAYOUT_GAP` → `4`, matching the new desktop
+  `--masonry-gap`) or the row math will compute widths against a gap the
+  browser isn't actually rendering, causing rows to not quite fill the
+  container width. Mobile is unaffected — `applyLayout()` bypasses
+  `computeRows()` entirely below `MOBILE_BREAKPOINT` (576px).
 
 ---
 

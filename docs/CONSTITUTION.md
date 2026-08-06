@@ -469,8 +469,8 @@ Security and privacy MUST be respected.
 - [ ] Tests written and passing
 - [ ] Build successful (`make build`)
 - [ ] No console errors/warnings
-- [ ] Accessibility tested (keyboard + screen reader, where relevant)
-- [ ] Performance verified (60fps animations, Lighthouse 95+, where relevant)
+- [ ] Accessibility tested (keyboard + screen reader)
+- [ ] Performance verified (60fps animations, Lighthouse 95+)
 - [ ] Documentation updated (CLAUDE.md, comments — specs/plans additionally for feature-tier work)
 
 ### Before ANY Feature

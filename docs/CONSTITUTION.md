@@ -1,29 +1,36 @@
 <!--
-Constitution Version 2.0.0 - Major Update 2025-10-10
+Constitution Version 3.0.0 - Major Update 2026-08-06
 
-Breaking Changes from v1.3.0:
-- Restructured from prescriptive rules to principle-based guidelines
-- Added 20 foundational principles based on actual implementation patterns
-- Expanded anti-patterns section with concrete examples
-- Added comprehensive quality gates and success metrics
-- Removed outdated "Recent Feature Completions" section (moved to CLAUDE.md)
-- Enhanced browser support strategy with progressive enhancement guidelines
-- Added security & privacy principles
-- Consolidated template management (inline templates now preferred)
+Breaking Changes from v2.0.0:
+- Replaced the single always-spec-first-always-TDD workflow (Section V)
+  with a tiered process model: full rigor (spec/plan/TDD/TodoWrite) for
+  new features and components, lighter rigor (tests appropriate to the
+  change, direct to commit) for fixes, refactors, and small changes
+- Removed Section IX (Documentation Requirements) — superseded by the
+  tiered model and CLAUDE.md's task-type router
+- Specs/plans now live in docs/superpowers/specs/ and
+  docs/superpowers/plans/ (superpowers-driven), not specs/{number}-{name}/
+- Softened Principle 5 (TDD), 6 (Spec-First), 9 (Commit Standards),
+  10 (Makefile-only), and 16 (TodoWrite) to match actual practice
+- Coverage (90%+) restated as an aspirational target, not an enforced
+  CI gate — nothing in CI currently checks coverage
+- Corrected commit message template to match actual conventional-commit
+  usage observed in the git log
 
 Migration Impact:
-- Existing code already compliant (constitution reflects actual practices)
-- Future features must follow expanded principle set
-- Quality gates now mandatory before commits/features
-- Documentation standards raised
-- No code changes required (constitution documents current state)
+- No code changes required
+- Existing fix-tier commits (small changes without a formal spec) are
+  retroactively compliant — they always matched actual practice, just
+  not the old constitution's stated rules
+- Future feature-tier work should use superpowers brainstorming +
+  writing-plans skills rather than manual specs/{number}/ folders
 -->
 
 # Portfolio Website Constitution
 
-**Version**: 2.0.0
+**Version**: 3.0.0
 **Ratified**: 2025-09-23
-**Last Amended**: 2025-10-10
+**Last Amended**: 2026-08-06
 **Status**: Active
 
 ---
@@ -104,11 +111,7 @@ WCAG AA compliance is the minimum standard (AAA where feasible). All interactive
 
 ### 5. Test-Driven Development (TDD)
 
-Tests MUST be written BEFORE implementation. No exceptions.
-
-**Workflow**: Write tests → Verify failure → Implement → Verify success
-
-**Test Categories** (all mandatory):
+**Feature tier** (new components, substantial features): tests MUST be written before implementation. Write tests → verify failure → implement → verify success, using the 4-category pattern (all mandatory for a new component):
 
 ```
 tests/component-name/
@@ -118,7 +121,9 @@ tests/component-name/
 └── component-name-performance.test.ts   # Performance benchmarks
 ```
 
-**Coverage Minimum**: 90%+ across all test categories.
+**Fix tier** (bug fixes, refactors, small changes): tests appropriate to the change are required, but not necessarily all 4 categories — e.g. a logic fix inside an existing component's event handler needs a test proving the bug existed and is fixed, not a new performance-test suite.
+
+**Coverage Target**: 90%+ across all test categories (aspirational — actual coverage is typically ~99%; this is not an enforced CI gate).
 
 **Rationale**: TDD prevents regressions, documents behavior, and ensures testability.
 
@@ -126,29 +131,20 @@ tests/component-name/
 
 ### 6. Specification-First Development
 
-Every feature MUST begin with a complete specification. No implementation without approved spec.
+**Feature tier** (new components, substantial features): every feature MUST begin with a complete specification via the superpowers `brainstorming` skill, followed by an implementation plan via `writing-plans`. No feature-tier implementation without an approved spec.
 
-**Required Specification Sections**:
-
-- Functional requirements (testable and unambiguous)
-- Technical constraints
-- Architecture decisions with rationale
-- Over-engineering analysis (YAGNI check)
-- Success criteria (measurable)
-
-**Specification Format**:
+**Specification location**:
 
 ```
-specs/[feature-number]-[feature-name]/
-├── spec.md           # Complete feature specification
-├── plan.md           # Implementation plan with tasks
-├── research.md       # Technical research and decisions
-├── data-model.md     # TypeScript interfaces and entities
-├── quickstart.md     # Manual testing scenarios
-└── contracts/        # API contracts for components
+docs/superpowers/specs/YYYY-MM-DD-<topic>-design.md   # Design spec
+docs/superpowers/plans/YYYY-MM-DD-<topic>.md          # Implementation plan
 ```
 
-**Enforcement**: Pull requests without complete specs MUST be rejected.
+A good spec covers: functional requirements (testable and unambiguous), technical constraints, architecture decisions with rationale, an over-engineering check (YAGNI), and measurable success criteria.
+
+**Fix tier** (bug fixes, refactors, small changes): no formal spec or plan required. Use the superpowers `systematic-debugging` skill for investigation if the root cause isn't obvious, then implement directly.
+
+**Enforcement**: Feature-tier pull requests without a linked spec and plan MUST be rejected. Fix-tier PRs have no such requirement.
 
 ---
 
@@ -192,51 +188,47 @@ Core functionality MUST work without JavaScript. CSS MUST load before JavaScript
 
 ### 9. Git Commit Standards
 
-Commit messages MUST be descriptive and follow the standard format.
+Commit messages MUST follow Conventional Commits format, matching actual practice in the git log.
 
-**Commit Message Template**:
+**Commit Message Format**:
 
 ```
-[Action] [Subject]
+<type>(<scope>): <subject>
 
-## Problem
-[What issue was addressed]
-
-## Solution
-[How it was solved]
-
-## Technical Details
-[Specific changes, line numbers, performance impact]
-
-🤖 Generated with [Claude Code](https://claude.com/claude-code)
+<body — optional, explain non-obvious rationale only>
 
 Co-Authored-By: Claude <noreply@anthropic.com>
 ```
 
+**Types**: `feat`, `fix`, `docs`, `style`, `refactor`, `perf`, `test`, `chore`.
+
 **Requirements**:
 
-- Include performance/technical details where relevant
-- Reference line numbers for specific changes
-- Document breaking changes
+- Subject line is a conventional-commit one-liner (e.g. `fix(header): floor overscroll clamp at 0`)
+- Body only when the *why* isn't obvious from the diff — don't restate what changed
+- Document breaking changes in the body when relevant
 - Never commit without tests passing
 
 ---
 
 ### 10. Makefile Command Interface
 
-All development commands MUST use the Makefile interface. Direct npm/npx commands are FORBIDDEN.
+The Makefile is the standard interface for normal workflows and CI parity.
 
 **Standard Commands**:
 
 ```makefile
-make dev      # Development server (http://localhost:5173)
+make dev      # Development server
 make build    # TypeScript compile + Vite production build
-make test     # Run Vitest test suite
+make test     # Run Vitest test suite (watch mode)
+make test-run # Run all tests once + Lighthouse audit (CI/pre-commit gate)
 make preview  # Preview production build
 make clean    # Remove dist/ directory
 ```
 
-**Rationale**: Tool-agnostic abstraction layer ensures consistency and prevents tooling fragmentation.
+Direct `npm`/`npx` commands (e.g. `npx vitest run tests/header/`) are fine for targeted debugging — running one test file, one lint rule, isolating a failure — not a violation. Use `make` targets for anything that should match what CI runs.
+
+**Rationale**: Tool-agnostic abstraction layer ensures consistency for standard workflows, without blocking fast iteration during debugging.
 
 ---
 
@@ -334,17 +326,19 @@ Unused files MUST be deleted immediately. Commented-out code is FORBIDDEN. Regul
 
 ### 16. Task Tracking with TodoWrite
 
-TodoWrite tool MUST be used for ALL non-trivial tasks. Real-time updates are MANDATORY.
+**Feature tier**: TodoWrite MUST be used to track tasks from the implementation plan. Real-time updates are mandatory.
 
 **Workflow**:
 
 1. Mark task as `"in_progress"` BEFORE starting
 2. Mark task as `"completed"` IMMEDIATELY after finishing
 3. NO batching - update after each task completion
-4. Include task IDs (T001, T002, etc.)
+4. Reference the plan's task identifiers
 5. Clean up completed tasks when list exceeds 10 items
 
-**Enforcement**: Implementation work without proper tracking is considered INCOMPLETE.
+**Fix tier**: TodoWrite is optional — use it if a fix breaks down into multiple non-trivial steps worth tracking, skip it for single-step changes.
+
+**Enforcement**: Feature-tier implementation work without proper tracking is considered incomplete.
 
 ---
 
@@ -515,55 +509,50 @@ Security and privacy MUST be respected.
 
 ## V. Development Workflow
 
-All development MUST follow this workflow:
+Development follows a **tiered process model**, matched to the size and risk of the change.
 
-### Phase 1: Specification
+### Feature Tier (new components, substantial features)
 
-1. Create feature specification (`/specify` command or manual)
-2. Define functional requirements (testable, unambiguous)
-3. Document technical constraints
-4. Perform over-engineering check (YAGNI analysis)
-5. Get specification approved
+**Phase 1: Brainstorm & Spec**
+1. Use the superpowers `brainstorming` skill to explore the idea through dialogue
+2. Write the design spec to `docs/superpowers/specs/YYYY-MM-DD-<topic>-design.md`
+3. Get the spec approved
 
-### Phase 2: Planning
+**Phase 2: Plan**
+1. Use the superpowers `writing-plans` skill to break the spec into bite-sized tasks
+2. Write the plan to `docs/superpowers/plans/YYYY-MM-DD-<topic>.md`
+3. Define test strategy (contract, UI, a11y, performance) per component
 
-1. Create implementation plan (`/plan` command or manual)
-2. Break feature into numbered tasks
-3. Identify dependencies and parallel execution opportunities
-4. Define test strategy (contract, UI, a11y, performance)
-5. Document architecture decisions
+**Phase 3: Test-Driven Implementation**
+1. Update TodoWrite with all plan tasks
+2. Per task: write tests first, verify failure (red), implement, verify success (green)
+3. Follow the 4-category test pattern for new components
 
-### Phase 3: Test Development
-
-1. Write contract tests (API interfaces, type contracts)
-2. Write UI tests (user interactions, DOM behavior)
-3. Write accessibility tests (WCAG compliance, keyboard nav)
-4. Write performance tests (benchmarks, budgets)
-5. **Verify all tests FAIL** (red phase of TDD)
-
-### Phase 4: Implementation
-
-1. Update TodoWrite with all tasks
-2. Implement component logic (following TDD red-green-refactor)
-3. Implement component styles (CSS custom properties)
-4. Implement templates (inline preferred)
-5. **Verify all tests PASS** (green phase of TDD)
-
-### Phase 5: Validation
-
-1. Manual testing (quickstart.md scenarios)
+**Phase 4: Validation**
+1. Manual testing across viewports
 2. Cross-browser testing (Chrome, Safari, Firefox, Edge)
 3. Performance validation (Lighthouse, Chrome DevTools)
 4. Accessibility audit (axe, WAVE, manual keyboard/screen reader)
-5. Code quality checks (ESLint, TypeScript strict mode)
 
-### Phase 6: Completion
+**Phase 5: Completion**
+1. Update documentation (CLAUDE.md if patterns changed)
+2. Final TodoWrite update (all tasks completed)
+3. Commit, push to a short-lived branch, open PR to `develop`
 
-1. Update documentation (CLAUDE.md, README, comments)
-2. Clean up unused files
-3. Final TodoWrite update (all tasks completed)
-4. Git commit with detailed message
-5. Feature branch merge (if applicable)
+### Fix Tier (bug fixes, refactors, small changes)
+
+1. If the root cause isn't obvious, use the superpowers `systematic-debugging` skill to investigate before proposing a fix
+2. Write a test that reproduces the bug (or covers the change) and verify it fails
+3. Implement the fix
+4. Verify the test passes and the full suite still passes (`make test-run`)
+5. Commit with a conventional-commit message, push to a short-lived branch, open PR to `develop`
+
+No formal spec, plan, or TodoWrite tracking is required for fix-tier work — matching how bug fixes actually happen in this codebase (e.g. the header overscroll-clamp fix on 2026-08-06, which went straight from investigation to a committed fix with updated tests, no spec or plan involved).
+
+### Both Tiers
+
+- Branch protection requires a PR either way — there is no direct-commit path to `develop` or `main` for anyone but admins in emergencies.
+- Branch naming: `{number}-{short-description}` off `develop` (e.g. `022-docs-refresh`).
 
 ---
 
@@ -723,109 +712,10 @@ example-component {
 
 ## IX. Documentation Requirements
 
-### Purpose
-
-This section defines **MANDATORY** documentation reading requirements based on task type. Compliance ensures constitutional principles are understood and followed.
-
-### Required Reading by Task Type
-
-#### Task Type 1: Feature Implementation
-
-**Triggers**: Adding new features, creating components, implementing functionality
-
-**MUST READ** (non-negotiable):
-
-1. **constitution.md** - Sections I-III (Foundational Principles, Anti-Patterns, Quality Gates)
-2. **DEVELOPMENT.md** - Sections 1-7 (Quick Start through Quality Gates)
-3. **CLAUDE.md** - Current Status section (understand completed features, current work)
-
-**Rationale**: Feature implementation affects architecture and must follow all constitutional principles including specification-first development, TDD, and TodoWrite tracking.
-
-**Enforcement**:
-- TodoWrite tracking MUST reference task IDs from plan.md (proves spec exists)
-- Tests MUST follow 4-category pattern (proves DEVELOPMENT.md was read)
-- PR template MUST confirm documentation compliance
-
-#### Task Type 2: Bug Fix / Investigation
-
-**Triggers**: Fixing bugs, debugging errors, investigating issues
-
-**MUST READ** (non-negotiable):
-
-1. **ARCHITECTURE.md** - Sections 1-5 (Quick Reference through Testing Infrastructure)
-2. **DEVELOPMENT.md** - Sections 8-10 (Common Tasks through Troubleshooting)
-3. **CLAUDE.md** - Current Status section
-
-**Rationale**: Bug fixes require understanding system architecture and established troubleshooting patterns.
-
-**Enforcement**:
-- Investigation MUST reference architectural patterns
-- Fixes MUST include tests proving bug existed and is resolved
-- PR template MUST confirm documentation compliance
-
-#### Task Type 3: Codebase Exploration
-
-**Triggers**: Understanding how things work, code review, learning the system
-
-**MUST READ** (non-negotiable):
-
-1. **ARCHITECTURE.md** - Complete file (comprehensive system understanding)
-2. **CLAUDE.md** - Current Status section
-
-**Rationale**: Exploration tasks require complete architectural context to provide accurate explanations.
-
-**Enforcement**:
-- Explanations MUST reference specific architectural sections
-- Code examples MUST follow established patterns
-
-#### Task Type 4: Deployment / Operations
-
-**Triggers**: Deployment changes, CI/CD updates, infrastructure modifications
-
-**MUST READ** (non-negotiable):
-
-1. **deployment.md** - Complete file (deployment procedures and architecture)
-2. **ARCHITECTURE.md** - Section 11 (Deployment Architecture)
-3. **CLAUDE.md** - Current Status section
-
-**Rationale**: Deployment changes affect production systems and require complete operational context.
-
-**Enforcement**:
-- Changes MUST preserve existing deployment patterns
-- Updates MUST include rollback procedures
-- PR template MUST confirm documentation compliance
-
-### Acknowledgment Requirement
-
-Before proceeding with any task, AI assistants MUST state:
-
-```
-I have read [list of documentation]. I understand [2-3 key principles relevant to task type].
-```
-
-**Example for Feature Implementation**:
-> "I have read constitution.md (Sections I-III), DEVELOPMENT.md (Sections 1-7), and CLAUDE.md (Current Status). I understand: (1) Specification-first development is mandatory, (2) TDD with 4-category tests is required, (3) TodoWrite tracking with task IDs is non-negotiable."
-
-### Workflow Artifacts as Proof
-
-The following artifacts serve as **proof** that required documentation was read:
-
-1. **spec.md exists** → Proves constitution Principle 6 (Specification-First) was followed
-2. **plan.md with task IDs** → Proves systematic planning was followed
-3. **4-category tests** → Proves DEVELOPMENT.md testing requirements were read
-4. **TodoWrite with task IDs** → Proves constitution Principle 16 was followed
-5. **PR checklist completed** → Final verification gate
-
-### Governance
-
-These documentation requirements are **constitutional mandates**. They cannot be bypassed or negotiated.
-
-**Amendment Process**: Changes to documentation requirements follow standard constitutional amendment process (Section VII).
-
-**Version**: Documentation requirements established 2025-10-28 as part of constitution v2.0.0.
+Superseded by `CLAUDE.md`'s task-type router, which is the current source of truth for which docs to read before starting a given kind of task, and by the tiered process model in Section V for which superpowers skill to invoke. See `CLAUDE.md` directly rather than duplicating its routing table here.
 
 ---
 
-**End of Constitution v2.0.0**
+**End of Constitution v3.0.0**
 
 *This constitution represents the distilled wisdom of successful implementations. Follow these principles, and the code will be maintainable, performant, and accessible.*

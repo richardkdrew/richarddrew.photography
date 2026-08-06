@@ -644,10 +644,21 @@ git commit -m "feat: load Oswald/Lora via Google Fonts, remove Bebas Neue"
 - Modify: `src/components/footer/footer.css:12-27` (`.footer__container`)
 
 **Interfaces:**
-- Produces: `--space-5xl`, `--grid-max-width`, `--grid-gutter` (new); removes
+- Produces: `--grid-max-width` (new, consumed by Steps 2-4 below); removes
   `--page-width-full`/`--page-width-constrained` (no longer referenced anywhere
   after this task).
 - Consumes: nothing new.
+
+Note: the spec's token-mapping table also lists `--space-5xl` (128px) and
+`--grid-gutter` (24px) as net-new tokens. Neither has a consumer anywhere in
+this plan — the current site has no section using 128px padding, and no
+component lays out on literal grid columns/gutters (the "12-column grid" in
+the source material describes the gallery's implicit row-masonry, not a CSS
+Grid the site implements). Per this project's own precedent
+(`docs/superpowers/specs/2026-05-08-design-system-tokens-cleanup.md`: "adding
+a token for one use case would be YAGNI"), skip both — do not add them in
+Step 1 below. If a future task needs 128px spacing or an explicit gutter
+value, add the token there, next to its first real consumer.
 
 - [ ] **Step 1: Add spacing/grid tokens, remove the percentage-width tokens**
 
@@ -697,7 +708,6 @@ After:
   --space-2xl: 3rem;
   --space-3xl: 4rem;
   --space-4xl: 6rem;
-  --space-5xl: 8rem;
 
   /* Layout */
   --max-width-prose: 65ch;
@@ -709,7 +719,6 @@ After:
 
   /* Grid - Direction A */
   --grid-max-width: 90rem;   /* 1440px */
-  --grid-gutter: 1.5rem;     /* 24px */
 ```
 
 - [ ] **Step 2: Change `.page-container`'s width formula**

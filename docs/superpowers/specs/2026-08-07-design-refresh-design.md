@@ -154,10 +154,15 @@ or `localStorage`/cross-tab sync in `footer.ts`.
 
 - Existing `--space-*` scale already lines up closely with the new 8px-multiple
   scale (`sm`=8, `md`=16, `lg`=24, `xl`=32, `2xl`=48, `3xl`=64px all already
-  match). Add one new token, **`--space-5xl: 8rem`** (128px), for the one rung
-  the new scale has that the old one doesn't (large section padding).
-- Add **`--grid-max-width: 90rem`** (1440px) and **`--grid-gutter: 1.5rem`**
-  (24px) tokens.
+  match). The new scale's 128px rung (`--space-5xl`) has no consumer anywhere
+  in this refresh — no current section uses that much padding — so it is
+  **not** added; per this project's own token-cleanup precedent, a token
+  without a use is deferred to whichever future task first needs it.
+- Add **`--grid-max-width: 90rem`** (1440px). The design material's `--a-...`
+  gutter concept (24px) has no consumer either — nothing in the current site
+  lays out on literal grid columns — so `--grid-gutter` is likewise **not**
+  added; edge padding is handled directly via existing `--space-lg`/`--space-3xl`
+  below.
 - Change `.page-container`, `.header__container`, `.footer__container` from
   `width: var(--page-width-full/constrained)` (88%/92%) to:
   `width: 100%; max-width: var(--grid-max-width); margin-inline: auto; padding-inline: <responsive edge padding>`
@@ -198,7 +203,7 @@ or `localStorage`/cross-tab sync in `footer.ts`.
 
 | File | Change type | Summary |
 |---|---|---|
-| `src/styles/design-system.css` | Values + new tokens | Color/font/spacing/grid token values per above; add `--space-5xl`, `--grid-max-width`, `--grid-gutter`, `--masonry-gap(-mobile)`, `--color-line(-dark)`, `--color-toggle-bg`; retune `--text-*` clamp endpoints; new `.page-container` width formula; heading rules gain uppercase/tracking/weight |
+| `src/styles/design-system.css` | Values + new tokens | Color/font/spacing/grid token values per above; add `--grid-max-width`, `--masonry-gap(-mobile)`, `--color-line`, `--color-toggle-bg`; retune `--text-*` clamp endpoints; new `.page-container` width formula; heading rules gain uppercase/tracking/weight |
 | `src/styles/fonts.css` | Removal | Delete Bebas Neue `@font-face` declarations |
 | `index.html`, `about.html` | Values | Swap Google Fonts `<link>` (Oswald + Lora w/ italic); remove Bebas Neue preload `<link>`; update `<meta name="theme-color">` to the new ink hex equivalent |
 | `src/components/header/header.css` | Values only | Border/underline/nav-link colors → new tokens; border-bottom source `--color-accent` → `--color-line`; container width formula follows the shared `.page-container` change |

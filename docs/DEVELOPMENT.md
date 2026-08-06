@@ -4,8 +4,8 @@
 >
 > **For System Architecture**: See [ARCHITECTURE.md](ARCHITECTURE.md)
 
-**Last Updated**: 2025-10-28
-**Constitution Version**: 2.0.0
+**Last Updated**: 2026-08-06
+**Constitution Version**: 3.0.0
 
 ---
 
@@ -1831,8 +1831,8 @@ npm run test:e2e
 - **Architecture**: [ARCHITECTURE.md](ARCHITECTURE.md) - System structure and technical decisions
 - **Constitution**: [docs/CONSTITUTION.md](CONSTITUTION.md) - Development principles (v3.0.0)
 - **AI Guide**: [CLAUDE.md](../CLAUDE.md) - AI assistant instructions
-- **Deployment**: [deployment.md](deployment.md) - CI/CD setup and troubleshooting
-- **Branch Protection**: [branch-protection.md](branch-protection.md) - Git workflow rules
+- **Deployment**: [DEPLOYMENT.md](DEPLOYMENT.md) - CI/CD setup and troubleshooting
+- **Branch Protection**: [BRANCH-PROTECTION.md](BRANCH-PROTECTION.md) - Git workflow rules
 
 ### Example Specs
 
@@ -1882,6 +1882,6 @@ npm run test:e2e
 
 ---
 
-**Remember**: Specification-first, TDD, TodoWrite tracking, 90%+ coverage. No exceptions.
+**Remember**: Feature-tier work is spec-first with full TDD and TodoWrite tracking; fix-tier work is lighter-weight but still tested. Coverage target is 90%+, not an enforced gate.
 
 **For system architecture context**: See [ARCHITECTURE.md](ARCHITECTURE.md)

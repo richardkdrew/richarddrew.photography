@@ -270,7 +270,7 @@ Potential additions to branch protection:
 
 ## Related Documentation
 
-- [Deployment Guide](./deployment.md)
+- [Deployment Guide](./DEPLOYMENT.md)
 - [Project Constitution](CONSTITUTION.md)
 - [Feature Spec: GitHub Actions CI/CD](../specs/008-add-build-actions/spec.md)
 - [Implementation Plan](../specs/008-add-build-actions/plan.md)

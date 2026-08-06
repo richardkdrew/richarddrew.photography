@@ -4,9 +4,9 @@
 >
 > **For Development Workflow**: See [DEVELOPMENT.md](DEVELOPMENT.md)
 
-**Last Updated**: 2025-10-28
-**Application Version**: v1.0.0 (pre-release)
-**Constitution Version**: 2.0.0
+**Last Updated**: 2026-08-06
+**Application Version**: Live in production (see Versioning Strategy for current tag format)
+**Constitution Version**: 3.0.0
 
 ---
 
@@ -179,8 +179,8 @@ richarddrew.photography/
 │
 ├── docs/                    # Documentation
 │   ├── ARCHITECTURE.md      # This file
-│   ├── deployment.md        # Deployment guide
-│   └── branch-protection.md # Git workflow rules
+│   ├── DEPLOYMENT.md        # Deployment guide
+│   └── BRANCH-PROTECTION.md # Git workflow rules
 │
 ├── public/                  # Static assets (copied as-is to dist/)
 │   ├── gallery-data.json    # Image manifest (structured data)
@@ -949,16 +949,16 @@ if ('IntersectionObserver' in window) {
 2. **Staging Deployment** ([deploy-dev.yml](../.github/workflows/deploy-dev.yml))
    - Triggers: Push to `develop` branch
    - Steps: Build → Deploy to staging → Upload artifacts (30-day retention)
-   - Version: `dev-{git-sha}`
+   - Version: `v{year}.dev-{sha}`
 
 3. **Production Deployment** ([deploy-prod.yml](../.github/workflows/deploy-prod.yml))
    - Triggers: Push to `main` branch
    - Steps:
-     1. Auto-tag with semantic version (conventional commits)
+     1. Auto-tag with sequential `v{year}.NNN` counter (not conventional commits)
      2. Build with version injection
      3. Deploy to production
      4. Create GitHub Release with changelog
-   - Version: `v{MAJOR}.{MINOR}.{PATCH}`
+   - Version: `v{year}.NNN`
 
 ### Versioning Strategy
 
@@ -1050,8 +1050,8 @@ if ('IntersectionObserver' in window) {
 - **Development Guide**: [DEVELOPMENT.md](DEVELOPMENT.md) - Workflows, code standards, testing, troubleshooting
 - **Constitution**: [docs/CONSTITUTION.md](CONSTITUTION.md) - Development principles (v3.0.0)
 - **AI Guide**: [CLAUDE.md](../CLAUDE.md) - AI assistant instructions
-- **Deployment**: [deployment.md](deployment.md) - CI/CD setup and troubleshooting
-- **Branch Protection**: [branch-protection.md](branch-protection.md) - Git workflow rules
+- **Deployment**: [DEPLOYMENT.md](DEPLOYMENT.md) - CI/CD setup and troubleshooting
+- **Branch Protection**: [BRANCH-PROTECTION.md](BRANCH-PROTECTION.md) - Git workflow rules
 
 ### Reference Examples
 
@@ -1071,10 +1071,9 @@ When starting a new task:
 2. **Learn the workflow**: Read [DEVELOPMENT.md](DEVELOPMENT.md) for processes and standards
 3. **Follow the constitution**: Review [docs/CONSTITUTION.md](CONSTITUTION.md)
 4. **Study patterns**: Check existing components in `src/components/`
-5. **Apply TDD**: Write tests first, verify failure, implement, verify success
-6. **Track progress**: Use TodoWrite tool to track all tasks
+5. **Match the tier to the task**: feature-tier work (new components) gets spec/plan/TDD via superpowers; fix-tier work (bug fixes, small changes) gets tests appropriate to the change and goes straight to a PR — see CONSTITUTION.md Section V.
 
-**Remember**: Specification-first, TDD, TodoWrite tracking, 90%+ coverage. No exceptions.
+**Remember**: Feature-tier work is spec-first with full TDD and TodoWrite tracking; fix-tier work is lighter-weight but still tested. Coverage target is 90%+, not an enforced gate.
 
 ---
 

@@ -36,7 +36,7 @@ make test-run      # Run all tests once (CI mode)
 
 ## Constitutional Foundations
 
-This architecture implements the principles defined in the project constitution ([`.specify/memory/CONSTITUTION.md`](../.specify/memory/CONSTITUTION.md) v2.0.0).
+This architecture implements the principles defined in the project constitution ([`docs/CONSTITUTION.md`](CONSTITUTION.md) v3.0.0).
 
 ### Key Constitutional Principles Reflected in This Architecture
 
@@ -418,7 +418,7 @@ export default defineConfig({
 
 3. **Version Injection**
    - Plugin reads `VERSION` environment variable
-   - Injects `<meta name="version" content="v1.0.0">`
+   - Injects `<meta name="version" content="v2026.004">` (or `v2026.dev-{sha}` on develop)
    - Injects `<meta name="build-date" content="2025-10-28T...">`
 
 4. **Asset Optimization**
@@ -938,7 +938,7 @@ if ('IntersectionObserver' in window) {
 2. **Production** (`richarddrew-photography`)
    - Branch: `main`
    - URL: https://richarddrew.photography
-   - Versioning: Semantic versioning (e.g., `v1.0.0`)
+   - Versioning: Year-based sequential (e.g., `v2026.004`)
    - Purpose: Live site for users
 
 ### CI/CD Pipeline
@@ -966,15 +966,15 @@ if ('IntersectionObserver' in window) {
 
 ### Versioning Strategy
 
-**Conventional Commits**:
-- `feat:` → Minor bump (v1.0.0 → v1.1.0)
-- `fix:` → Patch bump (v1.0.0 → v1.0.1)
-- `feat!:` / `BREAKING CHANGE:` → Major bump (v1.0.0 → v2.0.0)
+**Version Format**:
+- **Dev**: `v{year}.dev-{sha}` (e.g. `v2026.dev-df8dd49`) — rebuilt on every push to `develop`
+- **Prod**: `v{year}.NNN` (e.g. `v2026.004`) — sequential counter auto-incremented by the `tag` job in `deploy-prod.yml` on every push to `main`. Not semantic versioning, not driven by conventional commit types.
+- **Local**: `v{year}.dev-local` (default when `VERSION` env var not set)
 
 **Version Injection** (Vite plugin):
 ```html
 <!-- Injected at build time -->
-<meta name="version" content="v1.0.0">
+<meta name="version" content="v2026.004">
 <meta name="build-date" content="2025-10-28T12:34:56Z">
 ```
 
@@ -1052,7 +1052,7 @@ if ('IntersectionObserver' in window) {
 ### Documentation
 
 - **Development Guide**: [DEVELOPMENT.md](DEVELOPMENT.md) - Workflows, code standards, testing, troubleshooting
-- **Constitution**: [.specify/memory/constitution.md](../.specify/memory/constitution.md) - Development principles (v2.0.0)
+- **Constitution**: [docs/CONSTITUTION.md](CONSTITUTION.md) - Development principles (v3.0.0)
 - **AI Guide**: [CLAUDE.md](../CLAUDE.md) - AI assistant instructions
 - **Deployment**: [deployment.md](deployment.md) - CI/CD setup and troubleshooting
 - **Branch Protection**: [branch-protection.md](branch-protection.md) - Git workflow rules
@@ -1073,7 +1073,7 @@ When starting a new task:
 
 1. **Understand the system**: Read relevant sections in this document (ARCHITECTURE.md)
 2. **Learn the workflow**: Read [DEVELOPMENT.md](DEVELOPMENT.md) for processes and standards
-3. **Follow the constitution**: Review [.specify/memory/constitution.md](../.specify/memory/constitution.md)
+3. **Follow the constitution**: Review [docs/CONSTITUTION.md](CONSTITUTION.md)
 4. **Study patterns**: Check existing components in `src/components/`
 5. **Apply TDD**: Write tests first, verify failure, implement, verify success
 6. **Track progress**: Use TodoWrite tool to track all tasks

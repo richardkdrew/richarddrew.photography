@@ -250,10 +250,6 @@ richarddrew.photography/
 │   ├── theme-toggle/
 │   └── version-injection/
 │
-├── .specify/                # Constitutional memory (AI agent context)
-│   └── memory/
-│       └── constitution.md  # Development principles (v2.0.0)
-│
 ├── index.html               # Gallery page (root)
 ├── about.html               # About/bio page
 ├── 404.html                 # Custom error page

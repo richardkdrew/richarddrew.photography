@@ -23,8 +23,11 @@ export function oklchToLinearSrgb(l: number, c: number, hDeg: number): Rgb {
   const g = -1.2684380046 * lCubed + 2.6097574011 * mCubed - 0.3413193965 * sCubed
   const bl = -0.0041960863 * lCubed - 0.7034186147 * mCubed + 1.7076147010 * sCubed
 
-  // Clamp to [0, 1] — token colors are expected to be in-gamut; this guards
-  // against float drift at the edges rather than silently producing garbage.
+  // Clamp to [0, 1] — naive per-channel clipping, not CSS Color 4 gamut mapping.
+  // Some Direction A tokens (e.g. gold accent) are out-of-gamut; this produces
+  // approximate results for those colors. A proper implementation would use
+  // chroma reduction via binary search, but that's out of scope for this
+  // one-off verification utility.
   const clamp = (v: number) => Math.min(1, Math.max(0, v))
   return [clamp(r), clamp(g), clamp(bl)]
 }

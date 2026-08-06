@@ -193,19 +193,75 @@ git commit -m "test: add WCAG contrast verification for Direction A palette"
 ### Task 2: Color tokens
 
 **Files:**
+- Modify: `tests/utils/color-contrast.test.ts` (gold now diverges per theme — see below)
 - Modify: `src/styles/design-system.css:9-14` (light `:root` color tokens)
 - Modify: `src/styles/design-system.css:82-94` (`[data-theme="dark"]` overrides)
 
 **Interfaces:**
-- Consumes: token values verified by Task 1's test (adjust here if Task 1's
-  Step 4 required a tweak).
+- Consumes: `src/utils/color-contrast.ts`'s `oklchToLinearSrgb`/`contrastRatio`
+  (from Task 1, already committed).
 - Produces: `--color-primary`, `--color-secondary`, `--color-pure`,
   `--color-accent`, `--color-interactive`, `--color-interactive-hover`
   (existing names, new values), plus two **new** tokens `--color-line` and
   `--color-toggle-bg`, both light-mode values here and dark-mode values in the
   `[data-theme="dark"]` block — consumed by Task 7 (header) and Task 8 (footer).
 
-- [ ] **Step 1: Replace the light-mode color tokens**
+**Correction from Task 1's result:** Task 1's contrast test found the
+source design's gold (`oklch(0.72 0.15 85)`) fails the 3:1 threshold against
+`--color-pure` in **light mode** (measured 2.44:1) and fixed it by lowering
+the test's shared `gold` constant to `oklch(0.64 0.15 85)`. But that constant
+was shared across both the light-mode *and* dark-mode gold assertions, and
+was also identical to the already-planned `--color-interactive-hover` light
+value — meaning hover would render identically to the resting state. Resolve
+by letting gold diverge per theme, same as the color it's replacing already
+did (`#B8860B` light / `#D4AF37` dark — the current site already uses a
+brighter gold in dark mode; this refresh keeps that shape, just with the
+lighter base darkened enough to clear AA):
+
+| Token | Light | Dark |
+|---|---|---|
+| `--color-interactive` | `oklch(0.64 0.15 85)` (was 0.72 — fails 3:1 on paper) | `oklch(0.72 0.15 85)` (source value, unchanged — passes 3:1 on ink-dark by a wide margin) |
+| `--color-interactive-hover` | `oklch(0.56 0.15 85)` (was 0.64 — now identical to the corrected base, needed a new distinct value) | `oklch(0.80 0.15 85)` (unchanged — already distinct from dark's 0.72 base) |
+
+- [ ] **Step 1: Update the contrast test to verify gold per-theme, not shared**
+
+Before (`tests/utils/color-contrast.test.ts:11-13`):
+
+```typescript
+const gold = oklchToLinearSrgb(0.72, 0.15, 85)         // --color-interactive, both themes
+const goldHoverLight = oklchToLinearSrgb(0.64, 0.15, 85) // --color-interactive-hover, light
+const goldHoverDark = oklchToLinearSrgb(0.80, 0.15, 85)  // --color-interactive-hover, dark
+```
+
+After:
+
+```typescript
+const goldLight = oklchToLinearSrgb(0.64, 0.15, 85)      // --color-interactive, light
+const goldDark = oklchToLinearSrgb(0.72, 0.15, 85)       // --color-interactive, dark
+const goldHoverLight = oklchToLinearSrgb(0.56, 0.15, 85) // --color-interactive-hover, light
+const goldHoverDark = oklchToLinearSrgb(0.80, 0.15, 85)  // --color-interactive-hover, dark
+```
+
+Update the two gold-accent `it(...)` blocks below to use `goldLight`/`goldDark`
+in place of the old shared `gold`:
+
+```typescript
+  it('gold accent meets the large-text/UI-component threshold (3:1) — light mode', () => {
+    expect(contrastRatio(goldLight, paper)).toBeGreaterThanOrEqual(3.0)
+  })
+
+  it('gold accent meets the large-text/UI-component threshold (3:1) — dark mode', () => {
+    expect(contrastRatio(goldDark, inkDark)).toBeGreaterThanOrEqual(3.0)
+  })
+```
+
+Run: `npm run test:run -- tests/utils/color-contrast.test.ts`
+Expected: 8/8 passing. **If the new `goldHoverLight` (0.56) or `goldDark`
+(0.72) assertion fails**, darken it further (light pairs) or you've found a
+genuine contradiction with Task 1's math — stop and report NEEDS_CONTEXT
+rather than guessing.
+
+- [ ] **Step 2: Replace the light-mode color tokens**
 
 Before (`design-system.css:9-14`):
 
@@ -225,13 +281,13 @@ After:
   --color-secondary: oklch(0.45 0.005 60);        /* stone — muted text */
   --color-accent: oklch(0.95 0.003 60);           /* subtle surface tint (loading states, hover fills) */
   --color-pure: oklch(0.99 0.002 80);             /* paper — page background */
-  --color-interactive: oklch(0.72 0.15 85);       /* gold — one accent, used sparingly */
-  --color-interactive-hover: oklch(0.64 0.15 85); /* darker gold for hover */
+  --color-interactive: oklch(0.64 0.15 85);       /* gold, light mode — darkened from source 0.72 to clear 3:1 on paper (see Task 1) */
+  --color-interactive-hover: oklch(0.56 0.15 85); /* darker gold for hover, light mode */
   --color-line: oklch(0.9 0.003 60);              /* hairline borders */
   --color-toggle-bg: oklch(0.24 0.005 60);        /* footer theme-toggle fill — softened ink-dark tone, not pure ink */
 ```
 
-- [ ] **Step 2: Replace the dark-mode color overrides**
+- [ ] **Step 3: Replace the dark-mode color overrides**
 
 Before (`design-system.css:82-94`):
 
@@ -259,7 +315,7 @@ After:
   --color-secondary: oklch(0.65 0.005 60);        /* muted text, dark mode */
   --color-accent: oklch(0.30 0.005 60);           /* subtle surface tint, dark mode */
   --color-pure: oklch(0.24 0.005 60);             /* ink-dark — lifted off pure black */
-  --color-interactive: oklch(0.72 0.15 85);       /* gold — same value both themes */
+  --color-interactive: oklch(0.72 0.15 85);       /* gold, dark mode — source value, brighter than light mode's 0.64 */
   --color-interactive-hover: oklch(0.80 0.15 85); /* brighter gold for hover, dark mode */
   --color-line: oklch(0.28 0.004 60);             /* hairline borders, dark mode */
   --color-toggle-bg: oklch(0.95 0.003 60);        /* footer theme-toggle fill, dark mode */
@@ -269,18 +325,18 @@ After:
 }
 ```
 
-- [ ] **Step 3: Verify build and existing suite stay green**
+- [ ] **Step 4: Verify build and existing suite stay green**
 
 Run: `npm run build && npm run test:run`
 Expected: build succeeds; test totals unchanged from the pre-existing baseline
-(385 passing, 3 skipped, 10 pre-existing failures in `header-contract`,
-`header-ui`, `version-injection` — unrelated to color tokens, see spec's QA
-section). No *new* failures.
+plus Task 1's 8 color-contrast tests still passing (385 passing, 3 skipped, 10
+pre-existing failures in `header-contract`, `header-ui`, `version-injection`
+— unrelated to color tokens, see spec's QA section). No *new* failures.
 
-- [ ] **Step 4: Commit**
+- [ ] **Step 5: Commit**
 
 ```bash
-git add src/styles/design-system.css
+git add src/styles/design-system.css tests/utils/color-contrast.test.ts
 git commit -m "feat: apply Direction A color palette to design tokens"
 ```
 

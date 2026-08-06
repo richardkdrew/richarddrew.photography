@@ -86,7 +86,7 @@ This project has comprehensive documentation organized by purpose:
 
 ## Table of Contents
 
-1. [Constitutional Requirements](#constitutional-requirements-mandatory)
+1. [Constitutional Requirements](#constitutional-requirements)
 2. [Development Workflow](#development-workflow)
 3. [Git Workflow](#git-workflow)
 4. [Code Standards](#code-standards)
@@ -1829,7 +1829,7 @@ npm run test:e2e
 ### Documentation
 
 - **Architecture**: [ARCHITECTURE.md](ARCHITECTURE.md) - System structure and technical decisions
-- **Constitution**: [.specify/memory/constitution.md](../.specify/memory/constitution.md) - Development principles (v2.0.0)
+- **Constitution**: [docs/CONSTITUTION.md](CONSTITUTION.md) - Development principles (v3.0.0)
 - **AI Guide**: [CLAUDE.md](../CLAUDE.md) - AI assistant instructions
 - **Deployment**: [deployment.md](deployment.md) - CI/CD setup and troubleshooting
 - **Branch Protection**: [branch-protection.md](branch-protection.md) - Git workflow rules

@@ -70,7 +70,7 @@ Add the Cloudflare credentials as GitHub repository secrets:
 
 1. **Navigate to GitHub Repository Settings**:
    ```
-   https://github.com/richarddrew/richarddrew.photography/settings
+   https://github.com/richardkdrew/richarddrew.photography/settings
    ```
 
 2. **Access Secrets**:
@@ -187,7 +187,7 @@ Both deployment workflows support manual triggering for emergency deployments or
 
 **To manually trigger a deployment**:
 
-1. Go to [GitHub Actions tab](https://github.com/richarddrew/richarddrew.photography/actions)
+1. Go to [GitHub Actions tab](https://github.com/richardkdrew/richarddrew.photography/actions)
 2. Select workflow:
    - **Staging**: "Deploy to Dev (Staging)"
    - **Production**: "Deploy to Production"
@@ -261,7 +261,7 @@ Build artifacts are automatically uploaded and retained for 30 days.
 
 ### GitHub Actions
 
-Monitor workflow runs: [GitHub Actions Dashboard](https://github.com/richarddrew/richarddrew.photography/actions)
+Monitor workflow runs: [GitHub Actions Dashboard](https://github.com/richardkdrew/richarddrew.photography/actions)
 
 **Status badges** in README.md show real-time status:
 
@@ -314,19 +314,19 @@ If a production deployment needs to be rolled back:
 4. **Review deployment logs** for suspicious activity
 5. **Monitor GitHub Actions** usage and workflow runs
 6. **Never commit secrets** to repository
-7. **Use branch protection** rules (see [branch-protection.md](./branch-protection.md))
+7. **Use branch protection** rules (see [BRANCH-PROTECTION.md](./BRANCH-PROTECTION.md))
 
 ## Support
 
 For issues or questions:
 
-- [GitHub Issues](https://github.com/richarddrew/richarddrew.photography/issues)
+- [GitHub Issues](https://github.com/richardkdrew/richarddrew.photography/issues)
 - [Cloudflare Support](https://support.cloudflare.com)
 - [Wrangler Documentation](https://developers.cloudflare.com/workers/wrangler/)
 
 ## Related Documentation
 
-- [Branch Protection Rules](./branch-protection.md)
-- [Project Constitution](../.specify/memory/constitution.md)
+- [Branch Protection Rules](./BRANCH-PROTECTION.md)
+- [Project Constitution](CONSTITUTION.md)
 - [Feature Spec: GitHub Actions CI/CD](../specs/008-add-build-actions/spec.md)
 - [Implementation Plan](../specs/008-add-build-actions/plan.md)

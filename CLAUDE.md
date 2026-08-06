@@ -97,7 +97,7 @@ This is fix-tier work per [CONSTITUTION.md](docs/CONSTITUTION.md) Section V — 
 **Project**: Photography portfolio website
 **Tech**: TypeScript → Vanilla JavaScript, Web Components, Vite
 **Testing**: 98.9% coverage (350/354 tests passing)
-**Status**: Production-ready (v1.0.0 pending)
+**Status**: Live in production
 
 ---
 
@@ -174,11 +174,11 @@ tests/name/
 
 ## 🚨 Key Reminders for AI Assistants
 
-1. **TDD is MANDATORY** - Write tests first, verify failure, implement, verify success
-2. **TodoWrite for ALL tasks** - Track in_progress → completed immediately (NO BATCHING)
-3. **90%+ coverage required** - Non-negotiable quality gate
+1. **Match the tier to the task** - Feature tier (new components/substantial features): spec/plan via superpowers, full TDD, TodoWrite tracking. Fix tier (bug fixes, refactors, small changes): tests appropriate to the change, no formal spec/plan required.
+2. **TodoWrite for feature-tier tasks** - Track in_progress → completed immediately (NO BATCHING); optional for fix-tier work
+3. **90%+ coverage is the target** - Aspirational, not an enforced CI gate
 4. **Constitution is source of truth** - Read `docs/CONSTITUTION.md` for principles
-5. **Specification-first** - No implementation without approved spec
+5. **Specification-first for feature-tier work** - Fix-tier work skips straight to implementation with appropriate tests
 
 ---
 

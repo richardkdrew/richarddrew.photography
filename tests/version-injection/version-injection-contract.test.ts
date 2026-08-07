@@ -75,9 +75,10 @@ describe('Version Injection - Contract Tests', () => {
       execSync('npm run build', { stdio: 'inherit' });
     });
 
-    it('should default to "dev-local" when VERSION not set', () => {
+    it('should default to "v{year}.dev-local" when VERSION not set', () => {
       const html = readFileSync(indexHtmlPath, 'utf-8');
-      expect(html).toContain('<meta name="version" content="dev-local">');
+      const year = new Date().getFullYear();
+      expect(html).toContain(`<meta name="version" content="v${year}.dev-local">`);
     });
 
     it('should still inject build-date meta tag', () => {

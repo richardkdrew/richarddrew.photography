@@ -313,23 +313,23 @@ describe('Header UI Tests', () => {
       header.handleResize()
     })
 
-    it('should add header--hidden after 31px of downward scroll', () => {
-      simulateScroll(31)
+    it('should add header--hidden after 101px of downward scroll', () => {
+      simulateScroll(101)
 
       expect(header.classList.contains('header--hidden')).toBe(true)
     })
 
-    it('should NOT add header--hidden after only 29px of downward scroll', () => {
-      simulateScroll(29)
+    it('should NOT add header--hidden after only 99px of downward scroll', () => {
+      simulateScroll(99)
 
       expect(header.classList.contains('header--hidden')).toBe(false)
     })
 
-    it('should remove header--hidden after 31px of upward scroll', () => {
-      simulateScroll(100)
+    it('should remove header--hidden after 101px of upward scroll', () => {
+      simulateScroll(200)
       expect(header.classList.contains('header--hidden')).toBe(true)
 
-      simulateScroll(69)
+      simulateScroll(99)
 
       expect(header.classList.contains('header--hidden')).toBe(false)
     })

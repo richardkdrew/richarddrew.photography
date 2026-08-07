@@ -163,7 +163,7 @@ main {
 h1, .h1 {
   font-size: var(--text-4xl);
   font-family: var(--font-header);
-  font-weight: var(--weight-bold);
+  font-weight: var(--weight-semibold); /* bold read too heavy in Oswald; dialed back per feedback */
   color: var(--color-primary);
   line-height: 1.1;
   margin-bottom: var(--space-lg);

@@ -3,10 +3,7 @@
 portfolio-footer {
   display: block;
   background: var(--color-pure);
-  border-top: 0.0625rem solid var(--color-line);
-  transition:
-    background-color var(--transition-medium),
-    border-color var(--transition-medium);
+  transition: background-color var(--transition-medium);
 }
 
 .footer__container {

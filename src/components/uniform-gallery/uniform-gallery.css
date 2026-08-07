@@ -5,7 +5,7 @@
 .uniform-gallery {
   display: flex;
   flex-wrap: wrap;
-  gap: var(--gallery-gap);
+  gap: var(--masonry-gap-mobile);
   width: 100%;
   box-sizing: border-box;
   background: var(--color-pure);
@@ -36,6 +36,12 @@
 }
 
 /* ── Breakpoints ──────────────────────────────────────── */
+
+@media (min-width: 36.0625rem) {   /* >576px — desktop/tablet row-masonry gap */
+  .uniform-gallery {
+    gap: var(--masonry-gap);
+  }
+}
 
 @media (max-width: 36rem) {       /* ≤576px all phones */
   .gallery-item {

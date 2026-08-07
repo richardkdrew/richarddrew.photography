@@ -294,8 +294,8 @@
 }
 
 .header__nav-list--mobile .header__nav-link {
-  font-size: var(--text-3xl);
-  font-weight: var(--weight-medium); /* Oswald renders bold noticeably heavier than the previous font at the same weight; medium reads closer to the original */
+  font-size: clamp(1.5rem, 4vw, 1.75rem); /* scoped smaller than the shared --text-3xl (used by h2 elsewhere) -- at 32-40px it competed with the header logo, same issue as the h1 title */
+  font-weight: var(--weight-regular);
   padding: var(--space-lg) 0;
 }
 

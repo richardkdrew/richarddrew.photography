@@ -66,8 +66,8 @@ portfolio-footer {
   border: none;
   border-radius: 0.1875rem;
   cursor: pointer;
-  padding: var(--space-sm) var(--space-lg);
-  width: 8.5rem; /* fixed, not min-width -- "Dark room" and "Light box" render at slightly different natural widths in Oswald, so the button must not reflow when the label swaps */
+  padding: var(--space-md) var(--space-lg);
+  width: 7.5rem; /* fixed, not min-width -- "Dark room" and "Light box" render at slightly different natural widths in Oswald, so the button must not reflow when the label swaps; narrowed now that the smaller text needs less room */
   display: flex;
   align-items: center;
   justify-content: center;

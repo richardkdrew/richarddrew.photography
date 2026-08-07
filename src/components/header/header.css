@@ -136,7 +136,7 @@
   text-decoration: none;
   color: var(--color-primary);
   font-family: var(--font-navigation);
-  font-weight: var(--weight-bold); /* Increased from --weight-medium */
+  font-weight: var(--weight-medium); /* Oswald renders bold noticeably heavier than the previous font at the same weight; medium reads closer to the original */
   font-size: var(--text-nav);
   letter-spacing: 0.02em;
   text-transform: uppercase;
@@ -144,7 +144,7 @@
   position: relative;
 }
 
-.header__nav-link:hover {
+.header__nav-link:hover:not([aria-current="page"]) {
   color: var(--color-interactive);
 }
 
@@ -295,7 +295,7 @@
 
 .header__nav-list--mobile .header__nav-link {
   font-size: var(--text-3xl);
-  font-weight: var(--weight-bold); /* Increased from --weight-semibold */
+  font-weight: var(--weight-medium); /* Oswald renders bold noticeably heavier than the previous font at the same weight; medium reads closer to the original */
   padding: var(--space-lg) 0;
 }
 

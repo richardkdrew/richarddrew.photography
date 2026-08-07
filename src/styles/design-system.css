@@ -10,8 +10,8 @@
   --color-secondary: oklch(0.45 0.005 60);        /* stone — muted text */
   --color-accent: oklch(0.95 0.003 60);           /* subtle surface tint (loading states, hover fills) */
   --color-pure: oklch(0.99 0.002 80);             /* paper — page background */
-  --color-interactive: oklch(0.56 0.11 85);        /* gold, light mode — chroma raised to 0.11, the max safely in-gamut at this lightness/hue (was 0.15/out-of-gamut, then over-conservatively dropped to 0.10) */
-  --color-interactive-hover: oklch(0.50 0.095 85); /* darker gold for hover, light mode — max safe chroma at this lightness is tighter (~0.10) */
+  --color-interactive: oklch(0.56 0.15 85);       /* gold, light mode — full saturation restored per feedback; out-of-gamut in sRGB (see color-contrast.ts), flag if it goes invisible again in a properly-cleared Safari */
+  --color-interactive-hover: oklch(0.50 0.15 85); /* darker gold for hover, light mode */
   --color-line: oklch(0.9 0.003 60);              /* hairline borders */
   --color-toggle-bg: oklch(0.24 0.005 60);        /* footer theme-toggle fill — softened ink-dark tone, not pure ink */
 
@@ -19,7 +19,7 @@
   --font-header: 'Oswald', sans-serif;
   --font-navigation: 'Oswald', sans-serif;
   --font-body: 'Lora', 'Georgia', serif;
-  --font-caption: 'Oswald', sans-serif; /* small UI text (footer meta, error/loading messages) — matches nav/headings instead of body serif */
+  --font-caption: 'Inter', 'Helvetica Neue', sans-serif; /* small UI text (footer meta, error/loading messages) — reverted to the original; neither Lora nor Oswald read well here */
 
   /* Font Weights */
   --weight-regular: 400;
@@ -88,8 +88,8 @@
   --color-secondary: oklch(0.65 0.005 60);        /* muted text, dark mode */
   --color-accent: oklch(0.30 0.005 60);           /* subtle surface tint, dark mode */
   --color-pure: oklch(0.24 0.005 60);             /* ink-dark — lifted off pure black */
-  --color-interactive: oklch(0.72 0.14 85);       /* gold, dark mode — brighter than light mode's 0.56; chroma raised to 0.14, max safely in-gamut at this lightness (close to the original 0.15) */
-  --color-interactive-hover: oklch(0.80 0.15 85); /* brighter gold for hover, dark mode — already in-gamut at the original 0.15, no reduction needed */
+  --color-interactive: oklch(0.72 0.15 85);       /* gold, dark mode — brighter than light mode's 0.56; full saturation restored per feedback */
+  --color-interactive-hover: oklch(0.80 0.15 85); /* brighter gold for hover, dark mode */
   --color-line: oklch(0.28 0.004 60);             /* hairline borders, dark mode */
   --color-toggle-bg: oklch(0.95 0.003 60);        /* footer theme-toggle fill, dark mode */
 

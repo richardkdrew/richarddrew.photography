@@ -36,7 +36,7 @@
 /* Main Header Container */
 .header {
   background: var(--color-pure);
-  border-bottom: 0.0625rem solid var(--color-accent); /* 1px -> rem */
+  border-bottom: 0.0625rem solid var(--color-line); /* 1px -> rem */
   position: relative;
 }
 

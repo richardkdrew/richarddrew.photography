@@ -10,8 +10,8 @@
   --color-secondary: oklch(0.45 0.005 60);        /* stone — muted text */
   --color-accent: oklch(0.95 0.003 60);           /* subtle surface tint (loading states, hover fills) */
   --color-pure: oklch(0.99 0.002 80);             /* paper — page background */
-  --color-interactive: oklch(0.56 0.10 85);       /* gold, light mode — chroma reduced from 0.15 to bring it in-gamut for sRGB (was out-of-gamut, risked failing to paint in some browsers' gamut mapping) */
-  --color-interactive-hover: oklch(0.50 0.10 85); /* darker gold for hover, light mode */
+  --color-interactive: oklch(0.56 0.11 85);        /* gold, light mode — chroma raised to 0.11, the max safely in-gamut at this lightness/hue (was 0.15/out-of-gamut, then over-conservatively dropped to 0.10) */
+  --color-interactive-hover: oklch(0.50 0.095 85); /* darker gold for hover, light mode — max safe chroma at this lightness is tighter (~0.10) */
   --color-line: oklch(0.9 0.003 60);              /* hairline borders */
   --color-toggle-bg: oklch(0.24 0.005 60);        /* footer theme-toggle fill — softened ink-dark tone, not pure ink */
 
@@ -88,8 +88,8 @@
   --color-secondary: oklch(0.65 0.005 60);        /* muted text, dark mode */
   --color-accent: oklch(0.30 0.005 60);           /* subtle surface tint, dark mode */
   --color-pure: oklch(0.24 0.005 60);             /* ink-dark — lifted off pure black */
-  --color-interactive: oklch(0.72 0.10 85);       /* gold, dark mode — brighter than light mode's 0.56; chroma reduced from 0.15 to bring it in-gamut (see light-mode comment) */
-  --color-interactive-hover: oklch(0.80 0.10 85); /* brighter gold for hover, dark mode */
+  --color-interactive: oklch(0.72 0.14 85);       /* gold, dark mode — brighter than light mode's 0.56; chroma raised to 0.14, max safely in-gamut at this lightness (close to the original 0.15) */
+  --color-interactive-hover: oklch(0.80 0.15 85); /* brighter gold for hover, dark mode — already in-gamut at the original 0.15, no reduction needed */
   --color-line: oklch(0.28 0.004 60);             /* hairline borders, dark mode */
   --color-toggle-bg: oklch(0.95 0.003 60);        /* footer theme-toggle fill, dark mode */
 

@@ -10,8 +10,8 @@
   --color-secondary: oklch(0.45 0.005 60);        /* stone — muted text */
   --color-accent: oklch(0.95 0.003 60);           /* subtle surface tint (loading states, hover fills) */
   --color-pure: oklch(0.99 0.002 80);             /* paper — page background */
-  --color-interactive: oklch(0.64 0.15 85);       /* gold, light mode — darkened from source 0.72 to clear 3:1 on paper (see Task 1) */
-  --color-interactive-hover: oklch(0.56 0.15 85); /* darker gold for hover, light mode */
+  --color-interactive: oklch(0.56 0.15 85);       /* gold, light mode — darkened further from 0.64 to clear 4.5:1 for the paper-on-gold-fill usage (footer toggle, 404 links, nav hover) — see final review */
+  --color-interactive-hover: oklch(0.50 0.15 85); /* darker gold for hover, light mode */
   --color-line: oklch(0.9 0.003 60);              /* hairline borders */
   --color-toggle-bg: oklch(0.24 0.005 60);        /* footer theme-toggle fill — softened ink-dark tone, not pure ink */
 
@@ -22,7 +22,6 @@
   --font-caption: 'Lora', 'Georgia', serif;
 
   /* Font Weights */
-  --weight-light: 300;
   --weight-regular: 400;
   --weight-medium: 500;
   --weight-semibold: 600;
@@ -79,7 +78,7 @@
   --transition-slow: 350ms ease-out;
 
   /* Shadows */
-  --shadow-medium: 0 4px 12px rgba(44, 44, 44, 0.15);
+  --shadow-medium: 0 4px 12px rgba(35, 34, 32, 0.15);
 }
 
 /* Dark Mode Color Overrides */

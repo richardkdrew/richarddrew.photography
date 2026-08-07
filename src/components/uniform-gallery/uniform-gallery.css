@@ -125,7 +125,7 @@
 }
 
 [data-theme="dark"] .gallery-item > div:not(.loaded) {
-  background: var(--color-surface);
+  background: var(--color-accent);
 }
 
 .gallery-item > div:not(.loaded)::before {

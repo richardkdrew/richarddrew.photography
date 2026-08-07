@@ -10,9 +10,10 @@ portfolio-footer {
 }
 
 .footer__container {
-  width: var(--page-width-full);
+  width: 100%;
+  max-width: var(--grid-max-width);
   margin: 0 auto;
-  padding: var(--space-md) 0;
+  padding: var(--space-md) var(--space-lg);
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -22,7 +23,7 @@ portfolio-footer {
 
 @media (min-width: 52.5rem) {
   .footer__container {
-    width: var(--page-width-constrained);
+    padding: var(--space-md) var(--space-3xl);
   }
 }
 

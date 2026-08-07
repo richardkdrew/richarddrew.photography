@@ -44,7 +44,9 @@
   --space-sm: 0.5rem;
 
   /* Component Tokens */
-  --gallery-gap: 0.625rem;  /* 10px — gap between gallery items */
+  --gallery-gap: 0.625rem;  /* 10px — legacy, only consumed by the unused masonry-gallery component */
+  --masonry-gap: 0.25rem;         /* 4px — desktop row-masonry gap, Direction A */
+  --masonry-gap-mobile: 0.125rem; /* 2px — mobile column gap, Direction A */
   --space-md: 1rem;
   --space-lg: 1.5rem;
   --space-xl: 2rem;
@@ -60,9 +62,8 @@
   --breakpoint-mobile: 48rem;     /* 768px */
   --breakpoint-desktop: 75rem;    /* 1200px */
 
-  /* Page container width - unified responsive system */
-  --page-width-full: 88%;  /* Mobile/Tablet - account for scrollbar */
-  --page-width-constrained: 92%;  /* Desktop */
+  /* Grid - Direction A */
+  --grid-max-width: 90rem;   /* 1440px */
 
   /* Responsive Image Sizes - 5-Breakpoint System (32, 48, 56, 80rem) */
   /* Gallery: Accounts for page container width (88% mobile/tablet, 92% desktop) and column divisions */
@@ -292,20 +293,21 @@ a:hover {
   border: 0;
 }
 
-/* Page Container - Unified Width Management */
+/* Page Container - Unified Width Management (Direction A grid) */
 .page-container {
-  width: var(--page-width-full);
-  /* max-width: var(--max-width-content); */
+  width: 100%;
+  max-width: var(--grid-max-width);
   margin: 0 auto;
   box-sizing: border-box;
+  padding-inline: var(--space-lg); /* 24px mobile/tablet edge padding */
   padding-top: var(--header-height, 7.5rem);
   flex: 1;
 }
 
-/* Responsive page width - matches gallery breakpoint */
+/* Responsive edge padding - matches gallery breakpoint */
 @media (min-width: 52.5rem) { /* 840px */
   .page-container {
-    width: var(--page-width-constrained); /* 92% for desktop */
+    padding-inline: var(--space-3xl); /* 64px desktop edge padding */
   }
 }
 

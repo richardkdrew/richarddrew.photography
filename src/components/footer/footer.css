@@ -119,7 +119,7 @@ portfolio-footer {
 
 @media print {
   portfolio-footer {
-    border-top: 0.0625rem solid var(--color-accent);
+    border-top: 0.0625rem solid var(--color-line);
   }
 
   .footer__toggle-group {

@@ -44,11 +44,11 @@ export class PortfolioFooter extends HTMLElement {
           <button
             class="footer__toggle footer__toggle--dark-room"
             aria-label="Switch to dark mode"
-          >Dark Room</button>
+          >Dark room</button>
           <button
             class="footer__toggle footer__toggle--light-box"
             aria-label="Switch to light mode"
-          >Light Box</button>
+          >Light box</button>
         </div>
       </div>
     `

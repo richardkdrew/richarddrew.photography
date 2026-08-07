@@ -3,7 +3,7 @@
 portfolio-footer {
   display: block;
   background: var(--color-pure);
-  border-top: 0.0625rem solid var(--color-accent);
+  border-top: 0.0625rem solid var(--color-line);
   transition:
     background-color var(--transition-medium),
     border-color var(--transition-medium);
@@ -53,15 +53,10 @@ portfolio-footer {
 /* ── Toggle buttons ────────────────────────────── */
 
 /*
- * Both buttons use --color-primary / --color-pure.
- * Each button is only visible in its own theme context, and the
- * variables invert between themes, so both buttons look correct
- * without any hardcoded colours.
- *
- * Light mode: --color-primary = #2C2C2C, --color-pure = #FFFFFF
- *   → Dark Room: dark button, light text ✓
- * Dark mode:  --color-primary = #E5E5E5, --color-pure = #2A2A2A
- *   → Light Box: light button, dark text ✓
+ * Fill uses --color-toggle-bg (a softened ink-dark tone in light mode, near-
+ * white in dark mode — deliberately not pure --color-primary/--color-pure,
+ * per Direction A's "avoid a harsh pure-black button" intent). Text uses the
+ * page background color so it always reads against the fill.
  */
 
 .footer__toggle {
@@ -78,7 +73,7 @@ portfolio-footer {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: var(--color-primary);
+  background: var(--color-toggle-bg);
   color: var(--color-pure);
   transition:
     background-color var(--transition-medium),

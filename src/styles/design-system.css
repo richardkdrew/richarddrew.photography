@@ -231,7 +231,7 @@ a {
   transition: color var(--transition-fast);
 }
 
-a:hover {
+a:hover:not([aria-current="page"]) {
   color: var(--color-interactive);
 }
 

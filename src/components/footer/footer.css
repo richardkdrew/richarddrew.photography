@@ -58,7 +58,7 @@ portfolio-footer {
 
 .footer__toggle {
   font-family: var(--font-navigation);
-  font-size: var(--text-sm);
+  font-size: var(--text-xs); /* --text-sm matched the token but read visibly larger than the copyright text next to it -- uppercase/tracked Oswald needs a size step down to feel equivalent to Inter's mixed-case */
   font-weight: var(--weight-regular);
   letter-spacing: 0.06em;
   text-transform: uppercase;

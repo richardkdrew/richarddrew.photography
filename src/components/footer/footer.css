@@ -65,6 +65,7 @@ portfolio-footer {
   font-weight: var(--weight-regular);
   letter-spacing: 0.06em;
   text-transform: uppercase;
+  line-height: 1; /* Oswald's default line-height is taller than the previous font at the same size, which grew the button; pin it to the text's own height */
   border: none;
   border-radius: 0.1875rem;
   cursor: pointer;

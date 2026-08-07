@@ -19,7 +19,7 @@
   --font-header: 'Oswald', sans-serif;
   --font-navigation: 'Oswald', sans-serif;
   --font-body: 'Lora', 'Georgia', serif;
-  --font-caption: 'Lora', 'Georgia', serif;
+  --font-caption: 'Oswald', sans-serif; /* small UI text (footer meta, error/loading messages) — matches nav/headings instead of body serif */
 
   /* Font Weights */
   --weight-regular: 400;

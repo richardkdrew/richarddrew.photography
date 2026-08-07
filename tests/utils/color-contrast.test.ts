@@ -8,10 +8,10 @@ const ink = oklchToLinearSrgb(0.16, 0.004, 60)         // --color-primary, light
 const fgDark = oklchToLinearSrgb(0.95, 0.003, 60)      // --color-primary, dark
 const stone = oklchToLinearSrgb(0.45, 0.005, 60)       // --color-secondary, light
 const stoneDark = oklchToLinearSrgb(0.65, 0.005, 60)   // --color-secondary, dark
-const goldLight = oklchToLinearSrgb(0.56, 0.15, 85)      // --color-interactive, light (out-of-gamut before clamping; contrast is approximate)
-const goldDark = oklchToLinearSrgb(0.72, 0.15, 85)       // --color-interactive, dark
-const goldHoverLight = oklchToLinearSrgb(0.50, 0.15, 85) // --color-interactive-hover, light (out-of-gamut before clamping; contrast is approximate)
-const goldHoverDark = oklchToLinearSrgb(0.80, 0.15, 85)  // --color-interactive-hover, dark
+const goldLight = oklchToLinearSrgb(0.56, 0.10, 85)      // --color-interactive, light (chroma 0.10 — in-gamut, was 0.15/out-of-gamut)
+const goldDark = oklchToLinearSrgb(0.72, 0.10, 85)       // --color-interactive, dark (chroma 0.10 — in-gamut, was 0.15/out-of-gamut)
+const goldHoverLight = oklchToLinearSrgb(0.50, 0.10, 85) // --color-interactive-hover, light (chroma 0.10 — in-gamut, was 0.15/out-of-gamut)
+const goldHoverDark = oklchToLinearSrgb(0.80, 0.10, 85)  // --color-interactive-hover, dark (already in-gamut at 0.15; reduced to match the family)
 
 describe('color-contrast: Direction A palette', () => {
   it('primary text on background meets WCAG AA (4.5:1) — light mode', () => {

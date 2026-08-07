@@ -54,7 +54,13 @@
       font-family: var(--font-header);
       font-size: clamp(5rem, 15vw, 10rem);
       font-weight: var(--weight-bold);
-      color: var(--color-interactive);
+      /* True brand gold (design system's documented oklch(0.72 0.15 85)), not
+         var(--color-interactive) -- that token is deliberately darkened for
+         light mode (~2.4:1 contrast, fails even the large-text 3:1 floor) so
+         it stays readable as small text/UI elsewhere. This numeral is
+         aria-hidden and purely decorative -- the real content is the heading
+         below it -- so the full-brightness brand color is fine here. */
+      color: oklch(0.72 0.15 85);
       line-height: 1;
       margin: 0;
       letter-spacing: 0.04em;

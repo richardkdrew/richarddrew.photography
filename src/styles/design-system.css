@@ -36,7 +36,7 @@
   --text-xl: clamp(1.25rem, 4vw, 1.75rem);
   --text-2xl: clamp(1.5rem, 5vw, 2rem);
   --text-3xl: clamp(2rem, 6vw, 2.5rem);
-  --text-4xl: clamp(2.5rem, 7vw, 2.75rem);
+  --text-4xl: clamp(1.75rem, 5vw, 2.25rem); /* h1 only — kept below the header logo's 2.5rem height so page titles don't out-compete the brand mark */
 
   /* Spacing Scale */
   --space-xs: 0.25rem;
@@ -163,7 +163,7 @@ main {
 h1, .h1 {
   font-size: var(--text-4xl);
   font-family: var(--font-header);
-  font-weight: var(--weight-semibold); /* bold read too heavy in Oswald; dialed back per feedback */
+  font-weight: var(--weight-medium); /* semibold still competed with the header logo's visual weight; dialed back further per feedback */
   color: var(--color-primary);
   line-height: 1.1;
   margin-bottom: var(--space-lg);

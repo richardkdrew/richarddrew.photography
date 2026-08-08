@@ -36,14 +36,14 @@
 /* Main Header Container */
 .header {
   background: var(--color-pure);
-  border-bottom: 0.0625rem solid var(--color-accent); /* 1px -> rem */
   position: relative;
 }
 
 .header__container {
-  width: var(--page-width-full);
+  width: 100%;
+  max-width: var(--grid-max-width);
   margin: 0 auto;
-  padding: var(--space-lg) 0;
+  padding: var(--space-lg);
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -55,7 +55,7 @@
 
 @media (min-width: 52.5rem) {
   .header__container {
-    width: var(--page-width-constrained);
+    padding: var(--space-lg) var(--space-3xl);
   }
 }
 
@@ -136,7 +136,7 @@
   text-decoration: none;
   color: var(--color-primary);
   font-family: var(--font-navigation);
-  font-weight: var(--weight-bold); /* Increased from --weight-medium */
+  font-weight: var(--weight-medium); /* Oswald renders bold noticeably heavier than the previous font at the same weight; medium reads closer to the original */
   font-size: var(--text-nav);
   letter-spacing: 0.02em;
   text-transform: uppercase;
@@ -144,7 +144,7 @@
   position: relative;
 }
 
-.header__nav-link:hover {
+.header__nav-link:hover:not([aria-current="page"]) {
   color: var(--color-interactive);
 }
 
@@ -294,8 +294,8 @@
 }
 
 .header__nav-list--mobile .header__nav-link {
-  font-size: var(--text-3xl);
-  font-weight: var(--weight-bold); /* Increased from --weight-semibold */
+  font-size: clamp(1.5rem, 4vw, 1.75rem); /* scoped smaller than the shared --text-3xl (used by h2 elsewhere) -- at 32-40px it competed with the header logo, same issue as the h1 title */
+  font-weight: var(--weight-regular);
   padding: var(--space-lg) 0;
 }
 
@@ -317,7 +317,7 @@ html.mobile-menu-open {
 /* Responsive Breakpoints */
 @media (max-width: 48rem) { /* Mobile */
   .header__container {
-    padding: var(--space-md) 0;
+    padding-block: var(--space-md);
   }
 
   /* .header__logo {
@@ -359,7 +359,7 @@ html.mobile-menu-open {
 
 @media (min-width: 75rem) { /* Desktop */
   .header__container {
-    padding: var(--space-lg) 0;
+    padding-block: var(--space-lg);
   }
 
   /* Larger logo on desktop */

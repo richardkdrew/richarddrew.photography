@@ -26,7 +26,7 @@ about-page .about-loading-fallback {
   color: var(--color-secondary);
   font-family: var(--font-caption);
   font-size: var(--text-lg);
-  font-weight: var(--weight-light);
+  font-weight: var(--weight-regular);
 }
 
 /* Hide loading state once content is loaded */

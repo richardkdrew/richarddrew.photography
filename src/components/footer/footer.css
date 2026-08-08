@@ -3,16 +3,14 @@
 portfolio-footer {
   display: block;
   background: var(--color-pure);
-  border-top: 0.0625rem solid var(--color-accent);
-  transition:
-    background-color var(--transition-medium),
-    border-color var(--transition-medium);
+  transition: background-color var(--transition-medium);
 }
 
 .footer__container {
-  width: var(--page-width-full);
+  width: 100%;
+  max-width: var(--grid-max-width);
   margin: 0 auto;
-  padding: var(--space-md) 0;
+  padding: var(--space-md) var(--space-lg);
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -22,7 +20,7 @@ portfolio-footer {
 
 @media (min-width: 52.5rem) {
   .footer__container {
-    width: var(--page-width-constrained);
+    padding: var(--space-md) var(--space-3xl);
   }
 }
 
@@ -52,32 +50,28 @@ portfolio-footer {
 /* ── Toggle buttons ────────────────────────────── */
 
 /*
- * Both buttons use --color-primary / --color-pure.
- * Each button is only visible in its own theme context, and the
- * variables invert between themes, so both buttons look correct
- * without any hardcoded colours.
- *
- * Light mode: --color-primary = #2C2C2C, --color-pure = #FFFFFF
- *   → Dark Room: dark button, light text ✓
- * Dark mode:  --color-primary = #E5E5E5, --color-pure = #2A2A2A
- *   → Light Box: light button, dark text ✓
+ * Fill uses --color-toggle-bg (a softened ink-dark tone in light mode, near-
+ * white in dark mode — deliberately not pure --color-primary/--color-pure,
+ * per Direction A's "avoid a harsh pure-black button" intent). Text uses the
+ * page background color so it always reads against the fill.
  */
 
 .footer__toggle {
   font-family: var(--font-navigation);
-  font-size: var(--text-sm);
+  font-size: var(--text-xs); /* --text-sm matched the token but read visibly larger than the copyright text next to it -- uppercase/tracked Oswald needs a size step down to feel equivalent to Inter's mixed-case */
   font-weight: var(--weight-regular);
   letter-spacing: 0.06em;
   text-transform: uppercase;
+  line-height: 1; /* Oswald's default line-height is taller than the previous font at the same size, which grew the button; pin it to the text's own height */
   border: none;
   border-radius: 0.1875rem;
   cursor: pointer;
-  padding: var(--space-sm) var(--space-lg);
-  min-width: 8rem;
+  padding: calc(var(--space-sm) + 0.125rem) var(--space-lg); /* a touch taller than --space-sm alone; no token sits between --space-sm(8px) and --space-md(16px) */
+  width: 7.5rem; /* fixed, not min-width -- "Dark room" and "Light box" render at slightly different natural widths in Oswald, so the button must not reflow when the label swaps; narrowed now that the smaller text needs less room */
   display: flex;
   align-items: center;
   justify-content: center;
-  background: var(--color-primary);
+  background: var(--color-toggle-bg);
   color: var(--color-pure);
   transition:
     background-color var(--transition-medium),
@@ -123,7 +117,7 @@ portfolio-footer {
 
 @media print {
   portfolio-footer {
-    border-top: 0.0625rem solid var(--color-accent);
+    border-top: 0.0625rem solid var(--color-line);
   }
 
   .footer__toggle-group {

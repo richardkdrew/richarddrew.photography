@@ -6,43 +6,46 @@
 /* CSS Custom Properties - Design Tokens */
 :root {
   /* Color Palette */
-  --color-primary: #2C2C2C;           /* Deep charcoal */
-  --color-secondary: #6B6B6B;         /* Warm gray */
-  --color-accent: #F8F6F3;            /* Soft cream */
-  --color-pure: #FFFFFF;              /* Clean white */
-  --color-interactive: #B8860B;       /* Muted gold */
-  --color-interactive-hover: #9A7209; /* Darker gold for hover */
+  --color-primary: oklch(0.16 0.004 60);          /* ink — Direction A */
+  --color-secondary: oklch(0.45 0.005 60);        /* stone — muted text */
+  --color-accent: oklch(0.95 0.003 60);           /* subtle surface tint (loading states, hover fills) */
+  --color-pure: oklch(0.99 0.002 80);             /* paper — page background */
+  --color-interactive: oklch(0.56 0.15 85);       /* gold, light mode — full saturation restored per feedback; out-of-gamut in sRGB (see color-contrast.ts), flag if it goes invisible again in a properly-cleared Safari */
+  --color-interactive-hover: oklch(0.50 0.15 85); /* darker gold for hover, light mode */
+  --color-line: oklch(0.9 0.003 60);              /* hairline borders */
+  --color-toggle-bg: oklch(0.24 0.005 60);        /* footer theme-toggle fill — softened ink-dark tone, not pure ink */
 
   /* Typography */
-  --font-header: 'Bebas Neue', 'Playfair Display', 'Times New Roman', serif;
-  --font-navigation: 'Bebas Neue', 'Inter', 'Helvetica Neue', sans-serif;
+  --font-header: 'Oswald', sans-serif;
+  --font-navigation: 'Oswald', sans-serif;
   --font-body: 'Lora', 'Georgia', serif;
-  --font-caption: 'Inter', 'Helvetica Neue', sans-serif;
+  --font-caption: 'Inter', 'Helvetica Neue', sans-serif; /* small UI text (footer meta, error/loading messages) — reverted to the original; neither Lora nor Oswald read well here */
 
   /* Font Weights */
-  --weight-light: 300;
   --weight-regular: 400;
   --weight-medium: 500;
   --weight-semibold: 600;
   --weight-bold: 700;
 
   /* Font Sizes - Fluid Typography */
-  --text-xs: clamp(0.75rem, 2vw, 0.875rem);
+  --text-xs: clamp(0.75rem, 2vw, 0.8125rem);
   --text-sm: clamp(0.875rem, 2.5vw, 1rem);
   --text-nav: clamp(1rem, 2.5vw, 1.25rem);
   --text-base: clamp(1rem, 3vw, 1.125rem);
   --text-lg: clamp(1.125rem, 3.5vw, 1.25rem);
-  --text-xl: clamp(1.25rem, 4vw, 1.5rem);
+  --text-xl: clamp(1.25rem, 4vw, 1.75rem);
   --text-2xl: clamp(1.5rem, 5vw, 2rem);
   --text-3xl: clamp(2rem, 6vw, 2.5rem);
-  --text-4xl: clamp(2.5rem, 7vw, 3rem);
+  --text-4xl: clamp(1.75rem, 5vw, 2.25rem); /* h1 only — kept below the header logo's 2.5rem height so page titles don't out-compete the brand mark */
 
   /* Spacing Scale */
   --space-xs: 0.25rem;
   --space-sm: 0.5rem;
 
   /* Component Tokens */
-  --gallery-gap: 0.625rem;  /* 10px — gap between gallery items */
+  --gallery-gap: 0.625rem;  /* 10px — legacy, only consumed by the unused masonry-gallery component */
+  --masonry-gap: 0.25rem;         /* 4px — desktop row-masonry gap, Direction A */
+  --masonry-gap-mobile: 0.125rem; /* 2px — mobile column gap, Direction A */
   --space-md: 1rem;
   --space-lg: 1.5rem;
   --space-xl: 2rem;
@@ -58,9 +61,8 @@
   --breakpoint-mobile: 48rem;     /* 768px */
   --breakpoint-desktop: 75rem;    /* 1200px */
 
-  /* Page container width - unified responsive system */
-  --page-width-full: 88%;  /* Mobile/Tablet - account for scrollbar */
-  --page-width-constrained: 92%;  /* Desktop */
+  /* Grid - Direction A */
+  --grid-max-width: 90rem;   /* 1440px */
 
   /* Responsive Image Sizes - 5-Breakpoint System (32, 48, 56, 80rem) */
   /* Gallery: Accounts for page container width (88% mobile/tablet, 92% desktop) and column divisions */
@@ -76,18 +78,20 @@
   --transition-slow: 350ms ease-out;
 
   /* Shadows */
-  --shadow-medium: 0 4px 12px rgba(44, 44, 44, 0.15);
+  --shadow-medium: 0 4px 12px rgba(35, 34, 32, 0.15);
 }
 
 /* Dark Mode Color Overrides */
 [data-theme="dark"] {
-  /* Color Palette - Dark Mode */
-  --color-primary: #E5E5E5;           /* Light gray text */
-  --color-secondary: #B8B8B8;         /* Medium gray */
-  --color-accent: #2A2A2A;            /* Dark gray background - lighter than pure black */
-  --color-pure: #2A2A2A;              /* Dark gray background */
-  --color-interactive: #D4AF37;       /* Brighter gold */
-  --color-interactive-hover: #F0C14B; /* Even brighter for hover */
+  /* Color Palette - Dark Mode (Direction A) */
+  --color-primary: oklch(0.95 0.003 60);          /* near-white text */
+  --color-secondary: oklch(0.65 0.005 60);        /* muted text, dark mode */
+  --color-accent: oklch(0.30 0.005 60);           /* subtle surface tint, dark mode */
+  --color-pure: oklch(0.24 0.005 60);             /* ink-dark — lifted off pure black */
+  --color-interactive: oklch(0.72 0.15 85);       /* gold, dark mode — brighter than light mode's 0.56; full saturation restored per feedback */
+  --color-interactive-hover: oklch(0.80 0.15 85); /* brighter gold for hover, dark mode */
+  --color-line: oklch(0.28 0.004 60);             /* hairline borders, dark mode */
+  --color-toggle-bg: oklch(0.95 0.003 60);        /* footer theme-toggle fill, dark mode */
 
   /* Shadows - Lighter for dark mode */
   --shadow-medium: 0 4px 12px rgba(0, 0, 0, 0.5);
@@ -159,28 +163,34 @@ main {
 h1, .h1 {
   font-size: var(--text-4xl);
   font-family: var(--font-header);
-  font-weight: var(--weight-regular);
+  font-weight: var(--weight-medium); /* semibold still competed with the header logo's visual weight; dialed back further per feedback */
   color: var(--color-primary);
   line-height: 1.1;
   margin-bottom: var(--space-lg);
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
 }
 
 h2, .h2 {
   font-size: var(--text-3xl);
   font-family: var(--font-header);
-  font-weight: var(--weight-regular);
+  font-weight: var(--weight-semibold);
   color: var(--color-primary);
   line-height: 1.2;
   margin-bottom: var(--space-md);
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
 }
 
 h3, .h3 {
   font-size: var(--text-2xl);
   font-family: var(--font-header);
-  font-weight: var(--weight-regular);
+  font-weight: var(--weight-semibold);
   color: var(--color-primary);
   line-height: 1.3;
   margin-bottom: var(--space-md);
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
 }
 
 h4, .h4 {
@@ -221,7 +231,7 @@ a {
   transition: color var(--transition-fast);
 }
 
-a:hover {
+a:hover:not([aria-current="page"]) {
   color: var(--color-interactive);
 }
 
@@ -282,20 +292,21 @@ a:hover {
   border: 0;
 }
 
-/* Page Container - Unified Width Management */
+/* Page Container - Unified Width Management (Direction A grid) */
 .page-container {
-  width: var(--page-width-full);
-  /* max-width: var(--max-width-content); */
+  width: 100%;
+  max-width: var(--grid-max-width);
   margin: 0 auto;
   box-sizing: border-box;
+  padding-inline: var(--space-lg); /* 24px mobile/tablet edge padding */
   padding-top: var(--header-height, 7.5rem);
   flex: 1;
 }
 
-/* Responsive page width - matches gallery breakpoint */
+/* Responsive edge padding - matches gallery breakpoint */
 @media (min-width: 52.5rem) { /* 840px */
   .page-container {
-    width: var(--page-width-constrained); /* 92% for desktop */
+    padding-inline: var(--space-3xl); /* 64px desktop edge padding */
   }
 }
 

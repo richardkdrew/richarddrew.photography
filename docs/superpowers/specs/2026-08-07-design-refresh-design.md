@@ -1,7 +1,7 @@
 # Design System Visual Refresh (Direction A)
 
 **Date:** 2026-08-07
-**Status:** Draft — pending user review
+**Status:** Resolved — implemented with one amendment (see Resolution below)
 **Branch:** `023-design-refresh` (worktree, based on `022-docs-refresh`)
 **Scope:** Apply the "Direction A" design system (delivered as `design-tokens.css`,
 `design-reference.dc.html`, `README.md` handoff doc) to the live site's existing
@@ -327,3 +327,27 @@ Suggested phase order — each phase independently testable/visually checkable:
   the existing behavioral test suite — the existing suite protects behavior, not
   the visual outcome this whole effort is about, so the manual pass in the QA
   section is load-bearing, not optional.
+
+---
+
+## Resolution (2026-08-08)
+
+Shipped as `023 design refresh` (#22), landing colors, typography (Oswald +
+Lora), and the 1440px/64px grid formula as specified.
+
+The masonry-gap (10px→4px) and row-height density
+(300/360/420→220/250/280) values from the Masonry Gallery section were **not**
+approved on user review post-merge — the resulting density read as too tight
+in practice — and were reverted in #23, restoring `--gallery-gap` (10px) and
+the original `getLayoutParams()` tiers. `--masonry-gap`/`--masonry-gap-mobile`
+were removed as now-orphaned tokens rather than left unused.
+
+Everything else in this spec (color/type/grid) stands as implemented.
+
+Remaining open items, not part of this spec's scope:
+
+- Dead `src/components/gallery/` (`masonry-gallery`) component removal —
+  listed as optional cleanup in the Component-by-Component table above.
+- The "Out of Scope / Explicitly Deferred" items (mobile full-bleed gallery,
+  toggle relocation, text logo, "Work" nav link) remain undecided, not
+  scheduled.

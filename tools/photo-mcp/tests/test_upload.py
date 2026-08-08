@@ -1,23 +1,24 @@
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from pathlib import Path
 from unittest.mock import MagicMock
 
 import pytest
 
-from photo_mcp.types import Manifest, ManifestGallery, ImageDimensions
+from photo_mcp.types import ImageDimensions, Manifest, ManifestGallery
 
 
 def _make_manifest_with_gallery(slug: str = "landscapes") -> Manifest:
     return Manifest(
-        generated=datetime.now(timezone.utc),
+        generated=datetime.now(UTC),
         base_url="https://photos.test.com",
-        galleries={slug: ManifestGallery(title=slug.title(), created=datetime.now(timezone.utc))},
+        galleries={slug: ManifestGallery(title=slug.title(), created=datetime.now(UTC))},
     )
 
 
 def _create_test_image(directory: Path, name: str = "test-photo.jpg") -> Path:
     """Create a minimal valid JPEG for testing."""
     from PIL import Image
+
     path = directory / name
     img = Image.new("RGB", (100, 75), color=(255, 0, 0))
     img.save(path, "JPEG")
@@ -26,42 +27,52 @@ def _create_test_image(directory: Path, name: str = "test-photo.jpg") -> Path:
 
 # --- derive_id ---
 
+
 def test_derive_id_lowercases_filename():
     from photo_mcp.tools.upload import derive_id
+
     assert derive_id("/some/path/Mountain-Sunset.jpg") == "mountain-sunset"
 
 
 def test_derive_id_replaces_spaces_with_hyphens():
     from photo_mcp.tools.upload import derive_id
+
     assert derive_id("/path/my photo.jpg") == "my-photo"
 
 
 def test_derive_id_strips_extension():
     from photo_mcp.tools.upload import derive_id
+
     assert derive_id("/path/IMG_1234.jpg") == "img-1234"
 
 
 def test_derive_id_strips_unicode_accents():
     from photo_mcp.tools.upload import derive_id
+
     assert derive_id("/path/café-sunset.jpg") == "cafe-sunset"
 
 
 # --- humanise_filename ---
 
+
 def test_humanise_filename_title_cases_stem():
     from photo_mcp.tools.upload import humanise_filename
+
     assert humanise_filename("/path/mountain-sunset.jpg") == "Mountain Sunset"
 
 
 def test_humanise_filename_replaces_underscores():
     from photo_mcp.tools.upload import humanise_filename
+
     assert humanise_filename("/path/IMG_1234.jpg") == "Img 1234"
 
 
 # --- _get_dimensions ---
 
+
 def test_get_dimensions_returns_correct_size(tmp_path):
     from photo_mcp.tools.upload import _get_dimensions
+
     img_path = _create_test_image(tmp_path)  # creates 100x75 JPEG
     dims = _get_dimensions(str(img_path))
     assert dims.width == 100
@@ -70,8 +81,10 @@ def test_get_dimensions_returns_correct_size(tmp_path):
 
 # --- upload_photo validation ---
 
+
 def test_upload_photo_raises_for_missing_file(mocker):
     from photo_mcp.tools.upload import upload_photo
+
     mocker.patch("photo_mcp.tools.upload.load_manifest", return_value=_make_manifest_with_gallery())
 
     with pytest.raises(ValueError, match="File not found"):
@@ -80,6 +93,7 @@ def test_upload_photo_raises_for_missing_file(mocker):
 
 def test_upload_photo_raises_for_unsupported_format(mocker, tmp_path):
     from photo_mcp.tools.upload import upload_photo
+
     mocker.patch("photo_mcp.tools.upload.load_manifest", return_value=_make_manifest_with_gallery())
     bad_file = tmp_path / "doc.pdf"
     bad_file.write_bytes(b"fake pdf")
@@ -90,6 +104,7 @@ def test_upload_photo_raises_for_unsupported_format(mocker, tmp_path):
 
 def test_upload_photo_raises_for_missing_gallery(mocker, tmp_path):
     from photo_mcp.tools.upload import upload_photo
+
     manifest = _make_manifest_with_gallery("portraits")
     mocker.patch("photo_mcp.tools.upload.load_manifest", return_value=manifest)
     img_path = _create_test_image(tmp_path)
@@ -100,14 +115,20 @@ def test_upload_photo_raises_for_missing_gallery(mocker, tmp_path):
 
 # --- upload_photo success ---
 
+
 def test_upload_photo_skips_duplicate(mocker, tmp_path):
     from photo_mcp.tools.upload import upload_photo
     from photo_mcp.types import ManifestImage
+
     img_path = _create_test_image(tmp_path)
     manifest = _make_manifest_with_gallery()
     manifest.images["test-photo"] = ManifestImage(
-        id="test-photo", filename="test-photo.jpg", path="landscapes/test-photo.jpg",
-        gallery="landscapes", alt="Test", uploaded=datetime.now(timezone.utc),
+        id="test-photo",
+        filename="test-photo.jpg",
+        path="landscapes/test-photo.jpg",
+        gallery="landscapes",
+        alt="Test",
+        uploaded=datetime.now(UTC),
         dimensions=ImageDimensions(width=100, height=75),
     )
     mocker.patch("photo_mcp.tools.upload.load_manifest", return_value=manifest)
@@ -120,6 +141,7 @@ def test_upload_photo_skips_duplicate(mocker, tmp_path):
 
 def test_upload_photo_uploads_and_updates_manifest(mocker, tmp_path):
     from photo_mcp.tools.upload import upload_photo
+
     img_path = _create_test_image(tmp_path)
     manifest = _make_manifest_with_gallery()
 
@@ -141,6 +163,7 @@ def test_upload_photo_uploads_and_updates_manifest(mocker, tmp_path):
 
 def test_upload_photo_defaults_alt_to_humanised_filename(mocker, tmp_path):
     from photo_mcp.tools.upload import upload_photo
+
     img_path = _create_test_image(tmp_path, "golden-hour.jpg")
     manifest = _make_manifest_with_gallery()
 
@@ -154,8 +177,10 @@ def test_upload_photo_defaults_alt_to_humanised_filename(mocker, tmp_path):
 
 # --- batch_upload ---
 
+
 def test_batch_upload_raises_for_missing_folder(mocker):
     from photo_mcp.tools.upload import batch_upload
+
     mocker.patch("photo_mcp.tools.upload.load_manifest", return_value=_make_manifest_with_gallery())
 
     with pytest.raises(ValueError, match="Folder not found"):
@@ -164,6 +189,7 @@ def test_batch_upload_raises_for_missing_folder(mocker):
 
 def test_batch_upload_raises_for_missing_gallery(mocker, tmp_path):
     from photo_mcp.tools.upload import batch_upload
+
     manifest = _make_manifest_with_gallery("portraits")
     mocker.patch("photo_mcp.tools.upload.load_manifest", return_value=manifest)
 
@@ -173,6 +199,7 @@ def test_batch_upload_raises_for_missing_gallery(mocker, tmp_path):
 
 def test_batch_upload_processes_all_valid_images(mocker, tmp_path):
     from photo_mcp.tools.upload import batch_upload
+
     manifest = _make_manifest_with_gallery()
     _create_test_image(tmp_path, "photo-a.jpg")
     _create_test_image(tmp_path, "photo-b.jpg")
@@ -191,6 +218,7 @@ def test_batch_upload_processes_all_valid_images(mocker, tmp_path):
 
 def test_batch_upload_skips_non_image_files(mocker, tmp_path):
     from photo_mcp.tools.upload import batch_upload
+
     manifest = _make_manifest_with_gallery()
     _create_test_image(tmp_path, "photo.jpg")
     (tmp_path / "readme.txt").write_text("not an image")
@@ -207,11 +235,16 @@ def test_batch_upload_skips_non_image_files(mocker, tmp_path):
 def test_batch_upload_counts_duplicates_as_skipped(mocker, tmp_path):
     from photo_mcp.tools.upload import batch_upload
     from photo_mcp.types import ManifestImage
-    img_path = _create_test_image(tmp_path)
+
+    _create_test_image(tmp_path)
     manifest = _make_manifest_with_gallery()
     manifest.images["test-photo"] = ManifestImage(
-        id="test-photo", filename="test-photo.jpg", path="landscapes/test-photo.jpg",
-        gallery="landscapes", alt="Test", uploaded=datetime.now(timezone.utc),
+        id="test-photo",
+        filename="test-photo.jpg",
+        path="landscapes/test-photo.jpg",
+        gallery="landscapes",
+        alt="Test",
+        uploaded=datetime.now(UTC),
         dimensions=ImageDimensions(width=100, height=75),
     )
     mocker.patch("photo_mcp.tools.upload.load_manifest", return_value=manifest)
@@ -225,6 +258,7 @@ def test_batch_upload_counts_duplicates_as_skipped(mocker, tmp_path):
 
 def test_batch_upload_continues_after_individual_failure(mocker, tmp_path):
     from photo_mcp.tools.upload import batch_upload
+
     manifest = _make_manifest_with_gallery()
     _create_test_image(tmp_path, "photo-a.jpg")
     _create_test_image(tmp_path, "photo-b.jpg")
@@ -236,7 +270,13 @@ def test_batch_upload_continues_after_individual_failure(mocker, tmp_path):
         call_count += 1
         if call_count == 1:
             raise RuntimeError("Simulated R2 failure")
-        return {"id": "photo-b", "path": "landscapes/photo-b.jpg", "gallery": gallery, "skipped": False, "message": "OK"}
+        return {
+            "id": "photo-b",
+            "path": "landscapes/photo-b.jpg",
+            "gallery": gallery,
+            "skipped": False,
+            "message": "OK",
+        }
 
     mocker.patch("photo_mcp.tools.upload.load_manifest", return_value=manifest)
     mocker.patch("photo_mcp.tools.upload._upload_single", side_effect=fail_first)

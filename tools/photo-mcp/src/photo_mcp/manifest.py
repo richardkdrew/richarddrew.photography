@@ -1,6 +1,6 @@
 import json
 import logging
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 
 from botocore.exceptions import ClientError
 
@@ -25,7 +25,7 @@ def load_manifest() -> Manifest:
         if e.response["Error"]["Code"] == "NoSuchKey":
             logger.info("Manifest not found in R2 — creating empty manifest")
             return Manifest(
-                generated=datetime.now(timezone.utc),
+                generated=datetime.now(UTC),
                 base_url=settings.r2_base_url,
             )
         raise
@@ -34,7 +34,7 @@ def load_manifest() -> Manifest:
 def save_manifest(manifest: Manifest) -> None:
     """Write manifest to R2 as JSON."""
     client = get_r2_client()
-    manifest.generated = datetime.now(timezone.utc)
+    manifest.generated = datetime.now(UTC)
     body = manifest.model_dump_json(indent=2).encode("utf-8")
     client.put_object(
         Bucket=settings.r2_bucket_name,

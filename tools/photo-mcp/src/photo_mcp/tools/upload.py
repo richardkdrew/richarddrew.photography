@@ -1,7 +1,7 @@
 import logging
 import re
 import unicodedata
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from pathlib import Path
 
 from PIL import Image
@@ -14,7 +14,12 @@ from photo_mcp.types import ImageDimensions, ManifestImage
 logger = logging.getLogger(__name__)
 
 VALID_EXTENSIONS = {".jpg", ".jpeg", ".png", ".webp"}
-_CONTENT_TYPES = {".jpg": "image/jpeg", ".jpeg": "image/jpeg", ".png": "image/png", ".webp": "image/webp"}
+_CONTENT_TYPES = {
+    ".jpg": "image/jpeg",
+    ".jpeg": "image/jpeg",
+    ".png": "image/png",
+    ".webp": "image/webp",
+}
 
 
 def derive_id(file_path: str) -> str:
@@ -54,7 +59,9 @@ def upload_photo(file_path: str, gallery: str, alt: str = "", date_taken: str = 
     manifest = load_manifest()
 
     if gallery not in manifest.galleries:
-        raise ValueError(f"Gallery '{gallery}' does not exist. Create it first with create_gallery().")
+        raise ValueError(
+            f"Gallery '{gallery}' does not exist. Create it first with create_gallery()."
+        )
 
     image_id = derive_id(file_path)
 
@@ -87,7 +94,7 @@ def upload_photo(file_path: str, gallery: str, alt: str = "", date_taken: str = 
         gallery=gallery,
         alt=alt or humanise_filename(file_path),
         date_taken=date_taken or None,
-        uploaded=datetime.now(timezone.utc),
+        uploaded=datetime.now(UTC),
         dimensions=dimensions,
     )
     save_manifest(manifest)
@@ -107,7 +114,9 @@ def _upload_single(file_path: str, gallery: str, alt: str = "", date_taken: str 
     return upload_photo(file_path, gallery, alt=alt, date_taken=date_taken)
 
 
-def batch_upload(folder_path: str, gallery: str, alt_prefix: str = "", date_taken: str = "") -> dict:
+def batch_upload(
+    folder_path: str, gallery: str, alt_prefix: str = "", date_taken: str = ""
+) -> dict:
     """Upload all valid images from a folder to a gallery."""
     folder = Path(folder_path)
 
@@ -116,7 +125,9 @@ def batch_upload(folder_path: str, gallery: str, alt_prefix: str = "", date_take
 
     manifest = load_manifest()
     if gallery not in manifest.galleries:
-        raise ValueError(f"Gallery '{gallery}' does not exist. Create it first with create_gallery().")
+        raise ValueError(
+            f"Gallery '{gallery}' does not exist. Create it first with create_gallery()."
+        )
 
     files = sorted(f for f in folder.iterdir() if f.suffix.lower() in VALID_EXTENSIONS)
     uploaded, skipped, failed = 0, 0, 0
@@ -133,11 +144,22 @@ def batch_upload(folder_path: str, gallery: str, alt_prefix: str = "", date_take
         except Exception as e:
             failed += 1
             logger.error(f"Failed to upload {file.name}: {e}", exc_info=True)
-            results.append({
-                "id": file.name, "path": "", "gallery": gallery,
-                "skipped": False, "message": f"Failed: {e}",
-            })
+            results.append(
+                {
+                    "id": file.name,
+                    "path": "",
+                    "gallery": gallery,
+                    "skipped": False,
+                    "message": f"Failed: {e}",
+                }
+            )
 
     summary = f"{uploaded} uploaded, {skipped} skipped, {failed} failed"
     logger.info(f"Batch complete: {summary}")
-    return {"uploaded": uploaded, "skipped": skipped, "failed": failed, "results": results, "summary": summary}
+    return {
+        "uploaded": uploaded,
+        "skipped": skipped,
+        "failed": failed,
+        "results": results,
+        "summary": summary,
+    }

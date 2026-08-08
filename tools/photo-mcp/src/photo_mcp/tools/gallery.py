@@ -1,7 +1,7 @@
 import logging
 import re
 import unicodedata
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 
 from photo_mcp.manifest import load_manifest, save_manifest
 from photo_mcp.types import GallerySummary, ManifestGallery
@@ -28,16 +28,28 @@ def create_gallery(name: str, description: str = "") -> dict:
     if slug in manifest.galleries:
         photo_count = sum(1 for img in manifest.images.values() if img.gallery == slug)
         logger.info(f"Gallery already exists: {slug}")
-        return {"slug": slug, "title": name, "description": description, "photo_count": photo_count, "created": False}
+        return {
+            "slug": slug,
+            "title": name,
+            "description": description,
+            "photo_count": photo_count,
+            "created": False,
+        }
 
     manifest.galleries[slug] = ManifestGallery(
         title=name,
         description=description,
-        created=datetime.now(timezone.utc),
+        created=datetime.now(UTC),
     )
     save_manifest(manifest)
     logger.info(f"Created gallery: {slug}")
-    return {"slug": slug, "title": name, "description": description, "photo_count": 0, "created": True}
+    return {
+        "slug": slug,
+        "title": name,
+        "description": description,
+        "photo_count": 0,
+        "created": True,
+    }
 
 
 def list_galleries() -> list[dict]:
@@ -46,10 +58,12 @@ def list_galleries() -> list[dict]:
     result = []
     for slug, gallery in manifest.galleries.items():
         photo_count = sum(1 for img in manifest.images.values() if img.gallery == slug)
-        result.append(GallerySummary(
-            slug=slug,
-            title=gallery.title,
-            description=gallery.description,
-            photo_count=photo_count,
-        ).model_dump())
+        result.append(
+            GallerySummary(
+                slug=slug,
+                title=gallery.title,
+                description=gallery.description,
+                photo_count=photo_count,
+            ).model_dump()
+        )
     return result

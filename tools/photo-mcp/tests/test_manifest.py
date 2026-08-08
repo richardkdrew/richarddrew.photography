@@ -1,6 +1,7 @@
 import json
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from unittest.mock import MagicMock
+
 from botocore.exceptions import ClientError
 
 
@@ -14,6 +15,7 @@ def test_load_manifest_returns_empty_when_not_found(mocker):
     mocker.patch("photo_mcp.manifest.get_r2_client", return_value=mock_client)
 
     from photo_mcp.manifest import load_manifest
+
     manifest = load_manifest()
 
     assert manifest.version == "1.0"
@@ -28,14 +30,21 @@ def test_load_manifest_parses_existing_manifest(mocker):
         "generated": "2026-04-18T10:00:00Z",
         "base_url": "https://photos.test.com",
         "galleries": {
-            "landscapes": {"title": "Landscapes", "description": "", "created": "2026-04-18T10:00:00Z"}
+            "landscapes": {
+                "title": "Landscapes",
+                "description": "",
+                "created": "2026-04-18T10:00:00Z",
+            }
         },
-        "images": {}
+        "images": {},
     }
-    mock_client.get_object.return_value = {"Body": MagicMock(read=lambda: json.dumps(data).encode())}
+    mock_client.get_object.return_value = {
+        "Body": MagicMock(read=lambda: json.dumps(data).encode())
+    }
     mocker.patch("photo_mcp.manifest.get_r2_client", return_value=mock_client)
 
     from photo_mcp.manifest import load_manifest
+
     manifest = load_manifest()
 
     assert "landscapes" in manifest.galleries
@@ -44,24 +53,28 @@ def test_load_manifest_parses_existing_manifest(mocker):
 
 def test_load_manifest_raises_on_unexpected_r2_error(mocker):
     import pytest
+
     mock_client = MagicMock()
     mock_client.get_object.side_effect = _client_error("AccessDenied")
     mocker.patch("photo_mcp.manifest.get_r2_client", return_value=mock_client)
 
     from photo_mcp.manifest import load_manifest
+
     with pytest.raises(ClientError):
         load_manifest()
 
 
 def test_save_manifest_writes_json_to_r2(mocker):
     from photo_mcp.types import Manifest
+
     mock_client = MagicMock()
     mocker.patch("photo_mcp.manifest.get_r2_client", return_value=mock_client)
     mocker.patch("photo_mcp.manifest.settings.r2_bucket_name", "test-bucket")
     mocker.patch("photo_mcp.manifest.settings.manifest_path", "manifest.json")
 
     from photo_mcp.manifest import save_manifest
-    manifest = Manifest(generated=datetime.now(timezone.utc), base_url="https://photos.test.com")
+
+    manifest = Manifest(generated=datetime.now(UTC), base_url="https://photos.test.com")
     save_manifest(manifest)
 
     mock_client.put_object.assert_called_once()

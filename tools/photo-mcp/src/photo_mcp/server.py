@@ -45,7 +45,9 @@ def upload_photo(file_path: str, gallery: str, alt: str = "", date_taken: str = 
 
 
 @mcp.tool()
-def batch_upload(folder_path: str, gallery: str, alt_prefix: str = "", date_taken: str = "") -> dict:
+def batch_upload(
+    folder_path: str, gallery: str, alt_prefix: str = "", date_taken: str = ""
+) -> dict:
     """Upload all images from a local folder to a gallery.
 
     Skips duplicates and continues on individual failures.

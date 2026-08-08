@@ -4,9 +4,9 @@
 >
 > **For Development Workflow**: See [DEVELOPMENT.md](DEVELOPMENT.md)
 
-**Last Updated**: 2025-10-28
-**Application Version**: v1.0.0 (pre-release)
-**Constitution Version**: 2.0.0
+**Last Updated**: 2026-08-06
+**Application Version**: Live in production (see Versioning Strategy for current tag format)
+**Constitution Version**: 3.0.0
 
 ---
 
@@ -36,7 +36,7 @@ make test-run      # Run all tests once (CI mode)
 
 ## Constitutional Foundations
 
-This architecture implements the principles defined in the project constitution ([`.specify/memory/CONSTITUTION.md`](../.specify/memory/CONSTITUTION.md) v2.0.0).
+This architecture implements the principles defined in the project constitution ([`docs/CONSTITUTION.md`](CONSTITUTION.md) v3.0.0).
 
 ### Key Constitutional Principles Reflected in This Architecture
 
@@ -179,8 +179,8 @@ richarddrew.photography/
 │
 ├── docs/                    # Documentation
 │   ├── ARCHITECTURE.md      # This file
-│   ├── deployment.md        # Deployment guide
-│   └── branch-protection.md # Git workflow rules
+│   ├── DEPLOYMENT.md        # Deployment guide
+│   └── BRANCH-PROTECTION.md # Git workflow rules
 │
 ├── public/                  # Static assets (copied as-is to dist/)
 │   ├── gallery-data.json    # Image manifest (structured data)
@@ -249,10 +249,6 @@ richarddrew.photography/
 │   ├── image-viewer/
 │   ├── theme-toggle/
 │   └── version-injection/
-│
-├── .specify/                # Constitutional memory (AI agent context)
-│   └── memory/
-│       └── constitution.md  # Development principles (v2.0.0)
 │
 ├── index.html               # Gallery page (root)
 ├── about.html               # About/bio page
@@ -418,7 +414,7 @@ export default defineConfig({
 
 3. **Version Injection**
    - Plugin reads `VERSION` environment variable
-   - Injects `<meta name="version" content="v1.0.0">`
+   - Injects `<meta name="version" content="v2026.004">` (or `v2026.dev-{sha}` on develop)
    - Injects `<meta name="build-date" content="2025-10-28T...">`
 
 4. **Asset Optimization**
@@ -938,7 +934,7 @@ if ('IntersectionObserver' in window) {
 2. **Production** (`richarddrew-photography`)
    - Branch: `main`
    - URL: https://richarddrew.photography
-   - Versioning: Semantic versioning (e.g., `v1.0.0`)
+   - Versioning: Year-based sequential (e.g., `v2026.004`)
    - Purpose: Live site for users
 
 ### CI/CD Pipeline
@@ -953,28 +949,28 @@ if ('IntersectionObserver' in window) {
 2. **Staging Deployment** ([deploy-dev.yml](../.github/workflows/deploy-dev.yml))
    - Triggers: Push to `develop` branch
    - Steps: Build → Deploy to staging → Upload artifacts (30-day retention)
-   - Version: `dev-{git-sha}`
+   - Version: `v{year}.dev-{sha}`
 
 3. **Production Deployment** ([deploy-prod.yml](../.github/workflows/deploy-prod.yml))
    - Triggers: Push to `main` branch
    - Steps:
-     1. Auto-tag with semantic version (conventional commits)
+     1. Auto-tag with sequential `v{year}.NNN` counter (not conventional commits)
      2. Build with version injection
      3. Deploy to production
      4. Create GitHub Release with changelog
-   - Version: `v{MAJOR}.{MINOR}.{PATCH}`
+   - Version: `v{year}.NNN`
 
 ### Versioning Strategy
 
-**Conventional Commits**:
-- `feat:` → Minor bump (v1.0.0 → v1.1.0)
-- `fix:` → Patch bump (v1.0.0 → v1.0.1)
-- `feat!:` / `BREAKING CHANGE:` → Major bump (v1.0.0 → v2.0.0)
+**Version Format**:
+- **Dev**: `v{year}.dev-{sha}` (e.g. `v2026.dev-df8dd49`) — rebuilt on every push to `develop`
+- **Prod**: `v{year}.NNN` (e.g. `v2026.004`) — sequential counter auto-incremented by the `tag` job in `deploy-prod.yml` on every push to `main`. Not semantic versioning, not driven by conventional commit types.
+- **Local**: `v{year}.dev-local` (default when `VERSION` env var not set)
 
 **Version Injection** (Vite plugin):
 ```html
 <!-- Injected at build time -->
-<meta name="version" content="v1.0.0">
+<meta name="version" content="v2026.004">
 <meta name="build-date" content="2025-10-28T12:34:56Z">
 ```
 
@@ -1052,10 +1048,10 @@ if ('IntersectionObserver' in window) {
 ### Documentation
 
 - **Development Guide**: [DEVELOPMENT.md](DEVELOPMENT.md) - Workflows, code standards, testing, troubleshooting
-- **Constitution**: [.specify/memory/constitution.md](../.specify/memory/constitution.md) - Development principles (v2.0.0)
+- **Constitution**: [docs/CONSTITUTION.md](CONSTITUTION.md) - Development principles (v3.0.0)
 - **AI Guide**: [CLAUDE.md](../CLAUDE.md) - AI assistant instructions
-- **Deployment**: [deployment.md](deployment.md) - CI/CD setup and troubleshooting
-- **Branch Protection**: [branch-protection.md](branch-protection.md) - Git workflow rules
+- **Deployment**: [DEPLOYMENT.md](DEPLOYMENT.md) - CI/CD setup and troubleshooting
+- **Branch Protection**: [BRANCH-PROTECTION.md](BRANCH-PROTECTION.md) - Git workflow rules
 
 ### Reference Examples
 
@@ -1073,12 +1069,11 @@ When starting a new task:
 
 1. **Understand the system**: Read relevant sections in this document (ARCHITECTURE.md)
 2. **Learn the workflow**: Read [DEVELOPMENT.md](DEVELOPMENT.md) for processes and standards
-3. **Follow the constitution**: Review [.specify/memory/constitution.md](../.specify/memory/constitution.md)
+3. **Follow the constitution**: Review [docs/CONSTITUTION.md](CONSTITUTION.md)
 4. **Study patterns**: Check existing components in `src/components/`
-5. **Apply TDD**: Write tests first, verify failure, implement, verify success
-6. **Track progress**: Use TodoWrite tool to track all tasks
+5. **Match the tier to the task**: feature-tier work (new components) gets spec/plan/TDD via superpowers; fix-tier work (bug fixes, small changes) gets tests appropriate to the change and goes straight to a PR — see CONSTITUTION.md Section V.
 
-**Remember**: Specification-first, TDD, TodoWrite tracking, 90%+ coverage. No exceptions.
+**Remember**: Feature-tier work is spec-first with full TDD and TodoWrite tracking; fix-tier work is lighter-weight but still tested. Coverage target is 90%+, not an enforced gate.
 
 ---
 

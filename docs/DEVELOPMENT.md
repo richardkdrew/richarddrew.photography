@@ -4,8 +4,8 @@
 >
 > **For System Architecture**: See [ARCHITECTURE.md](ARCHITECTURE.md)
 
-**Last Updated**: 2025-10-28
-**Constitution Version**: 2.0.0
+**Last Updated**: 2026-08-06
+**Constitution Version**: 3.0.0
 
 ---
 
@@ -22,7 +22,7 @@
 
 ```bash
 # Clone repository
-git clone https://github.com/richarddrew/richarddrew.photography.git
+git clone https://github.com/richardkdrew/richarddrew.photography.git
 cd richarddrew.photography
 
 # Install dependencies
@@ -53,7 +53,7 @@ make preview
 
 This project has comprehensive documentation organized by purpose:
 
-- **[CONSTITUTION.md](../.specify/memory/CONSTITUTION.md)**: **WHY** we do things this way (principles, philosophy)
+- **[CONSTITUTION.md](CONSTITUTION.md)**: **WHY** we do things this way (principles, philosophy)
   - Read this to understand project values and foundational decisions
   - 20 principles including vanilla-first, TDD, accessibility
   - Source of truth for architectural decisions
@@ -86,7 +86,7 @@ This project has comprehensive documentation organized by purpose:
 
 ## Table of Contents
 
-1. [Constitutional Requirements](#constitutional-requirements-mandatory)
+1. [Constitutional Requirements](#constitutional-requirements)
 2. [Development Workflow](#development-workflow)
 3. [Git Workflow](#git-workflow)
 4. [Code Standards](#code-standards)
@@ -101,21 +101,20 @@ This project has comprehensive documentation organized by purpose:
 
 ---
 
-## Constitutional Requirements (MANDATORY)
+## Constitutional Requirements
 
-Before writing ANY code, read: [`.specify/memory/CONSTITUTION.md`](../.specify/memory/CONSTITUTION.md)
+Before writing feature-tier code, read: [`docs/CONSTITUTION.md`](CONSTITUTION.md)
 
 ### Core Principles
 
-1. **Specification-First Development**
-   - Feature spec MUST exist before implementation
-   - User stories, acceptance criteria, requirements documented
-   - Plan with task breakdown and dependencies
+1. **Specification-First Development (feature tier only)**
+   - New components/substantial features: spec via superpowers `brainstorming`, plan via `writing-plans`, both in `docs/superpowers/`
+   - Fixes/refactors/small changes: no formal spec required
 
 2. **Test-Driven Development (TDD)**
-   - Write tests → verify failure → implement → verify success
-   - 4-category test pattern: Contract, UI, Accessibility, Performance
-   - 90%+ test coverage non-negotiable
+   - Feature tier: write tests → verify failure → implement → verify success, 4-category pattern (Contract, UI, Accessibility, Performance)
+   - Fix tier: tests appropriate to the change (at minimum, a test proving the bug existed and is fixed)
+   - 90%+ test coverage is the target (not an enforced CI gate)
 
 3. **Vanilla-First Architecture**
    - No framework dependencies (React, Vue, Angular, etc.)
@@ -123,11 +122,12 @@ Before writing ANY code, read: [`.specify/memory/CONSTITUTION.md`](../.specify/m
    - Web Components for modularity
    - Native Web APIs preferred
 
-4. **TodoWrite Tracking**
-   - ALL tasks from plan.md tracked
+4. **TodoWrite Tracking (feature tier)**
+   - Feature-tier tasks from the plan tracked in TodoWrite
    - Mark "in_progress" BEFORE starting
    - Mark "completed" IMMEDIATELY after finishing
    - NO BATCHING - update after each task
+   - Optional for fix-tier work
 
 5. **Performance as Non-Negotiable**
    - 60fps animations (transform/opacity only)
@@ -149,95 +149,17 @@ Before writing ANY code, read: [`.specify/memory/CONSTITUTION.md`](../.specify/m
 
 ## Development Workflow
 
+This section covers **feature-tier** work (new components, substantial features). For fix-tier work (bug fixes, refactors, small changes), skip straight to implementation with appropriate tests — see [CONSTITUTION.md Section V](CONSTITUTION.md) for the full tiered model.
+
 ### Phase 1: Specification (Before Code)
 
-#### Step 1: Create Feature Spec
+#### Step 1: Brainstorm and Write the Spec
 
-```bash
-# Create spec directory (numbered sequentially)
-mkdir -p specs/009-feature-name
-cd specs/009-feature-name
+Use the superpowers `brainstorming` skill — it walks through clarifying questions, proposes approaches, and writes the resulting design to `docs/superpowers/specs/YYYY-MM-DD-<topic>-design.md`. A good spec covers: problem statement, scope (in/out), architecture, and success criteria. See existing examples in `docs/superpowers/specs/` for the expected level of detail.
 
-# Create required files
-touch spec.md plan.md
-```
+#### Step 2: Plan the Implementation
 
-#### spec.md Template
-
-```markdown
-# Feature Specification: {Feature Name}
-
-**Feature Branch**: `009-feature-name`
-**Created**: 2025-10-28
-**Status**: Draft
-
-## User Scenarios & Testing
-
-### User Story 1 - {Story Title} (Priority: P1)
-
-As a {user type}, when I {action}, I want {outcome} so that {benefit}.
-
-**Why this priority**: {Justification}
-
-**Independent Test**: {How to verify in isolation}
-
-**Acceptance Scenarios**:
-1. **Given** {context}, **When** {action}, **Then** {outcome}
-2. **Given** {context}, **When** {action}, **Then** {outcome}
-
----
-
-## Requirements
-
-### Functional Requirements
-- **FR-001**: System MUST {requirement}
-- **FR-002**: System MUST {requirement}
-
-### Key Entities
-- **Entity Name**: {Description, properties, behavior}
-
-## Success Criteria
-- **SC-001**: {Measurable outcome with metrics}
-- **SC-002**: {Measurable outcome with metrics}
-```
-
-#### plan.md Template
-
-```markdown
-# Implementation Plan: {Feature Name}
-
-**Feature**: {One-line description}
-**Branch**: `009-feature-name`
-**Status**: Planning
-
-## Technical Stack
-- **Dependencies**: {List new dependencies if any}
-- **Components**: {List new/modified components}
-- **Files to Create**: {List}
-- **Files to Modify**: {List}
-
-## Implementation Tasks
-
-### Phase 1: Foundation (T001-T003)
-
-**T001**: {Task description}
-- {Implementation details}
-- **Dependencies**: None
-- **Acceptance**: {How to verify completion}
-
-**T002**: {Task description}
-- {Implementation details}
-- **Dependencies**: T001
-- **Acceptance**: {How to verify completion}
-
-## Success Metrics
-- **SM-001**: {Metric with target value}
-
-## Risks & Mitigations
-| Risk | Impact | Mitigation |
-|------|--------|------------|
-| {Risk} | {High/Med/Low} | {Mitigation strategy} |
-```
+Use the superpowers `writing-plans` skill to turn the approved spec into a task-by-task implementation plan at `docs/superpowers/plans/YYYY-MM-DD-<topic>.md`. Each task should be independently testable and specify exact files, interfaces, and test steps — see existing examples in `docs/superpowers/plans/`.
 
 ### Phase 2: Test-Driven Development
 
@@ -304,7 +226,7 @@ make test-run  # Should show failing tests for new feature
 
 ### Phase 3: Implementation
 
-#### Step 5: Use TodoWrite Tool
+#### Step 5: Use TodoWrite Tool (feature tier)
 
 **BEFORE starting any task**:
 
@@ -488,7 +410,7 @@ import '../components/feature-name/feature-name.js'
 # Run all tests
 make test-run
 
-# Verify coverage (90%+ required)
+# Verify coverage (90%+ target)
 make test-coverage
 
 # Run specific test category
@@ -533,53 +455,27 @@ make dev
 # Create branch from develop
 git checkout develop
 git pull origin develop
-git checkout -b feature/009-feature-name
+git checkout -b 009-feature-name
 
 # Commit changes (conventional commits)
 git add .
 git commit -m "feat: add feature name with full implementation"
-git push origin feature/009-feature-name
+git push origin 009-feature-name
 ```
 
 #### Step 11: Open Pull Request
 
-**PR Template**:
-
-```markdown
-## Summary
-Implements feature {name} as specified in specs/009-feature-name/spec.md
-
-## Changes
-- ✅ Created FeatureName Web Component
-- ✅ Added 4 test suites (23 tests, 95.8% coverage)
-- ✅ Updated main.ts to register component
-- ✅ WCAG AA compliant
-- ✅ 60fps animations
-
-## Testing
-- [ ] All tests passing (make test-run)
-- [ ] 90%+ coverage (make test-coverage)
-- [ ] Manual testing (desktop/tablet/mobile)
-- [ ] Keyboard navigation verified
-- [ ] Screen reader tested
-
-## Screenshots
-[Attach screenshots of feature]
-
-## Related
-- Spec: specs/009-feature-name/spec.md
-- Plan: specs/009-feature-name/plan.md
-```
+Use the repo's PR template (`.github/pull_request_template.md`) — it's pre-filled automatically when you open a PR on GitHub. Link the spec and plan under "For Feature-tier work only".
 
 #### Step 12: Wait for CI Checks
 
-GitHub Actions runs automatically:
+GitHub Actions runs automatically on every PR:
 - ✅ Tests (Vitest)
 - ✅ Build (TypeScript + Vite)
 - ✅ Accessibility (dedicated a11y tests)
-- ✅ E2E (Playwright)
+- ✅ E2E (Playwright) — **only for PRs targeting `main`**, not `develop`
 
-**All must pass before merge.**
+**All applicable jobs must pass before merge.**
 
 ---
 
@@ -596,7 +492,7 @@ develop (staging)
   ↑
   PR
   ↑
-feature/009-feature-name (feature work)
+{number}-{short-description} (feature/fix work)
 ```
 
 ### Branch Rules
@@ -611,29 +507,22 @@ feature/009-feature-name (feature work)
 **`develop`** (Staging):
 - Protected branch
 - Requires PR approval
-- Requires passing CI checks
+- Requires passing CI checks (tests, build, a11y — e2e only applies to PRs targeting main)
 - Triggers staging deployment
 
-**`feature/{number}-{name}`** (Feature work):
+**`{number}-{short-description}`** (Feature/fix work):
 - Created from `develop`
-- Naming: `feature/009-dark-mode-toggle`
+- Naming: `022-docs-refresh`, `021-fix-header-scroll-tests` — plain numeric prefix, no `feature/` path segment
 - Delete after merge
 
 ### Commit Message Format
 
-**Conventional Commits** (for semantic versioning):
+**Conventional Commits** (readability and changelog clarity — production versioning is a separate sequential counter, not derived from commit type):
 
 ```bash
-# Feature (minor bump: v1.0.0 → v1.1.0)
 feat: add dark mode toggle to header
-
-# Bug fix (patch bump: v1.0.0 → v1.0.1)
 fix: resolve image lazy loading race condition
-
-# Breaking change (major bump: v1.0.0 → v2.0.0)
 feat!: redesign gallery layout with new API
-
-# Other types (no version bump)
 docs: update README with setup instructions
 chore: upgrade Vite to 5.1.0
 refactor: extract image utils to separate module
@@ -674,7 +563,7 @@ test: add missing accessibility tests for gallery
 ### Deployment Flow
 
 ```
-feature/009-feature-name
+{number}-{short-description}
   ↓ (merge PR)
 develop branch
   ↓ (auto-deploy via GitHub Actions)
@@ -1150,9 +1039,9 @@ describe('ComponentName Performance Tests', () => {
 
 ### Test Coverage Requirements
 
-**Minimum**: 90%
-**Target**: 95%+
-**Current**: 98.9%
+**Target**: 90%+ (aspirational, not an enforced CI gate)
+**Stretch**: 95%+
+**Current**: ~99%
 
 ```bash
 # Generate coverage report
@@ -1232,9 +1121,9 @@ global.localStorage = {
 
 ## TodoWrite Usage
 
-### Constitutional Requirement
+### Constitutional Requirement (feature tier)
 
-**ALL tasks from plan.md MUST be tracked using TodoWrite tool.**
+**Feature-tier tasks from the implementation plan MUST be tracked using the TodoWrite tool.** Fix-tier work (bug fixes, refactors, small changes) doesn't require it, though it's fine to use for a fix that breaks down into several non-trivial steps.
 
 ### Rules
 
@@ -1322,23 +1211,23 @@ Before committing ANY code:
 Before opening pull request:
 
 - [ ] All tests passing (`make test-run`)
-- [ ] 90%+ coverage (`make test-coverage`)
+- [ ] Coverage still near target (`make test-coverage`) — not a hard gate, but don't regress it
 - [ ] Accessibility tests passing (`make test-a11y`)
-- [ ] E2E tests passing (`npm run test:e2e`)
+- [ ] E2E tests passing (`npm run test:e2e`) — only relevant if targeting `main`
 - [ ] Manual testing complete (desktop/tablet/mobile)
 - [ ] Keyboard navigation verified
 - [ ] Lighthouse scores 95+ (Performance, A11y, Best Practices, SEO)
 - [ ] No layout jitter during resize
-- [ ] Spec and plan files exist (if new feature)
+- [ ] Spec and plan linked (feature-tier only — see `docs/superpowers/specs/` and `docs/superpowers/plans/`)
 - [ ] CLAUDE.md updated (if new patterns added)
 
 ### Pre-Merge Checklist
 
 Before merging to develop/main:
 
-- [ ] CI checks passing (all 4 jobs: test, build, a11y, e2e)
+- [ ] CI checks passing (test, build, a11y always; e2e only for PRs targeting main)
 - [ ] Code review approved (if required)
-- [ ] TodoWrite tasks completed
+- [ ] TodoWrite tasks completed (feature-tier only)
 - [ ] Documentation updated
 - [ ] No merge conflicts
 
@@ -1385,17 +1274,14 @@ make test-run
 ### Task 2: Add a New Feature
 
 ```bash
-# 1. Create spec directory
-mkdir -p specs/009-feature-name
-cd specs/009-feature-name
-touch spec.md plan.md
+# 1. Brainstorm and write the spec (superpowers brainstorming skill)
+#    Writes to docs/superpowers/specs/YYYY-MM-DD-<topic>-design.md
 
-# 2. Write specification
-# Edit spec.md: user stories, requirements, success criteria
-# Edit plan.md: tasks, dependencies, risks
+# 2. Plan the implementation (superpowers writing-plans skill)
+#    Writes to docs/superpowers/plans/YYYY-MM-DD-<topic>.md
 
 # 3. Create feature branch
-git checkout -b feature/009-feature-name develop
+git checkout -b 009-feature-name develop
 
 # 4. Follow TDD workflow
 # - Write tests
@@ -1407,7 +1293,7 @@ git checkout -b feature/009-feature-name develop
 # 5. Create PR
 git add .
 git commit -m "feat: add feature name"
-git push origin feature/009-feature-name
+git push origin 009-feature-name
 ```
 
 ### Task 3: Fix a Bug
@@ -1943,10 +1829,10 @@ npm run test:e2e
 ### Documentation
 
 - **Architecture**: [ARCHITECTURE.md](ARCHITECTURE.md) - System structure and technical decisions
-- **Constitution**: [.specify/memory/constitution.md](../.specify/memory/constitution.md) - Development principles (v2.0.0)
+- **Constitution**: [docs/CONSTITUTION.md](CONSTITUTION.md) - Development principles (v3.0.0)
 - **AI Guide**: [CLAUDE.md](../CLAUDE.md) - AI assistant instructions
-- **Deployment**: [deployment.md](deployment.md) - CI/CD setup and troubleshooting
-- **Branch Protection**: [branch-protection.md](branch-protection.md) - Git workflow rules
+- **Deployment**: [DEPLOYMENT.md](DEPLOYMENT.md) - CI/CD setup and troubleshooting
+- **Branch Protection**: [BRANCH-PROTECTION.md](BRANCH-PROTECTION.md) - Git workflow rules
 
 ### Example Specs
 
@@ -1996,6 +1882,6 @@ npm run test:e2e
 
 ---
 
-**Remember**: Specification-first, TDD, TodoWrite tracking, 90%+ coverage. No exceptions.
+**Remember**: Feature-tier work is spec-first with full TDD and TodoWrite tracking; fix-tier work is lighter-weight but still tested. Coverage target is 90%+, not an enforced gate.
 
 **For system architecture context**: See [ARCHITECTURE.md](ARCHITECTURE.md)

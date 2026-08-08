@@ -102,7 +102,7 @@ To configure these rules in GitHub:
 
 ### Navigate to Settings
 
-1. Go to: https://github.com/richarddrew/richarddrew.photography/settings
+1. Go to: https://github.com/richardkdrew/richarddrew.photography/settings
 2. Click **"Branches"** in left sidebar
 3. Under "Branch protection rules", click **"Add rule"**
 
@@ -270,8 +270,8 @@ Potential additions to branch protection:
 
 ## Related Documentation
 
-- [Deployment Guide](./deployment.md)
-- [Project Constitution](../.specify/memory/constitution.md)
+- [Deployment Guide](./DEPLOYMENT.md)
+- [Project Constitution](CONSTITUTION.md)
 - [Feature Spec: GitHub Actions CI/CD](../specs/008-add-build-actions/spec.md)
 - [Implementation Plan](../specs/008-add-build-actions/plan.md)
 

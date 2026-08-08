@@ -16,7 +16,7 @@ import { computeRows } from './uniform-gallery.layout'
 export class UniformGallery extends HTMLElement implements IUniformGallery {
   private static readonly REVEAL_MARGIN = '50px'
   private static readonly HIGH_PRIORITY_IMAGE_COUNT = 6
-  private static readonly LAYOUT_GAP = 4
+  private static readonly LAYOUT_GAP = 10
   private static readonly MOBILE_BREAKPOINT = 576
   private static layoutRafPending = false
 
@@ -99,9 +99,9 @@ export class UniformGallery extends HTMLElement implements IUniformGallery {
   }
 
   private getLayoutParams(containerWidth: number): { targetHeight: number; minRowRatio: number } {
-    if (containerWidth >= 1200) return { targetHeight: 280, minRowRatio: 0.65 }
-    if (containerWidth >= 900) return { targetHeight: 250, minRowRatio: 0.65 }
-    return { targetHeight: 220, minRowRatio: 0.65 }
+    if (containerWidth >= 1200) return { targetHeight: 420, minRowRatio: 0.65 }
+    if (containerWidth >= 900) return { targetHeight: 360, minRowRatio: 0.65 }
+    return { targetHeight: 300, minRowRatio: 0.65 }
   }
 
   private applyLayout(containerWidth: number): void {

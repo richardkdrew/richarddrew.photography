@@ -103,45 +103,7 @@ This project has comprehensive documentation organized by purpose:
 
 ## Constitutional Requirements
 
-Before writing feature-tier code, read: [`docs/CONSTITUTION.md`](CONSTITUTION.md)
-
-### Core Principles
-
-1. **Specification-First Development (feature tier only)**
-   - New components/substantial features: spec via superpowers `brainstorming`, plan via `writing-plans`, both in `docs/superpowers/`
-   - Fixes/refactors/small changes: no formal spec required
-
-2. **Test-Driven Development (TDD)**
-   - Feature tier: write tests → verify failure → implement → verify success, 4-category pattern (Contract, UI, Accessibility, Performance)
-   - Fix tier: tests appropriate to the change (at minimum, a test proving the bug existed and is fixed)
-   - 90%+ test coverage is the target (not an enforced CI gate)
-
-3. **Vanilla-First Architecture**
-   - No framework dependencies (React, Vue, Angular, etc.)
-   - TypeScript is compile-time only
-   - Web Components for modularity
-   - Native Web APIs preferred
-
-4. **TodoWrite Tracking (feature tier)**
-   - Feature-tier tasks from the plan tracked in TodoWrite
-   - Mark "in_progress" BEFORE starting
-   - Mark "completed" IMMEDIATELY after finishing
-   - NO BATCHING - update after each task
-   - Optional for fix-tier work
-
-5. **Performance as Non-Negotiable**
-   - 60fps animations (transform/opacity only)
-   - <50KB initial JS bundle (gzipped)
-   - IntersectionObserver for lazy loading
-   - Lighthouse 95+ on all metrics
-
-6. **Accessibility-First**
-   - WCAG AA minimum (AAA where feasible)
-   - Keyboard navigation for all interactions
-   - Focus management in modals
-   - Screen reader tested
-
-### Philosophy
+Before writing feature-tier code, read the full principles, anti-patterns, and quality gates in [`docs/CONSTITUTION.md`](CONSTITUTION.md) Sections I-III. The workflow below assumes familiarity with those principles (specification-first for feature tier, TDD, vanilla-first architecture, TodoWrite tracking, performance and accessibility requirements) — this file covers the **how**, not the **why**.
 
 > "The web platform is powerful enough. Use it."
 

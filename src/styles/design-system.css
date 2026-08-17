@@ -144,7 +144,8 @@ body {
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
-  min-height: 100vh;
+  min-height: 100vh; /* fallback for browsers without dvh support */
+  min-height: 100dvh; /* tracks the actually-visible viewport on iOS/iPadOS Safari, where 100vh assumes toolbars are collapsed and leaves the footer clipped behind them */
 }
 
 /* Portfolio-specific layout */

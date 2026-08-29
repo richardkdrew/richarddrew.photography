@@ -112,6 +112,13 @@ reports/
 settings.local.json
 .superpowers/
 
+# Python
+__pycache__/
+*.egg-info/
+.pytest_cache/
+htmlcov/
+.coverage
+
 # Git worktrees
 .worktrees/
 
